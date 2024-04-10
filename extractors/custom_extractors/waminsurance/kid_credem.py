@@ -27,7 +27,7 @@ class WamInsuranceKidCredemExtractor(KidExtractor):
             print("calc table error" + repr(error))
             performance_table = {}  # Replace the undefined performance_table with an empty dictionary
 
-        return {"performance", performance_table}
+        return {"performance": performance_table}
 
     def extract_performances(self, table):
         """extracts performances from scenarios in the document

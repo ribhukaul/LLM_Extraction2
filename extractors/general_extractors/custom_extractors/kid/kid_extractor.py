@@ -335,8 +335,8 @@ class KidExtractor(Extractor):
             
             performance = dict(performance)
             morte = {
-                "scenario_morte_1", performance.get("scenario_morte_1"),
-                "scenario_morte_rhp", performance.get("scenario_morte_rhp")
+                "scenario_morte_1": performance.get("scenario_morte_1"),
+                "scenario_morte_rhp": performance.get("scenario_morte_rhp")
                 }
        
             performance = clean_response_regex("performance", self.language, performance)

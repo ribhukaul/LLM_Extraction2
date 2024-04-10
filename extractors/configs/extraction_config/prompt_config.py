@@ -30,6 +30,8 @@ extraction_configurations = {
             'prompt':{
                 'general_info': kid_prompts.general_info,
                 'performance': kid_prompts.performance1y,
+                'performance_abs': kid_prompts.performance_abs,
+                'performance_rhp_2': kid_prompts.performance_rhp_2,
                 'target_market': kid_prompts.target_market,
                 'riy': kid_prompts.riy,
                 'riy_small': kid_prompts.riy_small,
