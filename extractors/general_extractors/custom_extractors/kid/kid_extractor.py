@@ -96,10 +96,8 @@ class KidExtractor(Extractor):
             dict(): extracted data
         """
         try:
-            #extraction = llm_extraction_and_tag(self.text, self.language, 'is_product_complex', self.file_id, specific_page=0)
             schema = self.extraction_config['tag'].get('is_complex')
             extraction = Models.tag(self.text[0].page_content[:1800], schema, self.file_id)
-            #extraction = {'is_product_complex':  extraction.is_disclaimer_there}
             extraction = {'is_product_complex':  'true' if extraction.is_disclaimer_there else 'false'}
             
             return extraction

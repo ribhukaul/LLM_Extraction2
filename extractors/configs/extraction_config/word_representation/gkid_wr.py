@@ -1,7 +1,4 @@
 
-
-
-
 costi_ingresso_gkid = ["costi di ingresso", "costi di uscita"]
 
 costi_gestione_gkid = [
@@ -10,3 +7,6 @@ costi_gestione_gkid = [
     "commissioni di performance",
     "costi amministrativi",
 ]
+
+riy_perc_gkid = ["costi totali", "riy"]
+

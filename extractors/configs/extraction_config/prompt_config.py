@@ -76,13 +76,17 @@ extraction_configurations = {
             }
         },
         'gkidgovernance':{
-            'word_representation':{'performance': kid_wr.performance,
+            'word_representation':{
                 'costi_ingresso': gkid_wr.costi_ingresso_gkid,
-                'costi_gestione': gkid_wr.costi_gestione_gkid
+                'costi_gestione': gkid_wr.costi_gestione_gkid,
+                'riy': gkid_wr.riy_perc_gkid
             },
             'prompt':{
+                'general_info': gkid_prompts.general_info_gkid,
+                'target_market': gkid_prompts.market_gkid
             },
             'tag':{
+                'general_info': gkid_tags.InformazioniBaseGkid
             }
         }
     },

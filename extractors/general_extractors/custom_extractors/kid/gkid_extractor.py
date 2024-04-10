@@ -7,8 +7,8 @@ from ...llm_functions import llm_extraction_and_tag
 
 class GKidExtractor(KidExtractor):
 
-    def __init__(self, doc_path, predefined_language="it") -> None:
-        super().__init__(doc_path, predefined_language)
+    def __init__(self, doc_path, predefined_language="it", tenant='general', extractor='general') -> None:
+        super().__init__(doc_path, predefined_language, tenant=tenant, extractor=extractor)
 
     def get_tables(self):
         """Get GKID tables asynchronusly.
@@ -17,25 +17,23 @@ class GKidExtractor(KidExtractor):
             dict([pandas.dataframe]): tables as dataframe
         """
         try:
-            riy_table,_ = self._extract_table("riy_perc_gkid")
-            costi_ingresso,_ = self._extract_table("costi_ingresso_gkid", black_list_pages=[0])
-            costi_gestione,_ = self._extract_table("costi_gestione_gkid")
-        
+            riy_table,_ = self._extract_table("riy")
+            costi_ingresso,_ = self._extract_table("costi_ingresso", black_list_pages=[0])
+            costi_gestione,_ = self._extract_table("costi_gestione")
+            
+            tables = {
+                "costi_ingresso": costi_ingresso, 
+                "costi_gestione": costi_gestione, 
+                "riy": riy_table}
+
         #@ELIA?
         except Exception as error:
             print("calc table error" + repr(error))
-            error_list = [costi_ingresso, costi_gestione, riy_table]
-            for i, key in enumerate(error_list):
-                if not key:
-                    error_list[i] = dict([("ERROR", "ERROR")])
+            error_list = ['costi_ingresso', 'costi_gestione', 'riy']
+            tables =  {key: 'ERROR' for key in error_list}
 
-        return dict(
-            [
-                ("costi_ingresso", costi_ingresso),
-                ("costi_gestione", costi_gestione),
-                ("riy_table", riy_table),
-            ]
-        )
+        return tables
+    
 
     def extract_general_data(self):
         """
@@ -53,7 +51,9 @@ class GKidExtractor(KidExtractor):
                 )
 
             # extract and clean
-            extraction = llm_extraction_and_tag(self.text, self.language, "general_info_gkid", self.file_id)
+            general_gkid_prompt = self.extraction_config["prompt"]["general_info"]
+            general_gkid_tag = self.extraction_config["tag"]["general_info"]
+            extraction = llm_extraction_and_tag(self.text, general_gkid_prompt, general_gkid_tag, self.file_id)
             #extraction = clean_response_regex("general_info_gkid", self.language, extraction)
             extraction = dict(extraction)
             if extraction["periodo_detenzione_raccomandato"] != []:
@@ -133,7 +133,6 @@ class GKidExtractor(KidExtractor):
                         "incidenza_costo_perc_2_max": "-",
                     }
                 
-
             transform.update(
                 {
                     "costi_totali-gkid_min": "incidenza_costo_eur_1_min",
