@@ -1,24 +1,17 @@
-
+from math import ceil
 import re
 
-from ...llm_functions import complex_table_inspection, general_table_inspection, llm_extraction, tag_only
+from ...llm_functions import complex_table_inspection, general_table_inspection, llm_extraction, llm_extraction_and_tag
 from ...extractor import Extractor
 from extractors.models import Models
-from extractors.general_extractors.utils import upload_df_as_excel
-from ...llm_functions import (
-    llm_extraction_and_tag,
-)
+from extractors.general_extractors.utils import upload_df_as_excel, select_desired_page
 from .kid_utils import clean_response_regex, clean_response_strips
-from math import ceil
-from extractors.general_extractors.utils import select_desired_page
-from extractors.general_extractors.config.prompt_config import IsDisclaimerThere
-from extractors.general_extractors.config.prompt_config import prompts, table_schemas, word_representation
-from extractors.configs.extraction_config.prompts.kid_prompts import performance_rhp_2, performance_abs
+
 
 class KidExtractor(Extractor):
 
-    def __init__(self, doc_path, predefined_language=False) -> None:
-        super().__init__(doc_path, predefined_language)
+    def __init__(self, doc_path, predefined_language=False, tenant='general', extractor='general') -> None:
+        super().__init__(doc_path, predefined_language, tenant, extractor)
 
 
     def get_tables(self):
@@ -40,15 +33,13 @@ class KidExtractor(Extractor):
                 if not key:
                     error_list[i] = dict([("ERROR", "ERROR")])
 
-        return dict(
-            [
-                ("costi_ingresso", costi_ingresso_table),
-                ("costi_gestione", costi_gestione_table),
-                ("performance", performance_table),
-            ]
-        )
+        return {
+            "costi_ingresso": costi_ingresso_table,
+            "costi_gestione": costi_gestione_table,
+            "performance": performance_table
+        }
 
-    def extract_general_data(self, general_info_schema="general_info"):
+    def extract_general_data(self, general_info_type="general_info"):
         """
         Extract general data from the document. Namely RHP and SRI.
 
@@ -58,7 +49,10 @@ class KidExtractor(Extractor):
         extraction = dict()
         try:
             # extract and clean
-            extraction = llm_extraction_and_tag(self.text, self.language, general_info_schema, self.file_id)
+            general_info_prompt = self.extraction_config['prompt'][general_info_type]
+            general_info_schema = self.extraction_config['tag'][general_info_type]
+        
+            extraction = llm_extraction_and_tag(self.text, general_info_prompt, general_info_schema, self.file_id)
             extraction = clean_response_regex("general_info", self.language, extraction)
             extraction = dict(extraction)
 
@@ -103,13 +97,49 @@ class KidExtractor(Extractor):
         """
         try:
             #extraction = llm_extraction_and_tag(self.text, self.language, 'is_product_complex', self.file_id, specific_page=0)
-            extraction = Models.tag(self.text[0].page_content[:1800], IsDisclaimerThere, self.file_id)
+            schema = self.extraction_config['tag'].get('is_complex')
+            extraction = Models.tag(self.text[0].page_content[:1800], schema, self.file_id)
             #extraction = {'is_product_complex':  extraction.is_disclaimer_there}
             extraction = {'is_product_complex':  'true' if extraction.is_disclaimer_there else 'false'}
             
             return extraction
         except Exception as error:
             print("is_product_complex error" + repr(error))
+            return dict([("ERROR", "ERROR")])
+    
+    def extract_underlying_info(self, isin, table):
+        """extracts underlying type
+
+        Returns:
+            dict(): extracted data
+        """
+        try:
+            if isin != "-":
+                extraction = {
+                    "underlying_type": "fondo esterno",
+                    "underlying_name": isin,
+                }
+            else:
+
+                # Select first half of first page
+                leng = len(self.text[0].page_content)
+                text = self.text[0].page_content[:int(leng)]
+                prompt = """Considera la prima pagina del documento di un prodotto. Estraendo le informazioni necessarie utilizzando
+                le seguenti indicazioni.
+                - non considerare le informazioni inerenti al prodotto ma allo specifico investimento. (il documento fa parte di possibili modalità di investimento
+                di un prodotto, duqnue potrebbero esserci anche informazioni del prodotto in generale che però non vanno considerate)
+                - non considerare cosa potrebbe fare l'investitore o  il prodotto in sè ma in cosa investe l'opzione di investimento
+                ###
+                DOCUMENTO: {}
+                """.format(self.text[0].page_content)
+                underlying_schema = self.extraction_config['tag'].get('underlying_info')
+                #schema = table_schemas['it']['underlying_info']
+                extraction = Models.tag(prompt, schema, self.file_id)
+                # extraction = llm_extraction_and_tag(self.text, self.language, 'underlying_type', self.file_id)
+                # extraction = clean_response_strips("underlying_type", self.language, extraction)
+                return extraction
+        except Exception as error:
+            print("extract underlying type error" + repr(error))
             return dict([("ERROR", "ERROR")])
     
     def extract_market(self, market_type="target_market"):
@@ -124,7 +154,8 @@ class KidExtractor(Extractor):
         """
         market = None
         try:
-            market = llm_extraction(self.text[0], market_type, self.file_id, self.language)
+            template = self.extraction_config['prompt'].get(market_type)
+            market = llm_extraction(self.text[0], template, self.file_id)
             # procedural cleaning
             market = clean_response_strips("market", self.language, market)
 
@@ -164,33 +195,39 @@ class KidExtractor(Extractor):
             dict(): riy extracted
         """
         try:
+            riy_wr = self.extraction_config['word_representation'].get('riy')
+            riy_schema = self.extraction_config['tag'].get('riy')
+
             rhp = int(self.rhp)
-            schema = table_schemas['it']['riy']
+            #schema = table_schemas['it']['riy']
             # Set starting page & select desired page
             strat_page = 0 if len(self.text) < 3 else 1
-            keywords = word_representation['it']['riy']
+            #keywords = word_representation['it']['riy']
             reference_text = self.text[strat_page:]
-            page = select_desired_page(reference_text, keywords)
+            page = select_desired_page(reference_text, riy_wr)
             page = reference_text[int(page)]
             
             # If RHP >=10 we also need to get the values at RHP/2
-            if rhp is not None and rhp >=10:
+            if rhp >=10:
                 year = ceil(rhp/2)
-                prompt = prompts['it']['riy_rhp2']
-                schema = table_schemas['it']['riy_rhp2']             
-                total_prompt = prompt.format(year, rhp, page.page_content)
-                extraction_riy = Models.tag(total_prompt, schema, self.file_id)         
+                riy_rhp2_prompt = self.extraction_config['prompt'].get('riy_rhp_2')
+                riy_rhp2_schema = self.extraction_config['tag'].get('riy_rhp_2')
+                # prompt = prompts['it']['riy_rhp2']
+                # schema = table_schemas['it']['riy_rhp2']             
+                total_prompt = riy_rhp2_prompt.format(year, rhp, page.page_content)
+                extraction_riy = Models.tag(total_prompt, riy_rhp2_schema, self.file_id)         
             else:
-                prompt = prompts['it']['riy']
-                total_prompt = prompt.format(rhp, page.page_content)
-                extraction_riy = Models.tag(total_prompt, schema, self.file_id)
+                riy_prompt = self.extraction_config['prompt'].get('riy')
+                #prompt = riy_promt['it']['riy']
+                total_prompt = riy_prompt.format(rhp, page.page_content)
+                extraction_riy = Models.tag(total_prompt, riy_schema, self.file_id)
 
             # Clean response
             extraction_riy = clean_response_regex("riy", self.language, extraction_riy)
             
         except Exception as error:
             print("extract riy error" + repr(error))
-            error_list = [k for k in schema.schema()['properties'].keys()]
+            error_list = [k for k in riy_schema.schema()['properties'].keys()]
             performance = {
                 key: (performance[key] if performance.get(key) is not None else "ERROR") for key in error_list
             }
@@ -204,41 +241,48 @@ class KidExtractor(Extractor):
             dict(): riy extracted
         """
         try:
+            riy_wr = self.extraction_config['word_representation'].get('riy')
+            riy_small_schema = self.extraction_config['tag'].get('riy_small')
+            riy_small_prompt = self.extraction_config['prompt'].get('riy_small')
+            # keywords = word_representation['it']['riy']
+            # schema = table_schemas['it']['riy_small']
+            # prompt = prompts['it']['riy_small']
+
             rhp = int(self.rhp)
             
             # Set starting page & select desired page
             strat_page = 0 if len(self.text) < 3 else 1
-            keywords = word_representation['it']['riy']
+            
             reference_text = self.text[strat_page:]
-            page = select_desired_page(reference_text, keywords)
+            page = select_desired_page(reference_text, riy_wr)
             page = reference_text[int(page)]
 
             # Set prompt and extract
-            schema = table_schemas['it']['riy_small']
-            prompt = prompts['it']['riy_small']
-            total_prompt = prompt.format(rhp, page.page_content)
-            extraction_riy = Models.tag(total_prompt, schema, self.file_id)         
+            
+            total_prompt = riy_small_prompt.format(rhp, page.page_content)
+            extraction_riy = Models.tag(total_prompt, riy_small_schema, self.file_id)         
 
             # Clean response
             extraction_riy = clean_response_regex("riy", self.language, extraction_riy)
             
         except Exception as error:
             print("extract riy error" + repr(error))
-            error_list = [k for k in schema.schema()['properties'].keys()]
+            error_list = [k for k in riy_small_schema.schema()['properties'].keys()]
             performance = {
                 key: (performance[key] if performance.get(key) is not None else "ERROR") for key in error_list
             }
     
         return extraction_riy
+    
     #REVIEW: NEED TO UPLOAD TABLE AS DF
     def extract_entryexit_costs(self, table):
 
         try:
+            entry_exity_schema = self.extraction_config['tag'].get('costi_ingresso')
             extraction = general_table_inspection(
                 table,
-                "costi_ingresso",
+                entry_exity_schema,
                 self.file_id,
-                language=self.language,
                 add_text="estrai il valore % dopo {} anni".format(self.rhp),
             )
             extraction = clean_response_regex("costi_ingresso", self.language, extraction)
@@ -254,11 +298,11 @@ class KidExtractor(Extractor):
 
         try:
             extraction = dict()
+            management_costs_schema = self.extraction_config['tag'].get('costi_gestione')
             extraction = general_table_inspection(
                 table,
-                "costi_gestione",
+                management_costs_schema,
                 self.file_id,
-                language=self.language,
                 add_text="estrai il valore % dopo {} anni".format(self.rhp),
             )
             extraction = clean_response_regex("costi_gestione", self.language, extraction)
@@ -280,41 +324,28 @@ class KidExtractor(Extractor):
         """
         performance = dict()
         try:
-            performance = dict(
-                complex_table_inspection(
+            performance_schema = self.extraction_config['tag'].get('performance')
+            performance = complex_table_inspection(
                     table,
                     self.rhp,
-                    "performance",
+                    performance_schema,
                     self.file_id,
-                    direct_tag=True,
-                    language=self.language,
+                    direct_tag=True
                 )
-            )
-
-            morte = dict(
-                [
-                    ("scenario_morte_1", performance.get("scenario_morte_1")),
-                    ("scenario_morte_rhp", performance.get("scenario_morte_rhp")),
-                ]
-            )
+            
+            performance = dict(performance)
+            morte = {
+                "scenario_morte_1", performance.get("scenario_morte_1"),
+                "scenario_morte_rhp", performance.get("scenario_morte_rhp")
+                }
+       
             performance = clean_response_regex("performance", self.language, performance)
             morte = clean_response_regex("performance_morte", self.language, morte)
             performance["scenario_morte_1"] = morte.get("scenario_morte_1")
             performance["scenario_morte_rhp"] = morte.get("scenario_morte_rhp")
         except Exception as error:
             print("extract performances error" + repr(error))
-            error_list = [
-                "scenario_morte_1",
-                "scenario_morte_rhp",
-                "stress_return",
-                "sfavorevole_return",
-                "moderato_return",
-                "favorable_return",
-                "stress_return_rhp",
-                "sfavorevole_return_rhp",
-                "moderato_return_rhp",
-                "favorable_return_rhp",
-            ]
+            error_list = [k for k in performance_schema.schema()['properties'].keys()]
             performance = {
                 key: (performance[key] if performance.get(key) is not None else "ERROR") for key in error_list
             }
@@ -332,7 +363,8 @@ class KidExtractor(Extractor):
         """
         performance = dict()
         try:
-            schema = table_schemas['it']['performance_abs']
+            performance_abs_schema = self.extraction_config['tag'].get('performance_abs')
+            performance_abs_prompt = self.extraction_config['prompt'].get('performance_abs')
             # eliminate the row where 'minimo' is mentioned
             # SOlo per il primo valore in cui minimo è presente
             table = table[~table.iloc[:, 0].str.contains('caso vita', case=False, na=False)]
@@ -353,15 +385,15 @@ class KidExtractor(Extractor):
             if rhp is None:
                 adapt_extraction = "CONSIDERA 1 ANNO , EXTRACTION={}".format(table_upload)
             else:
-                adapt_extraction = performance_abs.format(rhp=rhp, context=table_upload)
+                adapt_extraction = performance_abs_prompt.format(rhp=rhp, context=table_upload)
 
             # Extract performances                        
-            performance_abs_res = Models.tag(adapt_extraction, schema, self.file_id)
+            performance_abs_res = Models.tag(adapt_extraction, performance_abs_schema, self.file_id)
             performance_abs_res = clean_response_regex("performance_abs", self.language, performance_abs_res)
 
         except Exception as error:
             print("extract performances error" + repr(error))
-            error_list = [k for k in schema.schema()['properties'].keys()]
+            error_list = [k for k in performance_abs_schema.schema()['properties'].keys()]
             performance_abs_res = {
                 key: (performance[key] if performance.get(key) is not None else "ERROR") for key in error_list
             }
@@ -380,8 +412,10 @@ class KidExtractor(Extractor):
             performance_rhp_2_res = dict()
             try:
                 rhp= int(rhp)
-                schema = table_schemas['it']['performance_rhp_2']
+                #schema = table_schemas['it']['performance_rhp_2']
+                performance_rhp2_schema = self.extraction_config['tag'].get('performance_rhp_2')
                 if rhp is not None and rhp >=10:
+                    
                     year = ceil(rhp/2)
                     
                     # Adjust table
@@ -401,18 +435,19 @@ class KidExtractor(Extractor):
 
                     # Get table from excel & create prompt
                     table_upload = upload_df_as_excel(table)
-                    adapt_extraction = performance_rhp_2.format(year=year, context=table_upload)
+                    performance_rhp2_prompt = self.extraction_config['prompt'].get('performance_rhp_2')
+                    adapt_extraction = performance_rhp2_prompt.format(year=year, context=table_upload)
                     # Tagging
-                    performance_rhp_2_res = Models.tag(adapt_extraction, schema, self.file_id)
+                    performance_rhp_2_res = Models.tag(adapt_extraction, performance_rhp2_schema, self.file_id)
                     performance_rhp_2_res = clean_response_regex("performance_rhp_2", self.language, performance_rhp_2_res)
                 else:
                     performance_rhp_2_res = dict()
-                    for k in schema.schema()['properties'].keys():
+                    for k in performance_rhp2_schema.schema()['properties'].keys():
                         performance_rhp_2_res[k] = ""
 
             except Exception as error:
                 print("extract performances error" + repr(error))
-                error_list = [k for k in schema.schema()['properties'].keys()]
+                error_list = [k for k in performance_rhp2_schema.schema()['properties'].keys()]
                 performance_rhp_2_res = {
                     key: (performance_rhp_2_res[key] if performance_rhp_2_res.get(key) is not None else "ERROR") for key in error_list
                 }

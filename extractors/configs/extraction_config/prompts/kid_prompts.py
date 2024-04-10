@@ -56,7 +56,7 @@ performance_abs = """Considera che escludendo la riga dello scenario minimo. I p
 #             TABELLA:
 #                 {context}?"""
 
-market = """"Dal documento seguente cita ciò che si dice sugli investitori al dettaglio cui si intende commercializzare il prodotto
+target_market = """"Dal documento seguente cita ciò che si dice sugli investitori al dettaglio cui si intende commercializzare il prodotto
         ---ritorna solamente la citazione niente introduzione
         ---dovrebbero essere multiple lunghe frasi
         ---ritorna solamente ciò che è riportato nel documento non rifrasare, non puoi aggiungere niente,non voglio introduzione, fornisci la risposta esatta
@@ -65,4 +65,25 @@ market = """"Dal documento seguente cita ciò che si dice sugli investitori al d
 
             DOCUMENTO:
             {context}"""
+
+riy = """La prima cifra (sia per i costi totali che per incidenza annuale dei costi) riguarda 1 anno e poi RHP anni.
+                ###
+                RHP={}
+                ###
+                DOCUMENT={}"""
+
+riy_small =  """La prima cifra (sia per i costi totali che per incidenza annuale dei costi) riguarda 1 anno e poi RHP anni.
+                ###
+                RHP={}
+                ###
+                DOCUMENT={}"""
+
+riy_rhp2 =  """La prima cifra (sia per i costi totali che per incidenza annuale dei costi) riguarda 1 anno, poi X anni e infine RHP anni.
+                Se ne manca 1, manca quello a 1 anno (in tal caso è rimpiazzato da un trattino (-))
+                #####
+                Considera che X={}anni, RHP={}anni, 
+                ####
+                DOCUMENT={}"""
+
+
 

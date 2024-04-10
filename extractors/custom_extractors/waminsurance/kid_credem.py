@@ -1,17 +1,18 @@
 import os
 
-from extractors.general_extractors.config.prompt_config import prompts, table_schemas, word_representation
-from extractors.general_extractors.utils import select_desired_page
 from extractors.models import Models
 from extractors.general_extractors.custom_extractors.kid.kid_extractor import KidExtractor
 from extractors.general_extractors.llm_functions import complex_table_inspection
 from extractors.general_extractors.custom_extractors.kid.kid_utils import clean_response_regex
 
+
 class WamInsuranceKidCredemExtractor(KidExtractor):
 
     def __init__(self, doc_path) -> None:
+        self.tenant = "waminsurance"
+        self.extractor = "kidcredem"
         self.doc_path = doc_path
-        super().__init__(doc_path, "it")
+        super().__init__(doc_path, "it", tenant=self.tenant, extractor=self.extractor)
 
     def get_tables(self):
         """calc table extractor, it extracts the three tables from the document asynchronously
@@ -24,16 +25,9 @@ class WamInsuranceKidCredemExtractor(KidExtractor):
 
         except Exception as error:
             print("calc table error" + repr(error))
-            error_list = [performance_table]
-            for i, key in enumerate(error_list):
-                if not key:
-                    error_list[i] = dict([("ERROR", "ERROR")])
+            performance_table = {}  # Replace the undefined performance_table with an empty dictionary
 
-        return dict(
-            [
-                ("performance", performance_table),
-            ]
-        )
+        return {"performance", performance_table}
 
     def extract_performances(self, table):
         """extracts performances from scenarios in the document
@@ -46,8 +40,7 @@ class WamInsuranceKidCredemExtractor(KidExtractor):
         """
         performance = dict()
         try:
-            performance = dict(
-                complex_table_inspection(
+            performance = complex_table_inspection(
                     table,
                     self.rhp,
                     "performance_credem",
@@ -55,15 +48,12 @@ class WamInsuranceKidCredemExtractor(KidExtractor):
                     direct_tag=True,
                     language=self.language,
                 )
-            )
+            
+            performance = clean_response_regex("performance", self.language, dict(performance))
 
-            performance = clean_response_regex("performance", self.language, performance)
         except Exception as error:
             print("extract performances error" + repr(error))
-            error_list = [
-                "moderato_return_rhp",
-                "favorable_return_rhp",
-            ]
+            error_list = ["moderato_return_rhp", "favorable_return_rhp"]
             performance = {
                 key: (performance[key] if performance.get(key) is not None else "ERROR") for key in error_list
             }
@@ -107,32 +97,26 @@ class WamInsuranceKidCredemExtractor(KidExtractor):
             print("second stage error" + repr(error))
 
         try:
-            
-            # REVIEW: what name do they need?
+
             filename = os.path.splitext(os.path.basename(self.doc_path))[0]
-
             api_costs = self._process_costs()
-
-            complete = self.create_output(
-                "waminsurance",
-                "kidcredem",
-                {
-                    "file_name": filename,
-                    **dict(basic_information),
-                    **dict(performance),
-                    **dict(riy),
-                    "api_costs": api_costs,
-                }
-   
-            )
-
+            complete_resutls = {
+                "file_name": filename,
+                **dict(basic_information),
+                **dict(performance),
+                **dict(riy),
+                "api_costs": api_costs,
+            }
+            # Format output
+            formatted_output = self.create_output(complete_resutls)
+                
         except Exception as error:
             print("dictionary error" + repr(error))
             filename = os.path.splitext(os.path.basename(self.doc_path))[0]
-            complete = dict([(filename), dict()])
+            formatted_output = dict([(filename), dict()])
 
-        print(complete)
+        print(formatted_output)
         Models.clear_resources_file(filename)
 
-        return complete
+        return formatted_output
 

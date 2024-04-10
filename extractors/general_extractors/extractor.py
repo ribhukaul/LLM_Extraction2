@@ -1,5 +1,6 @@
 from abc import abstractmethod
 from ..models import Models
+from extractors.configs.ConfigHandler import ConfigHandler
 from .config.cost_config import cost_per_token
 from .utils import get_document_text
 from extractors.general_extractors.config.cost_config import cost_per_token
@@ -31,9 +32,11 @@ class ThreadFunction(threading.Thread):
 class Extractor:
     """parent class for all extractors"""
 
-    def __init__(self, doc_path, predefined_language=False):
+    def __init__(self, doc_path, predefined_language=False, tenant='general', extractor='general'):
         self.file_id = doc_path
         self.doc_path = doc_path
+        self.tenant = tenant
+        self.extractor = extractor
         self.text = get_document_text(doc_path)
         if predefined_language:
             self.language = predefined_language
@@ -43,7 +46,11 @@ class Extractor:
         self.di_tables_pages = {}
         self.raw_data_pages = {}
         self.extraction = {}
-        
+
+        # get configs
+        configurator = ConfigHandler(self.tenant, self.extractor)
+        self.extraction_config = configurator.extractor_config
+
     # DOCSTRING MISSING
     def threader(self, functions_parameters):
 
@@ -79,7 +86,7 @@ class Extractor:
         """
         try:
             # Select page with table
-            keywords = word_representation[self.language][type]
+            keywords = self.extraction_config['word_representation'].get(type)
             text = [page if i not in black_list_pages else "" for i, page in enumerate(self.text)]
             page = select_desired_page(text, keywords)
 
@@ -169,14 +176,13 @@ class Extractor:
                 llm_extract=concatenated_str
                 if complex:
                     #concatenated_str += " " + "Aggiungi un # alla fine della risposta"
-                    llm_extract = llm_extraction(concatenated_str, tag, self.file_id, language=self.language)
+                    llm_extract = llm_extraction(concatenated_str, tag, self.file_id)
                 extraction.update(
                     dict(
                         general_table_inspection(
                             llm_extract,
                             tag,
                             self.file_id,
-                            language=self.language,
                         )
                     )
                 )
@@ -186,17 +192,16 @@ class Extractor:
 
         return extraction
 
-    def create_output(self, tenant, extractor_type, results):
+    def create_output(self, results):
         """creates a output with correct format
 
         Args:
             results (dict()): results to convert
-            type (str, optional): type of extraction.
 
         Returns:
             dict: dictionary containing the results
         """
-        extraction_output = OutputHandler(tenant=tenant, extractor_type=extractor_type, results=results, doc_path=self.doc_path)
+        extraction_output = OutputHandler(tenant=self.tenant, extractor_type=self.extractor, results=results, doc_path=self.doc_path)
         return extraction_output.complete_output
     
     # TEMPORARY
@@ -221,3 +226,4 @@ class Extractor:
     @abstractmethod
     def process(self):
         ...
+

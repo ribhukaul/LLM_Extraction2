@@ -2,15 +2,15 @@ import os
 
 from extractors.models import Models
 from extractors.general_extractors.custom_extractors.kid.kid_extractor import KidExtractor
-from extractors.general_extractors.llm_functions import llm_extraction_and_tag, tag_only
-from extractors.general_extractors.config.prompt_config import IsDisclaimerThere
 
 
 class WamInsuranceKidGovernanceExtractor(KidExtractor):
 
     def __init__(self, doc_path) -> None:
+        self.tenant = 'waminsurance'
+        self.extractor = 'kidgovernance'
         self.doc_path = doc_path
-        super().__init__(doc_path, "it")
+        super().__init__(doc_path, "it", tenant=self.tenant, extractor=self.extractor)
 
     
     def process(self):
@@ -64,34 +64,30 @@ class WamInsuranceKidGovernanceExtractor(KidExtractor):
         try:
             #     # REVIEW: what name do they need?
             filename = os.path.splitext(os.path.basename(self.doc_path))[0]
-
             api_costs = self._process_costs()
+            complete_results = {
+                "file_name": filename,
+                **dict(basic_information),
+                **dict(is_product_complex),
+                **dict(performance),
+                **dict(performance_rhp2),
+                **dict(performance_abs),
+                **dict(riy),
+                **dict(exit_entry_costs),
+                **dict(management_costs),
+                **dict(target_market),
+                "api_costs": api_costs,
+            }
   
-            complete = self.create_output(
-                "waminsurance",
-                "kidgovernance",
-                {
-                    "file_name": filename,
-                    **dict(basic_information),
-                    **dict(is_product_complex),
-                    **dict(performance),
-                    **dict(performance_rhp2),
-                    **dict(performance_abs),
-                    **dict(riy),
-                    **dict(exit_entry_costs),
-                    **dict(management_costs),
-                    **dict(target_market),
-                    "api_costs": api_costs,
-                }
-            )
+            formatted_output = self.create_output(complete_results)      
 
         except Exception as error:
             print("dictionary error" + repr(error))
             filename = os.path.splitext(os.path.basename(self.doc_path))[0]
-            complete = dict([(filename), dict()])
+            formatted_output = dict([(filename), dict()])
 
         # print(complete)
         Models.clear_resources_file(filename)
 
-        return complete
+        return formatted_output
 

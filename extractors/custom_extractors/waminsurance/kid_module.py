@@ -7,9 +7,11 @@ from extractors.general_extractors.custom_extractors.kid.kid_extractor import Ki
 class WamInsuranceKidModuleExtractor(KidExtractor):
 
     def __init__(self, doc_path) -> None:
+        self.tenant = "waminsurance"
+        self.extractor = "kidmodule"
         self.doc_path = doc_path
-        super().__init__(doc_path, "it")
-
+        super().__init__(doc_path, "it", tenant=self.tenant, extractor=self.extractor)
+    
         
     def process(self):
         """main processor in different phases, first phases extracts the tables and general information,
@@ -24,13 +26,15 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
             functions_parameters = {
                 "tables": {"function":self.get_tables}, 
                 "basic_information": {"function":self.extract_general_data},
-                "target_market": {"function":self.extract_market}
+                "target_market": {"function":self.extract_market},
+                "isin": {"function":self.extract_isin}
                 }
             results = self.threader(functions_parameters)
 
             tables = results["tables"]
             basic_information = results["basic_information"]
             target_market = results["target_market"]
+            #underlying = results["isin"]
 
         except Exception as error:
             print("first stage error" + repr(error))
@@ -41,7 +45,8 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
                 "riy": {"function":self.extract_riy_small}, 
                 "costs": {"function":self.extract_entryexit_costs, "args":{"table":tables["costi_ingresso"]}},
                 "management_costs": {"function":self.extract_management_costs, "args": {"table":tables["costi_gestione"]}},
-                "performance": {"function":self.extract_performances, "args":{"table":tables["performance"]}}
+                "performance": {"function":self.extract_performances, "args":{"table":tables["performance"]}},
+                #"underlying_info": {"function":self.extract_underlying_info, "args": {"isin":underlying,"table":tables["performance"]}}
                 }
             results = self.threader(functions_parameters)
             riy = results["riy"]
@@ -53,34 +58,30 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
             print("second stage error" + repr(error))
 
         try:
-            
             # REVIEW: what name do they need?
             filename = os.path.splitext(os.path.basename(self.doc_path))[0]
-
             api_costs = self._process_costs()
+            complete_results = {
+                "file_name": filename,
+                **dict(basic_information),
+                **dict(performance),
+                **dict(riy),
+                **dict(exit_entry_costs),
+                **dict(management_costs),
+                **dict(target_market),
+                "api_costs": api_costs,
+            }
+            # Format output
+            formatted_output = self.create_output(complete_results)
 
-            complete = self.create_output(
-                "waminsurance",
-                "kidmodule",
-                {
-                    "file_name": filename,
-                    **dict(basic_information),
-                    **dict(performance),
-                    **dict(riy),
-                    **dict(exit_entry_costs),
-                    **dict(management_costs),
-                    **dict(target_market),
-                    "api_costs": api_costs,
-                }
-            )
 
         except Exception as error:
             print("dictionary error" + repr(error))
             filename = os.path.splitext(os.path.basename(self.doc_path))[0]
-            complete = dict([(filename), dict()])
+            formatted_output = dict([(filename), dict()])
 
-        print(complete)
+        #print(dict(underlying))
         Models.clear_resources_file(filename)
 
-        return complete
+        return formatted_output
 
