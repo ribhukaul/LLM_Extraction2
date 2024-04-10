@@ -45,8 +45,7 @@ class WamInsuranceKidCredemExtractor(KidExtractor):
                     self.rhp,
                     "performance_credem",
                     self.file_id,
-                    direct_tag=True,
-                    language=self.language,
+                    direct_tag=True
                 )
             
             performance = clean_response_regex("performance", self.language, dict(performance))
