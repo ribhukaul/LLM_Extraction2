@@ -20,13 +20,13 @@ from extractors.general_extractors.custom_extractors.certificates.certificates_c
 #KID
 from extractors.configs.extraction_config.tags.kid_tags import (
     InformazioniBase, TabellaScenariPerformance, TabellaRiy, TabellaRiySmall, TabellaRiyRHP2, TabellaCostiIngresso, TabellaCostiGestione, PerformanceScenarios, TableRiy,
-    ScenariPerformanceAbsoluteEuro, ScenariPerformanceRHP2)
+    ScenariPerformanceAbsoluteEuro, ScenariPerformanceRHP2, ProductUnderlyingInfo)
 #GKID
 from extractors.configs.extraction_config.tags.gkid_tags import (
     InformazioniBaseGkid, TabellaRiyPercGkid, TabellaRiyEurGkid, TabellaCostiIngressoGkid, TabellaCostiGestioneGkid)
 # WAMINSURANCE 
 from extractors.configs.extraction_config.tags.waminsurance.waminsurance_tags import (
-    InformazioniBaseKidGov, TabellaScenariPerformanceCredem, IsDisclaimerThere)
+    TabellaScenariPerformanceCredem, IsDisclaimerThere)
 
 # CERTIFICATES
 
@@ -38,13 +38,8 @@ prompts = {
             - Data di realizzazione del documento
             DOCUMENTO:
             {context}""",
-        "general_info_kid_governance": """Dal documento seguente, estrai 
-            - Periodo di detenzione raccomandato o per quanto tempo si presuppone di detenere il prodotto(anni), converti in anni se necessario
-            - indicatore sintetico di rischio
-            - Data di realizzazione del documento
-            - è presente nella prima parte della prima pagina il disclaimer: 'State per acquistare un prodotto che non è semplice e può essere di difficile comprensione"?
-            DOCUMENTO:
-            {context}""",
+
+
         "performance1y": """Considerando la seguente tabella,estrai qual'è il rendimento percentuale dei seguenti scenari:
             - STRESS
             - SFAVOREVOLE
@@ -308,13 +303,17 @@ prompts = {
 
 table_schemas = {
     "it": {
+
         "general_info": InformazioniBase,
-        "general_info_kid_governance": InformazioniBaseKidGov,
+        "general_info_kid_governance": '',#InformazioniBaseKidGov,
         "is_product_complex": IsDisclaimerThere,
+        "underlying_info": ProductUnderlyingInfo,
         "performance": TabellaScenariPerformance,
         "performance_abs": ScenariPerformanceAbsoluteEuro,
         'performance_rhp_2': ScenariPerformanceRHP2,
         "performance_credem": TabellaScenariPerformanceCredem,
+
+
         "riy": TabellaRiy,
         "riy_small": TabellaRiySmall,
         "riy_rhp2": TabellaRiyRHP2,
