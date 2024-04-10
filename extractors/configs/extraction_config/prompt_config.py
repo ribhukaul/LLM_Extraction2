@@ -2,10 +2,13 @@
 # extractor -> prompt, tags, wordrepresentation
 from .tags import general_tags, kid_tags, gkid_tags
 from .prompts import general_prompts, kid_prompts, gkid_prompts
+from .prompts.wamderivati import wamderivati_prompts
 from .tags.waminsurance import waminsurance_tags
 # Word represenatiations
 from .word_representation import kid_wr, gkid_wr
 from .word_representation.wamderivati import derivatives_wr
+from .tags.wamderivati import complexity_tags
+
 
 
 extraction_configurations = {
@@ -115,9 +118,11 @@ extraction_configurations = {
             'word_representation':{
             },
             'prompt':{
+                'complexity_human': wamderivati_prompts.complexity_human,
+                'complexity_system': wamderivati_prompts.complexity_system
             },
             'tag':{
-                'general_info': ''#waminsurance_tags.InformazioniBaseKidGov
+                'complexity': complexity_tags.ComplexityTag
                 }
         }
 }
