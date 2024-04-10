@@ -58,4 +58,18 @@ class ConfigHandler:
         self.assign_value(self.tenant_general_config)
         self.assign_value(self.tenant_extractor_config)
 
-    
+    def assign_value(self, config):
+        """
+        Updates the extractor_config dictionary with values from a given config dictionary.
+
+        Parameters
+        ----------
+            config : dict
+                A dictionary containing the configuration values.
+        """
+        for key, value in config.items():
+            if key in self.extractor_config:
+                self.extractor_config[key].update(value)
+            else:
+                self.extractor_config[key] = value
+
