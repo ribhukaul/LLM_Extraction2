@@ -1,16 +1,18 @@
 from extractors.azure.document_intelligence import get_tables_from_doc
+from .production_custom.cert_cleaning import regex_callable, check_for
+from extractors.general_extractors.custom_extractors.kid.kid_utils import clean_response_regex
+from extractors.general_extractors.llm_functions import tag_only
+
 from extractors.general_extractors.custom_extractors.kid.kid_extractor import KidExtractor
 from extractors.general_extractors.utils import is_in_text, select_desired_table_only_header
 from extractors.general_extractors.utils import search_in_pattern_in_text
-from .certificates_config.cert_cleaning import regex_callable, check_for
 
-from extractors.general_extractors.config.prompt_config import word_representation
 
 class DerivatiKidExtractor(KidExtractor):
 
-    def __init__(self, doc_path, predefined_language=False) -> None:
+    def __init__(self, doc_path, predefined_language=False, tenant='general', extractor='general') -> None:
         self.doc_path = doc_path
-        super().__init__(doc_path, predefined_language)
+        super().__init__(doc_path, predefined_language, tenant=tenant, extractor=extractor)
 
     def extract_regex_text(self, type, page, boolean_to_check={}, str_to_check={}):
         """Extracts the text from the page and checks if the regexes are present in the text.
@@ -55,7 +57,8 @@ class DerivatiKidExtractor(KidExtractor):
         """
         try:
             # Select page with table
-            keywords = word_representation[self.language][type]
+            #keywords = word_representation[self.language][type]
+            keywords = self.extraction_config['word_representation'].get(type)
             tables = []
             raw_data = []
             # Get all the tables from the page
@@ -88,4 +91,23 @@ class DerivatiKidExtractor(KidExtractor):
             # exreturn = dict()
             # for table in tables:
             #     exreturn.update(table)
-            
+        
+    def extract_riy(self, page=1):
+        """extracts riy from the document
+
+        Returns:
+            dict(): riy extracted
+        """
+        try:
+            # Select page with RIY
+            extraction_riy = tag_only(self.text[page:], "riy", self.language, self.file_id, rhp=self.rhp)
+            extraction_riy = clean_response_regex("riy", self.language, extraction_riy)
+        except Exception as error:
+            print("extract riy error" + repr(error))
+            error_list = ["incidenza_costo_1", "incidenza_costo_rhp"]
+
+            extraction_riy = {
+                key: (extraction_riy[key] if extraction_riy.get(key) is not None else "ERROR") for key in error_list
+            }
+
+        return extraction_riy

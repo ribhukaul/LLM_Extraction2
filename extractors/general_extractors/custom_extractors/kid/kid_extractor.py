@@ -195,12 +195,10 @@ class KidExtractor(Extractor):
         try:
             riy_wr = self.extraction_config['word_representation'].get('riy')
             riy_schema = self.extraction_config['tag'].get('riy')
-
             rhp = int(self.rhp)
-            #schema = table_schemas['it']['riy']
+            
             # Set starting page & select desired page
             strat_page = 0 if len(self.text) < 3 else 1
-            #keywords = word_representation['it']['riy']
             reference_text = self.text[strat_page:]
             page = select_desired_page(reference_text, riy_wr)
             page = reference_text[int(page)]
@@ -210,13 +208,12 @@ class KidExtractor(Extractor):
                 year = ceil(rhp/2)
                 riy_rhp2_prompt = self.extraction_config['prompt'].get('riy_rhp_2')
                 riy_rhp2_schema = self.extraction_config['tag'].get('riy_rhp_2')
-                # prompt = prompts['it']['riy_rhp2']
-                # schema = table_schemas['it']['riy_rhp2']             
+             
                 total_prompt = riy_rhp2_prompt.format(year, rhp, page.page_content)
                 extraction_riy = Models.tag(total_prompt, riy_rhp2_schema, self.file_id)         
             else:
                 riy_prompt = self.extraction_config['prompt'].get('riy')
-                #prompt = riy_promt['it']['riy']
+                
                 total_prompt = riy_prompt.format(rhp, page.page_content)
                 extraction_riy = Models.tag(total_prompt, riy_schema, self.file_id)
 

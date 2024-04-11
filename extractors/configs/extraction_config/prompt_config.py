@@ -2,15 +2,16 @@
 # extractor -> prompt, tags, wordrepresentation
 from .tags import general_tags, kid_tags, gkid_tags
 from .prompts import general_prompts, kid_prompts, gkid_prompts
-from .prompts.wamderivati import wamderivati_prompts
+from .prompts.wamderivati import complexity_prompt, bnpproduction_prompt
 from .tags.waminsurance import waminsurance_tags
 # Word represenatiations
 from .word_representation import kid_wr, gkid_wr
 from .word_representation.wamderivati import derivatives_wr
-from .tags.wamderivati import complexity_tags
+from .tags.wamderivati import complexity_tags, production_tags
 
-
-
+###########
+# ITALIAN #
+###########
 extraction_configurations = {
     'general':{
         'word_representation':{
@@ -97,6 +98,7 @@ extraction_configurations = {
     'wamderivati':{
         'general':{
             'word_representation':{
+                'performance': kid_wr.performance,
                 'cedola': derivatives_wr.cedola,
                 'sottostanti': derivatives_wr.sottostanti,
                 'main_info': derivatives_wr.main_info,
@@ -111,19 +113,60 @@ extraction_configurations = {
             'prompt':{
             },
             'tag':{
-                
+                'performance': production_tags.TabellaScenariPerformance,
+                'costi_ingresso': kid_tags.TabellaCostiIngresso,
+                'costi_gestione': kid_tags.TabellaCostiGestione,
+
             },            
         },
         'complexity':{
             'word_representation':{
             },
             'prompt':{
-                'complexity_human': wamderivati_prompts.complexity_human,
-                'complexity_system': wamderivati_prompts.complexity_system
+                'complexity_human': complexity_prompt.complexity_human,
+                'complexity_system': complexity_prompt.complexity_system
             },
             'tag':{
                 'complexity': complexity_tags.ComplexityTag
                 }
+        },
+        'bnp':{
+            'word_representation':{
+                'sottostante_bnp': derivatives_wr.sottostante_bnp,
+            },
+            'prompt':{
+                'general_info': bnpproduction_prompt.general_info_bnp,
+                'first_info_bnp': bnpproduction_prompt.first_info_bnp,
+                'main_info_bnp': bnpproduction_prompt.main_info_bnp,
+                'allegato_bnp_premio': bnpproduction_prompt.allegato_bnp_premio,
+                'allegato_bnp_scadenza': bnpproduction_prompt.allegato_bnp_scadenza,
+                'allegati_bnp': bnpproduction_prompt.allegati_bnp
+            },
+            'tag':{
+
+                'general_info': production_tags.InformazioniBaseBNP,
+                'first_info_bnp': production_tags.TabellaFirstInfoBNP,
+                'main_info_bnp': production_tags.TabellaMainInfoBNP,
+                'allegato_bnp_premio': production_tags.TabellaAllegatoPremioBNP,
+                'allegato_bnp_scadenza': production_tags.TabellaAllegatoScadenzaBNP,
+                'allegati_bnp': production_tags.TabellaAllegatiBNP,
+                'sottostante_bnp': production_tags.TabellaSottostanteBNP,
+
+            }
+           #"sottostanti": TabellaSottostanti,
+#         "main_info": TabellaMainInfo,
+#         "cedola_str": CedolaStr,
+#         "general_info_certificati": InformazioniBaseCertificati,
+#         "sottostanti_header": TabellaSottostantiHeader,
+
+
         }
 }
+}
+
+
+###########
+# ENGLISH #
+###########
+extraction_configurations_eng = {
 }
