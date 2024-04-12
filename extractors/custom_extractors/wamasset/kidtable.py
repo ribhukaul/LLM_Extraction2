@@ -20,11 +20,10 @@ class WamassetKidTableextractor(KidExtractor):
         try:
             functions_parameters = {
                 "tables": {"function": self.get_tables},
-                #"basic_information": {"function":self.extract_general_data},
+                "basic_information": {"function":self.extract_general_data},
 
             }
             result = self.threader(functions_parameters)
-
             table = result["tables"]
             #basic_information = result["basic_information"]
         
@@ -45,13 +44,13 @@ class WamassetKidTableextractor(KidExtractor):
             cost_df = pd.DataFrame(cost)
             gestione_df = pd.DataFrame(gestione)
 
-            result_df = pd.concat([cost_df, gestione_df], axis=1)
+            result_df = pd.concat([cost_df, gestione_df], axis=0).T
         
         except Exception as error:
             print("Error" + repr(error))
 
 
-        return dict(cost),dict(result)
+        return result_df
 
 
 

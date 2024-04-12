@@ -11,10 +11,12 @@ env_setter = EnvVarSetter()
 env_setter.configure_local_env_vars()
 
 
-file_path = 'data_test\priipkid_IT0001033502_PIC_removed.pdf'
+file_path = 'data_test\priipkid\priipkid_IT0000380649_PIC.pdf'
 
 extractor =  WamassetKidTableextractor(file_path)
 extraction = extractor.process()
+
+extraction.to_excel('C:/Users/simone.mugnai/Desktop/integration.xlsx', index=False)
 
 print(extraction)
 # print("Costi:")
