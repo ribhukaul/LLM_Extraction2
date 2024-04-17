@@ -15,7 +15,7 @@ env_setter.configure_local_env_vars()
 file_path = 'data_test\priipkid\priipkid_LU1504218964.pdf'
 
 extractor =  WamassetKidTableextractor(file_path)
-extraction = extractor.process()
+ixextraction = extractor.process()
 
 extraction.to_excel('C:/Users/simone.mugnai/Desktop/integration.xlsx', index=False)
 

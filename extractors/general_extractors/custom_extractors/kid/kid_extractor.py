@@ -14,7 +14,7 @@ from extractors.general_extractors.utils import select_desired_page
 from extractors.general_extractors.config.prompt_config import IsDisclaimerThere
 from extractors.general_extractors.config.prompt_config import prompts, table_schemas, word_representation
 from extractors.configs.extraction_config.prompts.kid_prompts import performance_rhp_2, performance_abs
-from extractors.custom_extractors.wamderivati.complexity_custom.setting.pydantic_schema import PydanticSchema_costi_ingresso
+
 
 class KidExtractor(Extractor):
 
