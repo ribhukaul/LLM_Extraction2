@@ -109,22 +109,32 @@ class TabellaRiyRHP2(BaseModel):
     )
 
 
-
+#Costo una tantum di ingresso
 
 class TabellaCostiIngresso(BaseModel):
     costi_ingresso: str = Field(
-        NF, description="Costo una tantum di ingresso (nella colonna più a destra, può essere n/a)"
+        NF, description="valore in PERCENTUALE% (nella prima colonna,può essere n/a)"
     )
     costingresso_dirittifissi: str =Field(
-        NF, description="Diritti fissi d'uscita valore massimo in Euro( è un valore unico minore di 10 Euro)"
-    )
+          NF, description="Diritti fissi d'uscita valore in EURO (è un valore unico)"
+      )
     costi_uscita: str = Field(
-        NF, description="Costo una tantum di uscita (nella colonna più a destra, può essere n/a)"
+        NF, description="valore in PERCENTUALE% (nella  prima colonna,può essere n/a)"
     )
     costiuscita_dirittifissi: str = Field(
-        NF, description="Diritti fissi d'uscita valore massimo in Euro( è un valore unico minore di 10 Euro)"
+          NF, description="Diritti fissi d'uscita valore in Euro (è un valore unico)"
+      )
+    
 
-    )
+class TabellaDirittiFissi(BaseModel):
+    costingresso_dirittifissi: str =Field(
+         NF, description="Diritti fissi d'uscita valore in EURO (è un valore unico)"
+     )
+    costiuscita_dirittifissi: str = Field(
+         NF, description="Diritti fissi d'uscita valore in Euro (è un valore unico)"
+     )
+
+
 
 
 class TabellaCostiGestione(BaseModel):
@@ -137,9 +147,8 @@ class TabellaCostiGestione(BaseModel):
 class TabellaCostiGestionepercentuale(BaseModel):
     commissione_gestione: str = Field(NF, description="Commissioni di gestione in PERCENTUALE % (prima colonna)")
     commissione_transazione: str = Field(NF, description="Costi di transazione in PERCENTUALE % (prima colonna, esiste sempre un valore)")
-    commissione_performance: str = Field(
-        NF, description="Commissioni di performance IN EURO  (colonna a destra)"
-    )
+    descrizione_performance: str = Field(NF,description= "tutta la scritta relativa alle commmissioni di performance(prima colonna)")
+    commissione_performance: str = Field(NF, description="Commissioni di performance IN EURO  (colonna a destra)")
 
 
 

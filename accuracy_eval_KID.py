@@ -17,7 +17,7 @@ kid_files = df[df['KID/KIID'] == 'KID']['Nome documento'].tolist()
 #kid_files = df[df['Nome documento'] == 'priipkid_LU0828344357.pdf'].tolist()
 
 
-kid_files = kid_files[:8]
+#kid_files = kid_files[:8]
 
 
 
@@ -53,6 +53,6 @@ final_results_df = final_results_df.drop(indices_to_drop).reset_index(drop=True)
 
 
 # Save the concatenated results to an Excel file
-final_results_df.to_excel('test_ouput.xlsx', index=False)
+final_results_df.to_excel('C:/Users/simone.mugnai/Desktop/third_eval_ouput.xlsx', index=False)
 
 

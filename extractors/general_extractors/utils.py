@@ -17,15 +17,20 @@ def select_desired_page(text, words_repr):
     """
     counter = defaultdict(int)
 
+    regex_patterns = {word: re.compile(r'\b' + r'.*?'.join(word.split()) + r'\b') for word in words_repr}
+
     for i, page in enumerate(text):
         if page == "":
             continue
 
         # Remove punctuation and replace \n with space
         content = page.page_content.lower().replace("\n", " ")
-        for word in words_repr:
-            # count how many times the word is in the page
-            counter[str(i)] += content.count(word)
+        # for word in words_repr:
+        #     # count how many times the word is in the page
+        #     counter[str(i)] += content.count(word)
+        for phrase, pattern in regex_patterns.items():
+            matches = pattern.findall(content)
+            counter[i] += len(matches)
 
     # Page with most occurrences
     pg_number = max(counter, key=counter.get)

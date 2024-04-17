@@ -19,7 +19,7 @@ from extractors.general_extractors.custom_extractors.certificates.certificates_c
 
 #KID
 from extractors.configs.extraction_config.tags.kid_tags import (
-    InformazioniBase, TabellaScenariPerformance, TabellaRiy, TabellaRiySmall, TabellaRiyRHP2, TabellaCostiIngresso, TabellaCostiGestione, TabellaCostiGestionepercentuale, PerformanceScenarios, TableRiy,
+    InformazioniBase, TabellaScenariPerformance, TabellaRiy, TabellaRiySmall, TabellaRiyRHP2, TabellaCostiIngresso, TabellaDirittiFissi,TabellaCostiGestione, TabellaCostiGestionepercentuale, PerformanceScenarios, TableRiy,
     ScenariPerformanceAbsoluteEuro, ScenariPerformanceRHP2)
 #GKID
 from extractors.configs.extraction_config.tags.gkid_tags import (
@@ -319,6 +319,7 @@ table_schemas = {
         "riy_small": TabellaRiySmall,
         "riy_rhp2": TabellaRiyRHP2,
         "costi_ingresso": TabellaCostiIngresso,
+        "costi_ingresso_diritti_fissi": TabellaDirittiFissi,
         "costi_gestione": TabellaCostiGestione,
         "costi_gestione_%": TabellaCostiGestionepercentuale,
         "general_info_gkid": InformazioniBaseGkid,

@@ -14,6 +14,7 @@ from extractors.general_extractors.utils import select_desired_page
 from extractors.general_extractors.config.prompt_config import IsDisclaimerThere
 from extractors.general_extractors.config.prompt_config import prompts, table_schemas, word_representation
 from extractors.configs.extraction_config.prompts.kid_prompts import performance_rhp_2, performance_abs
+from extractors.custom_extractors.wamderivati.complexity_custom.setting.pydantic_schema import PydanticSchema_costi_ingresso
 
 class KidExtractor(Extractor):
 
@@ -28,14 +29,14 @@ class KidExtractor(Extractor):
             dict([pandas.dataframe]): tables as dataframe
         """
         try:
-            performance_table,_ = self._extract_table("performance")
+            #performance_table,_ = self._extract_table("performance")
             costi_ingresso_table,_ = self._extract_table("costi_ingresso", black_list_pages=[0])
             costi_gestione_table,_ = self._extract_table("costi_gestione")
             #riy, _ = self._extract_table("riy", black_list_pages=[0])
             
         except Exception as error:
             print("calc table error" + repr(error))
-            error_list = [performance_table, costi_ingresso_table, costi_gestione_table]
+            error_list = ['performance_table', costi_ingresso_table, costi_gestione_table]
             for i, key in enumerate(error_list):
                 if not key:
                     error_list[i] = dict([("ERROR", "ERROR")])
@@ -44,7 +45,7 @@ class KidExtractor(Extractor):
             [
                 ("costi_ingresso", costi_ingresso_table),
                 ("costi_gestione", costi_gestione_table),
-                ("performance", performance_table),
+                #("performance", performance_table),
             ]
         )
 
@@ -259,17 +260,62 @@ class KidExtractor(Extractor):
                 "costi_ingresso",
                 self.file_id,
                 language=self.language,
-                add_text=(
-                    "Estrai il valore dei diritti fissi e dei costi una tantum di entrata e di uscita"
-                ),
+                add_text="Estrai i valori % dopo {} anni (può essere n/a)".format(self.rhp)
             )
-            #xtraction = clean_response_regex("costi_ingresso", self.language, extraction)
+            extraction = clean_response_regex("costi_ingresso", self.language, extraction)
         except Exception as error:
             print("extract middle costs error" + repr(error))
             # Initialize a default error structure for the extraction
             extraction = {key: "ERROR" for key in ["costi_ingresso", "costi_uscita", "costi_ingresso_uscita"]}
 
         return extraction
+    
+    def extract_middle_fixed_costs(self, table):
+        try:
+            from extractors.general_extractors.utils import upload_df_as_excel
+            table = upload_df_as_excel(table)
+            extraction = general_table_inspection(
+                table,
+                "costi_ingresso_diritti_fissi",
+                self.file_id,
+                language=self.language,
+                add_text="Estrai il valore dei diritti fissi"
+            )
+            extraction = clean_response_regex("costi_ingresso", self.language, extraction)
+        except Exception as error:
+            print("extract middle costs error" + repr(error))
+            # Initialize a default error structure for the extraction
+            extraction = {key: "ERROR" for key in ["costi_ingresso", "costi_uscita", "costi_ingresso_uscita"]}
+
+        return extraction
+    
+    
+    
+    def validate_data_with_schema(self,data, schema):
+        try:
+            # Validazione dei dati usando Pydantic
+            validated_data = schema(**data)
+            print("Validation Successful:", validated_data)
+            return validated_data
+        except Exception as e:
+            print("Validation Failed:", e)
+            return None
+
+# Estrai i dati usando le funzioni esistenti e valida ciascuno
+    def extract_and_validate_costs(self, table):
+        try:
+            raw_data = self.extract_middle_costs(table)
+            validated_data = self.validate_data_with_schema(dict(raw_data), PydanticSchema_costi_ingresso)
+            return validated_data
+        except Exception as error:
+                print("Error in cost extraction/validation:", repr(error))
+                return None
+
+
+
+
+
+
 
 
     # REVIEW: NEED TO UPLOAD TABLE AS DF
@@ -326,7 +372,7 @@ class KidExtractor(Extractor):
                 language=self.language,
                 add_text="estrai il valore % dei costi correnti e dei costi di transazione",
             )
-            #extraction = clean_response_regex("costi_gestione", self.language, extraction)
+            extraction = clean_response_regex("costi_gestione", self.language, extraction)
         except Exception as error:
             print("extract management costs error" + repr(error))
             error_list = ["commissione_gestione", "commissione_transazione", "commissione_performance"]

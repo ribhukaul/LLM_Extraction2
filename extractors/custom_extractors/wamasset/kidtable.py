@@ -34,14 +34,17 @@ class WamassetKidTableextractor(KidExtractor):
         try:
 
             functions_parameters = {
-                "cost": { "function": self.extract_middle_costs, "args":{"table": table["costi_ingresso"]}},
+                "cost": { "function": self.extract_middle_costs, "args":{"table": table["costi_ingresso"].iloc[:, :2]}},
+                #"diritti_fissi": { "function": self.extract_middle_fixed_costs, "args":{"table": table["costi_ingresso"].iloc[:, :2]}},
                 "transaction": {"function": self.extract_transaction_costs, "args":{"table": table["costi_gestione"]}},
             }
         
             result = self.threader(functions_parameters)
             cost = result["cost"]
+            #diritti = result["diritti_fissi"]
             gestione = result["transaction"]
             cost_df = pd.DataFrame(cost)
+            #diritti_df = pd.DataFrame(diritti)
             gestione_df = pd.DataFrame(gestione)
 
             result_df = pd.concat([cost_df, gestione_df], axis=0).T
