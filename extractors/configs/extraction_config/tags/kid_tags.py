@@ -65,11 +65,34 @@ class TabellaCostiIngresso(BaseModel):
     costi_ingresso: str = Field(NF, description="Costi di ingresso in PERCENTUALE %(nella colonna più a destra, può essere n/a)")
     costi_uscita: str = Field(NF, description="Costi di uscita in PERCENTUALE %(nella colonna più a destra, può essere n/a)")
 
+# Tabella costi di ingresso e uscita e diritti fissi entrata uscita
+class TabellaCostiIngressoDirttiFissi(BaseModel):
+    costi_ingresso: str = Field(
+        NF, description="valore in PERCENTUALE% (nella prima colonna,può essere n/a)"
+    )
+    costingresso_dirittifissi: str =Field(
+          NF, description="Diritti fissi d'uscita valore in EURO (è un valore unico)"
+      )
+    costi_uscita: str = Field(
+        NF, description="valore in PERCENTUALE% (nella  prima colonna,può essere n/a)"
+    )
+    costiuscita_dirittifissi: str = Field(
+          NF, description="Diritti fissi d'uscita valore in Euro (è un valore unico)"
+      )
+
 # Tabella costi di gestione/transazione/performance
 class TabellaCostiGestione(BaseModel):
     commissione_gestione: str = Field(NF, description="Commissioni di gestione in PERCENTUALE % (colonna di destra)")
     commissione_transazione: str = Field(NF, description="Costi di transazione in PERCENTUALE % (colonna di destra)")
     commissione_performance: str = Field(NF, description="Commissioni di performance IN PERCENTUALE % (colonna a destra)")
+
+# Tabella costi di gestione/transazione/performance e descrizione performance 
+class TabellaCostiGestionePerformance(BaseModel):
+    commissione_gestione: str = Field(NF, description="Commissioni di gestione in PERCENTUALE % (prima colonna)")
+    commissione_transazione: str = Field(NF, description="Costi di transazione in PERCENTUALE % (prima colonna, esiste sempre un valore)")
+    descrizione_performance: str = Field(NF,description= "tutta la scritta relativa alle commmissioni di performance(prima colonna)")
+    commissione_performance: str = Field(NF, description="Commissioni di performance IN EURO  (colonna a destra)")
+
 
 # Tabella RIY (Reduction in Yield) con costo totale e incidenza % (1year e RHP)
 class TabellaRiy(BaseModel):

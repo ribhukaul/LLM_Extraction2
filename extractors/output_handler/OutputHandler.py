@@ -1,6 +1,6 @@
 from .configs.waminsurance import gkidgovernance, kidcredem, kidmodule, kidgovernance
 from .configs.wamderivati import complexity, bnp
-from .configs.wamasset import kidasset
+from .configs.wamasset import kidasset, kidtable
 from .configs.wambond import bloombergss
 
 import locale
@@ -104,7 +104,7 @@ class OutputHandler:
             "bnp": bnp.bnp
             },
         "wamasset":{
-            "kidasset": kidasset.kidasset
+            "kidasset": kidtable.kidtable
         },
         "wambond":{
             "bloombergss": bloombergss.bloombergss

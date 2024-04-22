@@ -3,6 +3,7 @@ from extractors.custom_extractors.waminsurance.kid_module import WamInsuranceKid
 from extractors.custom_extractors.waminsurance.gkid_governance import WamInsuranceGKidGovernanceExtractor
 from extractors.custom_extractors.waminsurance.kid_credem import WamInsuranceKidCredemExtractor
 from extractors.custom_extractors.wamasset.fullkid import WamAssetKidExtractor
+from extractors.custom_extractors.wamasset.kidtable import WamassetKidTableextractor
 
 from extractors.custom_extractors.wamderivati.complexity import WamDerivatiComplexity
 from extractors.custom_extractors.wambond.bloombergss import WamBondBloombergSS
@@ -26,7 +27,8 @@ custom_extractors = {
             'bloombergss': WamBondBloombergSS
         },
         'wamasset':{
-            'kidasset': WamAssetKidExtractor
+            'kidasset': WamassetKidTableextractor
+            
         },
         'sim':{}
     }

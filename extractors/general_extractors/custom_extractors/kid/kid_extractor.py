@@ -287,6 +287,25 @@ class KidExtractor(Extractor):
             extraction = {key: (extraction[key] if extraction.get(key) is not None else "ERROR") for key in error_list}
 
         return extraction
+    
+    def extract_middle_costs(self, table):
+        try:
+            from extractors.general_extractors.utils import upload_df_as_excel
+            extract_middle_cost_schema = self.extraction_config['tag'].get('costi_ingresso')
+            table = upload_df_as_excel(table)
+            extraction = general_table_inspection(
+                table,
+                extract_middle_cost_schema,
+                self.file_id,
+                add_text="Estrai i valori % dopo {} anni ed i diritti fissi (possono essere n/a)".format(self.rhp))
+            extraction = clean_response_regex("costi_ingresso", self.language, extraction)
+        except Exception as error:
+            print("extract middle costs error" + repr(error))
+            error_list = ["costi_ingresso", "costi_uscita","diritti fissi entrata","diritti fissi uscita"]
+            # Initialize a default error structure for the extraction
+            extraction = {key: "ERROR" for key in ["costi_ingresso", "costi_uscita", "costi_ingresso_uscita"]}
+
+        return extraction
 
     # REVIEW: NEED TO UPLOAD TABLE AS DF
     def extract_management_costs(self, table):
@@ -307,6 +326,30 @@ class KidExtractor(Extractor):
             extraction = {key: (extraction[key] if extraction.get(key) is not None else "ERROR") for key in error_list}
 
         return extraction
+    
+    
+    def extract_transaction_costs(self, table):
+        try:
+            from extractors.general_extractors.utils import upload_df_as_excel
+            extract_transaction_cost_schema = self.extraction_config['tag'].get('costi_gestione')
+            table = upload_df_as_excel(table)
+            extraction = dict()
+            extraction = general_table_inspection(
+                table,
+                extract_transaction_cost_schema,
+                self.file_id,
+                add_text="estrai il valore % dei costi correnti e dei costi di transazione",
+            )
+            extraction = clean_response_regex("costi_gestione", self.language, extraction)
+        except Exception as error:
+            print("extract management costs error" + repr(error))
+            error_list = ["commissione_gestione", "commissione_transazione", "commissione_performance"]
+            extraction = {key: (extraction[key] if extraction.get(key) is not None else "ERROR") for key in error_list}
+
+        return extraction
+
+
+
 
     def extract_performances(self, table):
         """extracts performances from scenarios in the document
