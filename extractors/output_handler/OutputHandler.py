@@ -1,6 +1,6 @@
 from .configs.waminsurance import gkidgovernance, kidcredem, kidmodule, kidgovernance
 from .configs.wamderivati import complexity, bnp
-from .configs.wamasset import kidasset, kidtable
+from .configs.wamasset import kidasset
 from .configs.wambond import bloombergss
 
 import locale
@@ -46,7 +46,12 @@ class Field:
                 self.value = self.transform_date(self.value)
             if isinstance(self.value, list):
                 self.value = [self.transform_date(value) for value in self.value]
- 
+        if self.data_type == "String":
+            if isinstance(self.value, float) or isinstance(self.value, int):
+                self.value = str(self.value)
+            if isinstance(self.value, list):
+                self.value = [str(value) for value in self.value]
+            
     def transform_date(self, date_str):
         # Supported date formats
         english_formats = ["%m/%d/%Y", "%B %d, %Y", "%Y-%m-%d", "%Y/%m/%d", "%Y.%m.%d"]  
@@ -104,7 +109,7 @@ class OutputHandler:
             "bnp": bnp.bnp
             },
         "wamasset":{
-            "kidasset": kidtable.kidtable
+            "kidasset": kidasset.kidasset
         },
         "wambond":{
             "bloombergss": bloombergss.bloombergss

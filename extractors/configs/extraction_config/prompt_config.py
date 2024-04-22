@@ -3,8 +3,9 @@
 from .tags import general_tags, kid_tags, gkid_tags
 from .prompts import general_prompts, kid_prompts, gkid_prompts
 from .prompts.wamderivati import complexity_prompt, bnpproduction_prompt
+#from .tags.wamderivati import bnpproduction_tags, rettifichebi_tags
+from .tags.waminsurance import waminsurance_tags#, cga
 from .prompts.wasasset import wasasset_prompts
-from .tags.waminsurance import waminsurance_tags
 # Word represenatiations
 from .word_representation import kid_wr, gkid_wr
 from .word_representation.wamderivati import derivatives_wr
@@ -80,6 +81,21 @@ extraction_configurations = {
             'tag':{
             }
         },
+        # 'cga':{
+        #     'word_representation':{
+        #     },
+        #     'prompt':{
+
+        #     },
+        #     'tag':{
+        #         'vita_intera': cga.IsVitaIntera,
+        #         'is_unico': cga.IsUnico,
+        #         'is_premio_ricorrente': cga.IsPremioRicorrente,
+        #         'durata': cga.Durata,
+        #         'premium_type': cga.PremiumType,
+        #         'premium_boundaries': cga.PremiumBoundaries
+        #     }
+        # },
         'gkidgovernance':{
             'word_representation':{
                 'costi_ingresso': gkid_wr.costi_ingresso_gkid,
@@ -159,45 +175,53 @@ extraction_configurations = {
 #         "cedola_str": CedolaStr,
 #         "general_info_certificati": InformazioniBaseCertificati,
 #         "sottostanti_header": TabellaSottostantiHeader,
-
-
-        }
-},
-#WAMASSET
-"wamasset":{
-    'general':{
+        },
+        'rettifichebi':{
             'word_representation':{
-                'performance': kid_wr.performance,
-                'costi_ingresso': kid_wr.costi_ingresso,
-                'costi_gestione': kid_wr.costi_gestione
             },
             'prompt':{
-                
-
+                # 'rettifichebi_human': rettifichebi_prompt.rettifichebi_human,
+                # 'rettifichebi_system': rettifichebi_prompt.rettifichebi_system
             },
             'tag':{
-                'performance': production_tags.TabellaScenariPerformance,
-                'costi_ingresso': kid_tags.TabellaCostiIngresso,
-                'costi_gestione': kid_tags.TabellaCostiGestione
-
-            }},
-    'kidasset':{
-             'word_representation':{
+                'rettifichebi': '',#rettifichebi_tags.RettificheBIInfo
+                }
+        }
+        },
+    'wamasset':{
+        'general':{
+                'word_representation':{
+                    'performance': kid_wr.performance,
                     'costi_ingresso': kid_wr.costi_ingresso,
                     'costi_gestione': kid_wr.costi_gestione
-              },
-              'prompt':{
-                  'general_info': kid_prompts.general_info,
-                  'costi_ingresso': wasasset_prompts.costi_ingresso_diritti_fissi,
-                  'costi_gestione': wasasset_prompts.costi_gestione_performance,
+                },
+                'prompt':{
+                    
 
-              },
-              'tag':{
-                'general_info': kid_tags.InformazioniBase,
-                'costi_ingresso': kid_tags.TabellaCostiIngressoDirttiFissi,
-                'costi_gestione': kid_tags.TabellaCostiGestionePerformance
+                },
+                'tag':{
+                    'performance': production_tags.TabellaScenariPerformance,
+                    'costi_ingresso': kid_tags.TabellaCostiIngresso,
+                    'costi_gestione': kid_tags.TabellaCostiGestione
+                }
+        },
+        'kidasset':{
+                'word_representation':{
+                        'costi_ingresso': kid_wr.costi_ingresso,
+                        'costi_gestione': kid_wr.costi_gestione
+                },
+                'prompt':{
+                    'general_info': kid_prompts.general_info,
+                    'costi_ingresso': wasasset_prompts.costi_ingresso_diritti_fissi,
+                    'costi_gestione': wasasset_prompts.costi_gestione_performance,
 
-            }}
+                },
+                'tag':{
+                    'general_info': kid_tags.InformazioniBase,
+                    'costi_ingresso': kid_tags.TabellaCostiIngressoDirttiFissi,
+                    'costi_gestione': kid_tags.TabellaCostiGestionePerformance
+
+                }}
 }}
 
 

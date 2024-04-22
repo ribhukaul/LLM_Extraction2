@@ -4,7 +4,7 @@ from extractors.custom_extractors.waminsurance.gkid_governance import WamInsuran
 from extractors.custom_extractors.waminsurance.kid_credem import WamInsuranceKidCredemExtractor
 from extractors.custom_extractors.waminsurance.cga import WamInsuranceCGA
 from extractors.custom_extractors.wamasset.fullkid import WamAssetKidExtractor
-from extractors.custom_extractors.wamasset.kidtable import WamassetKidTableextractor
+from extractors.custom_extractors.wamasset.kidtable import WamAssetKidFeesExtractor
 
 from extractors.custom_extractors.wamderivati.complexity import WamDerivatiComplexity
 from extractors.custom_extractors.wamderivati.bnpproduction import BNPDerivatiKidExtractor
@@ -20,7 +20,9 @@ custom_extractors = {
         },
     'wamderivati': {
         'complexity': WamDerivatiComplexity,
-        'productionderivatives':''
+        'productionderivatives':'',
+        'rettifichebi': '',
+
         },
     'wamfondi': {
         'peergroup': ''
@@ -29,7 +31,7 @@ custom_extractors = {
         'bloombergss': WamBondBloombergSS
     },
     'wamasset':{
-        'kidasset': WamassetKidTableextractor
+        'kidasset': WamAssetKidFeesExtractor
     },
     'sim':{
 
