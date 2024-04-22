@@ -33,18 +33,33 @@ kid = {
             "decimals_of": NA,
             "range_of": DATE_RANGE        
             },
-        # "isin": {
-        #     "field_name": "cod_isin",
-        #     "renaming": "ISIN",
-        #     "allow_null": FALSE,
-        #     "type_of": STRING,
-        #     "model_of": CAPS,
-        #     "decimals_of": NA,
-        #     "range_of": ISIN_RANGE        
-        #     },
-        # UNDERLYING_TYPE
-        # PREMIUM_TYPE
-        # UNDERLYING_NAME
+        "sottostante": {
+            "field_name": "cod_underlying_name",
+            "renaming": "Sottostante",
+            "allow_null": FALSE,
+            "type_of": STRING,
+            "model_of": NA,
+            "decimals_of": NA,
+            "range_of": NO_RANGE
+            },
+        "tipo_sottostante": {
+            "field_name": "cod_underlying_type",
+            "renaming": "Tipo Sottostante",
+            "allow_null": FALSE,
+            "type_of": STRING,
+            "model_of": NA,
+            "decimals_of": NA,
+            "range_of": NO_RANGE
+            },
+        "tipo_premio": {
+            "field_name": "cod_premium_type",
+            "renaming": "Tipo Premio",
+            "allow_null": FALSE,
+            "type_of": STRING,
+            "model_of": NA,
+            "decimals_of": NA,
+            "range_of": NO_RANGE
+            },
         "periodo_detenzione_raccomandato": {
             "field_name": "cod_rhp",
             "renaming": "RHP (anni)",
@@ -232,7 +247,8 @@ kid = {
     "sections": {
         "section0": {
             "name": "Informazioni di base",
-            "list": ["cod_document_date", "cod_sri", "cod_rhp"]
+            "list": ["cod_document_date", "cod_underlying_name", "cod_underlying_type", "cod_premium_type",
+                     "cod_sri", "cod_rhp"]
         },
         "section1": {
             "name": "Performance",

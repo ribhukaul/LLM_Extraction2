@@ -7,7 +7,7 @@ from extractors.general_extractors.llm_functions import complex_table_inspection
 from extractors.general_extractors.custom_extractors.kid.kid_utils import clean_response_regex
 import pandas as pd
 
-class WamassetKidTableextractor(KidExtractor):
+class WamAssetKidFeesExtractor(KidExtractor):
     def __init__(self, doc_path, predefined_language=False) -> None:
         self.tenant = "wamasset"
         self.extractor = "kidasset"
@@ -15,8 +15,6 @@ class WamassetKidTableextractor(KidExtractor):
         super().__init__(doc_path, "it", tenant=self.tenant, extractor=self.extractor)
     
     
-
-
     def process(self):
         # first stage, basic info
         try:
