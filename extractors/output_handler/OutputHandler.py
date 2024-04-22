@@ -1,5 +1,5 @@
 from .configs.waminsurance import gkidgovernance, kidcredem, kidmodule, kidgovernance
-from .configs.wamderivati import complexity, bnp
+from .configs.wamderivati import complexity, bnp, rettifichebi
 from .configs.wamasset import kidasset
 from .configs.wambond import bloombergss
 
@@ -106,7 +106,8 @@ class OutputHandler:
             },
         "wamderivati": {
             "complexity": complexity.complexity,
-            "bnp": bnp.bnp
+            "bnp": bnp.bnp,
+            "rettifichebi": rettifichebi.rettifichebi
             },
         "wamasset":{
             "kidasset": kidasset.kidasset

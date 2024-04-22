@@ -2,8 +2,8 @@
 # extractor -> prompt, tags, wordrepresentation
 from .tags import general_tags, kid_tags, gkid_tags
 from .prompts import general_prompts, kid_prompts, gkid_prompts
-from .prompts.wamderivati import complexity_prompt, bnpproduction_prompt
-#from .tags.wamderivati import bnpproduction_tags, rettifichebi_tags
+from .prompts.wamderivati import complexity_prompt, bnpproduction_prompt, rettifichebi_prompt
+from .tags.wamderivati import rettifichebi_tags #bnpproduction_tags, 
 from .tags.waminsurance import waminsurance_tags#, cga
 from .prompts.wasasset import wasasset_prompts
 # Word represenatiations
@@ -180,11 +180,11 @@ extraction_configurations = {
             'word_representation':{
             },
             'prompt':{
-                # 'rettifichebi_human': rettifichebi_prompt.rettifichebi_human,
-                # 'rettifichebi_system': rettifichebi_prompt.rettifichebi_system
+                'rettifichebi_human': rettifichebi_prompt.rettifichebi_human,
+                'rettifichebi_system': rettifichebi_prompt.rettifichebi_system
             },
             'tag':{
-                'rettifichebi': '',#rettifichebi_tags.RettificheBIInfo
+                'rettifichebi': rettifichebi_tags.RettificheBIInfo
                 }
         }
         },
