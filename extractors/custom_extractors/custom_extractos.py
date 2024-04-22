@@ -2,33 +2,45 @@ from extractors.custom_extractors.waminsurance.kid_governance import WamInsuranc
 from extractors.custom_extractors.waminsurance.kid_module import WamInsuranceKidModuleExtractor
 from extractors.custom_extractors.waminsurance.gkid_governance import WamInsuranceGKidGovernanceExtractor
 from extractors.custom_extractors.waminsurance.kid_credem import WamInsuranceKidCredemExtractor
+from extractors.custom_extractors.waminsurance.cga import WamInsuranceCGA
 from extractors.custom_extractors.wamasset.fullkid import WamAssetKidExtractor
 from extractors.custom_extractors.wamasset.kidtable import WamassetKidTableextractor
 
 from extractors.custom_extractors.wamderivati.complexity import WamDerivatiComplexity
+from extractors.custom_extractors.wamderivati.bnpproduction import BNPDerivatiKidExtractor
 from extractors.custom_extractors.wambond.bloombergss import WamBondBloombergSS
 
 # SWITCH CASE FOR EXTRACTION MODEL SELECTION
 custom_extractors = {
-        'waminsurance': {
-            'kidgovernance': WamInsuranceKidGovernanceExtractor,
-            'gkidgovernance': WamInsuranceGKidGovernanceExtractor,
-            'kidcredem': WamInsuranceKidCredemExtractor,
-            'kidmodule':  WamInsuranceKidModuleExtractor            
-            },
-        'wamderivati': {
-            'complexity': WamDerivatiComplexity,
-            'productionderivatives':''
-            },
-        'wamfondi': {
-            'peergroup': ''
+    'waminsurance': {
+        'kidgovernance': WamInsuranceKidGovernanceExtractor,
+        'gkidgovernance': WamInsuranceGKidGovernanceExtractor,
+        'kidcredem': WamInsuranceKidCredemExtractor,
+        'kidmodule':  WamInsuranceKidModuleExtractor            
         },
-        'wambond': {
-            'bloombergss': WamBondBloombergSS
+    'wamderivati': {
+        'complexity': WamDerivatiComplexity,
+        'productionderivatives':''
         },
-        'wamasset':{
-            'kidasset': WamassetKidTableextractor
-            
-        },
-        'sim':{}
+    'wamfondi': {
+        'peergroup': ''
+    },
+    'wambond': {
+        'bloombergss': WamBondBloombergSS
+    },
+    'wamasset':{
+        'kidasset': WamassetKidTableextractor
+    },
+    'sim':{
+
+    },
+    'demo':{
+        'kidinsurance': WamInsuranceKidGovernanceExtractor,
+        'gkidinsurance': WamInsuranceGKidGovernanceExtractor,
+        'cga': WamInsuranceCGA,
+        'kidasset': WamAssetKidExtractor,
+        'kidcertificatesrisk': BNPDerivatiKidExtractor,
+        'certificatesrettificheborsait': ''
     }
+}
+
