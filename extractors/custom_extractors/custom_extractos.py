@@ -8,6 +8,7 @@ from extractors.custom_extractors.wamasset.kidtable import WamAssetKidFeesExtrac
 
 from extractors.custom_extractors.wamderivati.complexity import WamDerivatiComplexity
 from extractors.custom_extractors.wamderivati.bnpproduction import BNPDerivatiKidExtractor
+from extractors.custom_extractors.wamderivati.rettifichebi import WamDerivatiRettifiche
 from extractors.custom_extractors.wambond.bloombergss import WamBondBloombergSS
 
 # SWITCH CASE FOR EXTRACTION MODEL SELECTION
@@ -21,7 +22,7 @@ custom_extractors = {
     'wamderivati': {
         'complexity': WamDerivatiComplexity,
         'productionderivatives':'',
-        'rettifichebi': '',
+        'rettifichebi': WamDerivatiRettifiche
 
         },
     'wamfondi': {
@@ -42,7 +43,7 @@ custom_extractors = {
         'cga': WamInsuranceCGA,
         'kidasset': WamAssetKidExtractor,
         'kidcertificatesrisk': BNPDerivatiKidExtractor,
-        'certificatesrettificheborsait': ''
+        'certificatesrettificheborsait': WamDerivatiRettifiche
     }
 }
 
