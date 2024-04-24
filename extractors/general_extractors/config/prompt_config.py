@@ -40,6 +40,7 @@ prompts = {
             {context}""",
 
 
+
         "performance1y": """Considerando la seguente tabella,estrai qual'è il rendimento percentuale dei seguenti scenari:
             - STRESS
             - SFAVOREVOLE

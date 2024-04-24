@@ -35,6 +35,8 @@ extraction_configurations = {
             },
             'prompt':{
                 'general_info': kid_prompts.general_info,
+                'general_info_premio': kid_prompts.general_info_premio,
+                'sottostante' : kid_prompts.sottostante,
                 'performance': kid_prompts.performance1y,
                 'performance_abs': kid_prompts.performance_abs,
                 'performance_rhp_2': kid_prompts.performance_rhp_2,
@@ -45,6 +47,8 @@ extraction_configurations = {
             },
             'tag':{
                 'general_info': kid_tags.InformazioniBase,
+                'general_info_premio': kid_tags.InformazioniPremio,
+                'sottostante': kid_tags.SottostanteInfo,
                 'is_complex': kid_tags.IsDisclaimerThere,
                 'performance': kid_tags.TabellaScenariPerformance,
                 'riy': kid_tags.TabellaRiy,
