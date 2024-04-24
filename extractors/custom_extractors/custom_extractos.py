@@ -21,7 +21,7 @@ custom_extractors = {
         },
     'wamderivati': {
         'complexity': WamDerivatiComplexity,
-        'productionderivatives':'',
+        'productionderivatives':BNPDerivatiKidExtractor,
         'rettifichebi': WamDerivatiRettifiche
 
         },
@@ -40,10 +40,11 @@ custom_extractors = {
     'demo':{
         'kidinsurance': WamInsuranceKidGovernanceExtractor,
         'gkidinsurance': WamInsuranceGKidGovernanceExtractor,
+        'certificatesrettificheborsait': WamDerivatiRettifiche,
+        'kidcertificatesrisk': WamDerivatiComplexity,
+
         'cga': WamInsuranceCGA,
         'kidasset': WamAssetKidExtractor,
-        'kidcertificatesrisk': BNPDerivatiKidExtractor,
-        'certificatesrettificheborsait': WamDerivatiRettifiche
     }
 }
 
