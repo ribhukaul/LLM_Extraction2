@@ -28,14 +28,14 @@ rettifichebi = {
     "fields": {
         "ex_date": {
             "field_name": "cod_ex_date",
-            "renaming": "Isin",
+            "renaming": "Ex date",
             "allow_null": FALSE,
             "type_of": DATE,
             "model_of": NA,
             "decimals_of": NA,
             "range_of": NO_RANGE
         },
-        "isin_SOTTOSTANTE": {
+        "isin_sottostante": {
             "field_name": "cod_isin",
             "renaming": "ISIN",
             "allow_null": FALSE,
