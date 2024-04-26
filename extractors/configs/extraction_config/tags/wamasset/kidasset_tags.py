@@ -14,6 +14,8 @@ class InformazioniBase(BaseModel):
     indicatore_sintetico_rischio: int = Field(NF, description="Indicatore Sintetico di Rischio")
     periodo_detenzione_raccomandato: str = Field(NF, description="periodo di detenzione raccomandato in anni")
     date: str = Field(NF, description="data di realizzazione del documento (chiamata anche data di validità del KID")
+
+class PicPac(BaseModel):
     picpac: str = Field(NF, description="Indica se il prodotto è un PIC (Piano Individuale di Risparmio) o un PAC (Piano di Accumulo Capitale)",
                         enum=["PIC", "PAC", "N/A"]
                         )

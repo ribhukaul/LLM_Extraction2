@@ -219,8 +219,8 @@ extraction_configurations = {
                 'tag':{
                     'general_info': kidasset_tags.InformazioniBase,
                     'costi_ingresso': kidasset_tags.TabellaCostiIngressoDirttiFissi,
-                    'costi_gestione': kidasset_tags.TabellaCostiGestionePerformance
-
+                    'costi_gestione': kidasset_tags.TabellaCostiGestionePerformance,
+                    'picpac': kidasset_tags.PicPac
                 }}
 }}
 

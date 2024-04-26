@@ -74,6 +74,17 @@ class WamAssetKidFeesExtractor(KidExtractor):
 
         return extraction
     
+    def extract_picpac(self):
+        try:
+            extract_picpac_schema = self.extraction_config['tag'].get('picpac')
+            n = int(len(self.text[0])/3)
+            first_page = self.text[0][:n]
+            extraction = Models.tag(first_page, extract_picpac_schema, self.file_id)
+        except Exception as error:
+            print("extract picpac error" + repr(error))
+            extraction = {"picpac": "ERROR"}
+
+        return extraction
 
     def process(self):
         # first stage, basic info
@@ -81,11 +92,12 @@ class WamAssetKidFeesExtractor(KidExtractor):
             functions_parameters = {
                 "tables": {"function": self.get_tables},
                 "basic_information": {"function":self.extract_general_data},
+                "picpac" : {"function": self.extract_picpac},
             }
             result = self.threader(functions_parameters)
             table = result["tables"]
             basic_information = result["basic_information"]
-
+            picpac = result["picpac"]
         
         except Exception as error:
             print("first stage error" + repr(error))
@@ -113,6 +125,7 @@ class WamAssetKidFeesExtractor(KidExtractor):
                 **dict(basic_information),
                 **dict(cost),
                 **dict(gestione),
+                **dict(picpac),
                 "api_costs": api_costs,
             }
             # Format output
