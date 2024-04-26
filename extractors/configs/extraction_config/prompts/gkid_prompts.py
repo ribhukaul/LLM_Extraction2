@@ -4,6 +4,7 @@ general_info_gkid = """Dal documento seguente, estrai
             - valore indicatore sintetico di rischio massimo o migliore(a:)(il secondo)
             - Data di realizzazione del documento
             ----
+            L'indicatore sintetico di rischio è espresso come numero intero su una scala da 1 a 7.
             l'indicatore sintetico di rischio può essere indicato anche come 'classe di rischio'. 
             Indicalo senza il 'di 7' nel caso in cui sia presente 
             esempio se è '4 di 7' indicalo come '4'
