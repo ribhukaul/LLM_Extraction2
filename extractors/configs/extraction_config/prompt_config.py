@@ -5,10 +5,12 @@ from .prompts import general_prompts, kid_prompts, gkid_prompts
 from .prompts.wamderivati import complexity_prompt, bnpproduction_prompt, rettifichebi_prompt
 from .tags.wamderivati import rettifichebi_tags #bnpproduction_tags, 
 from .tags.waminsurance import waminsurance_tags#, cga
+from .tags.wamasset import kidasset_tags
 from .prompts.wasasset import wasasset_prompts
 # Word represenatiations
 from .word_representation import kid_wr, gkid_wr
 from .word_representation.wamderivati import derivatives_wr
+from .word_representation.wamasset import wakid_wr
 from .tags.wamderivati import complexity_tags, production_tags
 
 ###########
@@ -196,30 +198,24 @@ extraction_configurations = {
                     'costi_gestione': kid_wr.costi_gestione
                 },
                 'prompt':{
-                    
-
                 },
                 'tag':{
-                    'performance': production_tags.TabellaScenariPerformance,
-                    'costi_ingresso': kid_tags.TabellaCostiIngresso,
-                    'costi_gestione': kid_tags.TabellaCostiGestione
                 }
         },
         'kidasset':{
                 'word_representation':{
-                        'costi_ingresso': kid_wr.costi_ingresso,
-                        'costi_gestione': kid_wr.costi_gestione
+                        'costi_ingresso': wakid_wr.costi_ingresso,
+                        'costi_gestione': wakid_wr.costi_gestione
                 },
                 'prompt':{
-                    'general_info': kid_prompts.general_info,
+                    'general_info': wasasset_prompts.general_info,
                     'costi_ingresso': wasasset_prompts.costi_ingresso_diritti_fissi,
                     'costi_gestione': wasasset_prompts.costi_gestione_performance,
-
                 },
                 'tag':{
-                    'general_info': kid_tags.InformazioniBase,
-                    'costi_ingresso': kid_tags.TabellaCostiIngressoDirttiFissi,
-                    'costi_gestione': kid_tags.TabellaCostiGestionePerformance
+                    'general_info': kidasset_tags.InformazioniBase,
+                    'costi_ingresso': kidasset_tags.TabellaCostiIngressoDirttiFissi,
+                    'costi_gestione': kidasset_tags.TabellaCostiGestionePerformance
 
                 }}
 }}

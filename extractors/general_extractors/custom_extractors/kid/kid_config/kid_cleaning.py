@@ -127,6 +127,18 @@ regex_cleaning = {
             "commissione_transazione": REGEX_NUMBERS_COMMA,
             "commissione_performance": REGEX_NUMBERS_COMMA,
         },
+        "costi_ingresso_wamasset": {
+            "costi_ingresso": REGEX_NUMBERS_COMMA,
+            "costingresso_dirittifissi": REGEX_NUMBERS_COMMA,
+            "costi_uscita": REGEX_NUMBERS_COMMA,
+            "costiuscita_dirittifissi": REGEX_NUMBERS_COMMA,
+        },
+        "costi_gestione_wamasset": {
+            'commissione_gestione': REGEX_NUMBERS_COMMA,
+            'commissione_transazione': REGEX_NUMBERS_COMMA,
+            'descrizione_performance': ANY,
+            'commissione_performance': REGEX_NUMBERS_COMMA,
+        },
         "rhp": {
             "rhp": "\d+",
         },

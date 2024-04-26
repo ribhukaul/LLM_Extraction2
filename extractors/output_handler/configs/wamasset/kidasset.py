@@ -23,6 +23,33 @@ NO_RANGE = []
 
 kidasset = {
     "fields":{
+        "isin": {
+            "field_name": "cod_isin",
+            "renaming": "ISIN",
+            "allow_null": FALSE,
+            "type_of": STRING,
+            "model_of": NA,
+            "decimals_of": NA,
+            "range_of": ISIN_RANGE
+        },
+        'date': {
+            "field_name": "cod_date",
+            "renaming": "Data di validità",
+            "allow_null": FALSE,
+            "type_of": DATE,
+            "model_of": NA,
+            "decimals_of": NA,
+            "range_of": DATE_RANGE
+        },
+        "picpac": {
+            "field_name": "cod_picpac",
+            "renaming": "PIC o PAC",
+            "allow_null": FALSE,
+            "type_of": STRING,
+            "model_of": NA,
+            "decimals_of": NA,
+            "range_of": CAPS
+        },
         "periodo_detenzione_raccomandato": {
             "field_name": "cod_rhp",
             "renaming": "RHP (anni)",
@@ -117,7 +144,7 @@ kidasset = {
     "sections":{
         "section0": {
             "name": "Informazioni Generali",
-            "list": [ "cod_sri", "cod_rhp"]
+            "list": ["cod_isin", "cod_date", "cod_picpac", "cod_sri", "cod_rhp"]
         },
         "Costi": {
             "name": "Costi",
