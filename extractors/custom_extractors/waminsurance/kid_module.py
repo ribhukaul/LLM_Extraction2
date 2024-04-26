@@ -84,7 +84,7 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
                 "costs": {"function":self.extract_entryexit_costs, "args":{"table":tables["costi_ingresso"]}},
                 "management_costs": {"function":self.extract_management_costs, "args": {"table":tables["costi_gestione"]}},
                 "performance": {"function":self.extract_performances, "args":{"table":tables["performance"]}},
-                "sottostante": {"function": self.sottostante_extractor, "args":{"isin":isin}}
+                #"sottostante": {"function": self.sottostante_extractor, "args":{"isin":isin}}
                
                 }
            
@@ -94,7 +94,7 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
             exit_entry_costs = results["costs"]
             management_costs = results["management_costs"]
             performance = results["performance"]   
-            sottostante = results["sottostante"]
+            #sottostante = results["sottostante"]
             
            
 
@@ -115,7 +115,7 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
                 **dict(exit_entry_costs),
                 **dict(management_costs),
                 **dict(target_market),
-                **sottostante,
+                #**sottostante,
                 "api_costs": api_costs,
             }
             # Format output
