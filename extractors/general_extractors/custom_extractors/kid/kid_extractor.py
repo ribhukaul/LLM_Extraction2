@@ -223,8 +223,8 @@ class KidExtractor(Extractor):
         except Exception as error:
             print("extract riy error" + repr(error))
             error_list = [k for k in riy_schema.schema()['properties'].keys()]
-            performance = {
-                key: (performance[key] if performance.get(key) is not None else "ERROR") for key in error_list
+            extraction_riy = {
+                key: "ERROR" for key in error_list
             }
     
         return extraction_riy

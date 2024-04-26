@@ -1,7 +1,7 @@
 
 performance = ["moderato", "sfavorevole", "favorevole", "stress", "possibile rimborso al"]
 
-riy = ["costi totali", "riy"]
+riy = ["costi totali", "riy", 'impatto sul rendimento']
 
 riy_perc_gkid = ["costi totali", "riy"]
 
