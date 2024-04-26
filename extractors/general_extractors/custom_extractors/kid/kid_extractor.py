@@ -274,6 +274,7 @@ class KidExtractor(Extractor):
 
         try:
             entry_exity_schema = self.extraction_config['tag'].get('costi_ingresso')
+            table =  upload_df_as_excel(table)
             extraction = general_table_inspection(
                 table,
                 entry_exity_schema,
@@ -296,6 +297,7 @@ class KidExtractor(Extractor):
         try:
             extraction = dict()
             management_costs_schema = self.extraction_config['tag'].get('costi_gestione')
+            table =  upload_df_as_excel(table)
             extraction = general_table_inspection(
                 table,
                 management_costs_schema,

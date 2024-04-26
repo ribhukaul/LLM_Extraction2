@@ -99,7 +99,8 @@ class Extractor:
             else:
                 tables = self.di_tables_pages[page]
                 raw_data = self.raw_data_pages[page]
-
+            if tables is None:
+                return None, None
             # Select the right table
             table_nr = select_desired_table(tables, keywords)
             return tables[int(table_nr)], raw_data
