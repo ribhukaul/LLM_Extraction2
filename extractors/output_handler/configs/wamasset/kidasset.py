@@ -48,7 +48,7 @@ kidasset = {
             "type_of": STRING,
             "model_of": NA,
             "decimals_of": NA,
-            "range_of": CAPS
+            "range_of": NO_RANGE
         },
         "periodo_detenzione_raccomandato": {
             "field_name": "cod_rhp",
@@ -70,7 +70,7 @@ kidasset = {
             },
         "costi_ingresso": {
             "field_name": "cod_costi_ingresso",
-            "renaming": "Costi ingresso",
+            "renaming": "Costi ingresso (%)",
             "allow_null": TRUE,
             "type_of": FLOAT,
             "model_of": PERCENT,
@@ -79,7 +79,7 @@ kidasset = {
             },
         "costingresso_dirittifissi": {
             "field_name": "cod_costingresso_dirittifissi",
-            "renaming": "Costi di ingresso diritti fissi",
+            "renaming": "Costi di ingresso diritti fissi (€)",
             "allow_null": TRUE,
             "type_of": FLOAT,
             "model_of": EURO,
@@ -88,7 +88,7 @@ kidasset = {
             },
         "costi_uscita": {
             "field_name": "cod_costi_uscita",
-            "renaming": "Costi uscita",
+            "renaming": "Costi uscita (%)",
             "allow_null": TRUE,
             "type_of": FLOAT,
             "model_of": PERCENT,
@@ -97,7 +97,7 @@ kidasset = {
             },
         "costiuscita_dirittifissi": {
             "field_name": "cod_costiuscita_dirittifissi",
-            "renaming": "Costi di uscita diritti fissi",
+            "renaming": "Costi di uscita diritti fissi (€)",
             "allow_null": TRUE,
             "type_of": FLOAT,
             "model_of": EURO,
@@ -105,7 +105,7 @@ kidasset = {
             "range_of": NO_RANGE        
             },
         "commissione_gestione": {
-            "field_name": "cod_commissioni_di_gestione",
+            "field_name": "cod_commissioni_di_gestione (%)",
             "renaming": "Costi correnti",
             "allow_null": FALSE,
             "type_of": FLOAT,
@@ -115,7 +115,7 @@ kidasset = {
             },
         "commissione_transazione": {
             "field_name": "cod_costi_di_transazione",
-            "renaming": "Costi di transazione",
+            "renaming": "Costi di transazione (%)",
             "allow_null": FALSE,
             "type_of": FLOAT,
             "model_of": PERCENT,
@@ -124,7 +124,7 @@ kidasset = {
             },
         "descrizione_performance": {
             "field_name": "cod_descrizione_performance",
-            "renaming": "Commissioni di performance ",
+            "renaming": "Commissioni di performance",
             "allow_null": FALSE,
             "type_of": STRING,
             "model_of": NA,
@@ -133,7 +133,7 @@ kidasset = {
             },
         "commissione_performance": {
             "field_name": "cod_commissioni_di_performance",
-            "renaming": "Commissioni di performance",
+            "renaming": "Commissioni di performance (€)",
             "allow_null": TRUE,
             "type_of": FLOAT,
             "model_of": EURO,

@@ -36,7 +36,7 @@ def analyze_general_documents(
 
     # create your `DocumentIntelligenceClient` instance and `AzureKeyCredential` variable
     document_analysis_client = DocumentIntelligenceClient(
-        endpoint=endpoint, credential=AzureKeyCredential(key), api_version='2023-10-31-preview',#api_version
+        endpoint=endpoint, credential=AzureKeyCredential(key), api_version='2023-10-31-preview'#api_version
     )
     #document_analysis_client = DocumentAnalysisClient(endpoint, AzureKeyCredential(key), api_version=api_version)
     features_chosen = ["ocrHighResolution"]
@@ -55,6 +55,7 @@ def analyze_general_documents(
             features=features_chosen,
             query_fields=query_list,
             pages=specific_pages,
+            #output_content_format='markdown'
         )
         result = poller.result()
     return result
