@@ -161,7 +161,7 @@ def tag_only(pages, type, language, file_id, rhp="multiple"):
     return extraction
 
 
-def llm_extraction_and_tag(pages, prompt, schema, file_id, specific_page=None):
+def llm_extraction_and_tag(pages, prompt, schema, file_id, specific_page=None, force_model=""):
     """
     extracts information from pages using a language model and tags it using a schema
     creates prompt and schema based on language and type
@@ -189,6 +189,9 @@ def llm_extraction_and_tag(pages, prompt, schema, file_id, specific_page=None):
         model = "gpt-3.5-turbo-16k"
     else:
         model = "gpt-3.5-turbo"
+    
+    if force_model != "":
+        model = force_model
     # Construct chain and extract relevan info
     extraction = Models.extract(file_id, model, prompt, pages)
 
