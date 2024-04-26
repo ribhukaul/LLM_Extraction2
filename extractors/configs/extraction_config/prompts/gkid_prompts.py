@@ -4,7 +4,9 @@ general_info_gkid = """Dal documento seguente, estrai
             - valore indicatore sintetico di rischio massimo o migliore(a:)(il secondo)
             - Data di realizzazione del documento
             ----
-            l'indicatore sintetico di rischio può essere indicato anche come 'classe di rischio'
+            l'indicatore sintetico di rischio può essere indicato anche come 'classe di rischio'. 
+            Indicalo senza il 'di 7' nel caso in cui sia presente 
+            esempio se è '4 di 7' indicalo come '4'
             ----
             DOCUMENTO:
             {context}"""
