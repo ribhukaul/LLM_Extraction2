@@ -1,8 +1,11 @@
 general_info_gkid = """Dal documento seguente, estrai
             - Periodo di detenzione raccomandato 
-            - indicatore sintetico di rischio minimo o peggiore(da:)(il primo)
-            - indicatore sintetico di rischio massimo o migliore(a:)(il secondo)
+            - valore indicatore sintetico di rischio minimo o peggiore(da:)(il primo)
+            - valore indicatore sintetico di rischio massimo o migliore(a:)(il secondo)
             - Data di realizzazione del documento
+            ----
+            l'indicatore sintetico di rischio può essere indicato anche come 'classe di rischio'
+            ----
             DOCUMENTO:
             {context}"""
 

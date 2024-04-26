@@ -216,9 +216,14 @@ class KidExtractor(Extractor):
                 
                 total_prompt = riy_prompt.format(rhp, page.page_content)
                 extraction_riy = Models.tag(total_prompt, riy_schema, self.file_id)
-
+            extraction_riy = dict(extraction_riy)
+            for key in extraction_riy:
+                # Check if the value is a float
+                if isinstance(extraction_riy[key], float):
+                    extraction_riy[key] = str(extraction_riy[key]).replace('.', ',')
             # Clean response
             extraction_riy = clean_response_regex("riy", self.language, extraction_riy)
+
             
         except Exception as error:
             print("extract riy error" + repr(error))
@@ -322,35 +327,45 @@ class KidExtractor(Extractor):
         Returns:
             dict(): dict containing the performances
         """
-        performance = dict()
+        performance_res = dict()
         try:
+
+            rhp = int(self.rhp)
+            performance_prompt = self.extraction_config['prompt'].get('performance')
             performance_schema = self.extraction_config['tag'].get('performance')
-            performance = complex_table_inspection(
-                    table,
-                    self.rhp,
-                    performance_schema,
-                    self.file_id,
-                    direct_tag=True
-                )
+
+            table = table[~table.iloc[:, 0].str.contains('caso vita', case=False, na=False)]
+            table = table[~table.iloc[:, 0].str.contains('importo investito nel tempo', case=False, na=False)]
+            table = table.reset_index(drop=True)
+            # Fill row names where empty
+            table = self.__adjust_performance_table(table, 'stress')
+            table = self.__adjust_performance_table(table, 'sfavorevole')
+            table = self.__adjust_performance_table(table, 'moderato')
+            table = self.__adjust_performance_table(table, 'favorevole')
+            table_upload = upload_df_as_excel(table)
+                    
+            adapt_extraction = performance_prompt.format(rhp=rhp, context=table_upload)
+                    # Tagging
+            performance_res = Models.tag(adapt_extraction, performance_schema, self.file_id)
             
-            performance = dict(performance)
+            performance_res = dict(performance_res)
             morte = {
-                "scenario_morte_1": performance.get("scenario_morte_1"),
-                "scenario_morte_rhp": performance.get("scenario_morte_rhp")
+                "scenario_morte_1": performance_res.get("scenario_morte_1"),
+                "scenario_morte_rhp": performance_res.get("scenario_morte_rhp")
                 }
        
-            performance = clean_response_regex("performance", self.language, performance)
+            performance_res = clean_response_regex("performance", self.language, performance_res)
             morte = clean_response_regex("performance_morte", self.language, morte)
-            performance["scenario_morte_1"] = morte.get("scenario_morte_1")
-            performance["scenario_morte_rhp"] = morte.get("scenario_morte_rhp")
+            performance_res["scenario_morte_1"] = morte.get("scenario_morte_1")
+            performance_res["scenario_morte_rhp"] = morte.get("scenario_morte_rhp")
         except Exception as error:
             print("extract performances error" + repr(error))
             error_list = [k for k in performance_schema.schema()['properties'].keys()]
-            performance = {
-                key: (performance[key] if performance.get(key) is not None else "ERROR") for key in error_list
+            performance_res = {
+                key: (performance_res[key] if performance_res.get(key) is not None else "ERROR") for key in error_list
             }
 
-        return performance
+        return performance_res
 
     def extract_performances_abs(self, table, rhp):
         """extracts performances from scenarios in the document

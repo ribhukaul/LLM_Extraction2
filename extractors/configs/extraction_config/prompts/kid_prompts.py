@@ -41,6 +41,13 @@ performancerhp = """Considerando la seguente tabella,estrai il rendimento percen
 
             TABELLA:
                 {context}?"""
+performance = """Considera che escludendo la riga dello scenario minimo. I primi valori in % riguardano lo scenario di stress, poi sfavorevole
+                moderato ed infine favorevole. I valori in riferimento a uno scenario sono espressi prima in euro e poi in percentuale(queste informazioni ti possono servire nel caso in cui
+                le colonne di riferimento per capire di che scenario si tratti, sono formattate male).
+                ####
+                RHP={rhp}
+                ####
+                DOCUMENT={context}"""
 
 performance_rhp_2 = """I primi valori in euro riguardano lo scenario di stress, poi sfavorevole moderato ed infine favorevole.
                     I valori in riferimento a uno scenario sono espressi prima in euro e poi in percentuale(queste informazioni ti possono servire nel caso in cui

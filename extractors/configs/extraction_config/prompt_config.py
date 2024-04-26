@@ -64,6 +64,7 @@ extraction_configurations = {
             'word_representation':{
             },
             'prompt':{
+                'performance': kid_prompts.performance,
             },
             'tag':{
                 'performance_abs': kid_tags.ScenariPerformanceAbsoluteEuro,
