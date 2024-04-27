@@ -53,7 +53,7 @@ class GKidExtractor(KidExtractor):
             # extract and clean
             general_gkid_prompt = self.extraction_config["prompt"]["general_info"]
             general_gkid_tag = self.extraction_config["tag"]["general_info"]
-            extraction = llm_extraction_and_tag(self.text, general_gkid_prompt, general_gkid_tag, self.file_id)
+            extraction = llm_extraction_and_tag(self.text, general_gkid_prompt, general_gkid_tag, self.file_id, force_model='gpt-4-turbo')
             #extraction = clean_response_regex("general_info_gkid", self.language, extraction)
             extraction = dict(extraction)
             if extraction["periodo_detenzione_raccomandato"] != []:
