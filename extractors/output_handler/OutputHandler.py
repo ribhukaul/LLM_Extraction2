@@ -154,7 +154,7 @@ class OutputHandler:
         self.complete_output['extraction_cost'] = {
             # Temporary hard-coded values
             "total": '-',
-            "currency": "EUR",
+            "currency": "",
             "models": api_cost
         }
         self.complete_output['sections'] = self.fields_config["sections"]
