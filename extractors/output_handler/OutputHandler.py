@@ -152,7 +152,8 @@ class OutputHandler:
             del api_cost["total"]
                 
         self.complete_output['extraction_cost'] = {
-            "total": total,
+            # Temporary hard-coded values
+            "total": '-',
             "currency": "EUR",
             "models": api_cost
         }
