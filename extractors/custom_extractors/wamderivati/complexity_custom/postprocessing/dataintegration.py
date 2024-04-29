@@ -42,7 +42,7 @@ def df_dataintegration(df_old):
         else:
             return 0
 
-    df_new['ProtezioneCondizionataPerc'] = df_new.apply(calculate_protezione_condizionata, axis=1)
+    #df_new['ProtezioneCondizionataPerc'] = df_new.apply(calculate_protezione_condizionata, axis=1)
 
     df_new['BarrieraProtezionePerc'] = df_old['BarrieraProtezionePerc'].apply(lambda x: x if x is not None and x != 'Not specified in the document' and x != 'None' else df_old['PrezzoEsercizio'].values[0] if df_old['PrezzoEsercizio'].values[0] is not None else None)
     df_new['TipoBarrieraProtezione'] = df_old['TipoBarrieraProtezione']
@@ -147,7 +147,7 @@ def df_dataintegration(df_old):
     df_new.replace('Not specified in the document', 'NULL', inplace=True)
 
     # Lista delle colonne da pulire dagli spazi
-    columns_to_strip = ['Isin', 'ValoreNominale', 'GaranziaMinimaPerc', 'ProtezioneCondizionataPerc',
+    columns_to_strip = ['Isin', 'ValoreNominale', 'GaranziaMinimaPerc', #'ProtezioneCondizionataPerc',
                         'BarrieraProtezionePerc', 'Strike', 'LevaPercCapitale', 'LevaPercCedolare',
                         'CedolaGarantitaPerc', 'CedolaCondizionataPerc', 'BarrieraCedolaCondizionataPerc',
                         'CedolaFloorPerc', 'CedolaCapPerc']
