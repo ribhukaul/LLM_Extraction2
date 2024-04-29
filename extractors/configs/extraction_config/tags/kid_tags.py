@@ -30,9 +30,6 @@ class InformazioniPremio(BaseModel):
     date: str = Field(NF, description="data di realizzazione del documento")
     premio: int = Field(NF,description="Esempio di Investimento")
 
-class SottostanteInfo(BaseModel):
-    nome_sottostante: str = Field(NF, description="Nome proprio della denominazione della gestione")
-    tipo_gestione: str = Field(NF,description="Tipo di gestione")
 
 # Tabella scenati di performance in % + caso morte (1year e RHP)
 class TabellaScenariPerformance(BaseModel):

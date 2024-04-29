@@ -24,7 +24,7 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
             else:
                 sottostante_prompt = self.extraction_config['prompt']["sottostante"]
                 sottostante_schema = self.extraction_config['tag']["sottostante"]
-                sottostante = dict(llm_extraction_and_tag(self.text, sottostante_prompt,sottostante_schema, self.file_id,0))
+                sottostante = dict(llm_extraction_and_tag(self.text, sottostante_prompt,sottostante_schema, self.file_id,0,force_model="gpt-4-turbo"))
             
             if sottostante.get('nome_sottostante')=='not found':
                 pattern = r"Gestione Separata\s*['\"]?([A-Z][\w\s]*)['\"]?"
@@ -84,7 +84,7 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
                 "costs": {"function":self.extract_entryexit_costs, "args":{"table":tables["costi_ingresso"]}},
                 "management_costs": {"function":self.extract_management_costs, "args": {"table":tables["costi_gestione"]}},
                 "performance": {"function":self.extract_performances, "args":{"table":tables["performance"]}},
-                #"sottostante": {"function": self.sottostante_extractor, "args":{"isin":isin}}
+                "sottostante": {"function": self.sottostante_extractor, "args":{"isin":isin}}
                
                 }
            
@@ -94,7 +94,7 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
             exit_entry_costs = results["costs"]
             management_costs = results["management_costs"]
             performance = results["performance"]   
-            #sottostante = results["sottostante"]
+            sottostante = results["sottostante"]
             
            
 
@@ -115,7 +115,7 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
                 **dict(exit_entry_costs),
                 **dict(management_costs),
                 **dict(target_market),
-                #**sottostante,
+                **sottostante,
                 "api_costs": api_costs,
             }
             # Format output
@@ -130,5 +130,5 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
         #print(dict(underlying))
         Models.clear_resources_file(filename)
 
-        return formatted_output
+        return formatted_output 
 
