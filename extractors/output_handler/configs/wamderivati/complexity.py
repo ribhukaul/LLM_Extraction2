@@ -25,7 +25,7 @@ NO_RANGE = []
 complexity = {
     "fields": {
         "isin": {
-            "field_name": "cod_1isin",
+            "field_name": "cod_100isin",
             "renaming": "Isin",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -34,7 +34,7 @@ complexity = {
             "range_of": NO_RANGE
         },
         "descrizione": {
-            "field_name": "cod_2descrizione",
+            "field_name": "cod_101descrizione",
             "renaming": "Descrizione",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -43,7 +43,7 @@ complexity = {
             "range_of": NO_RANGE
         },
         "tipotitolo": {
-            "field_name": "cod_3tipotitolo",
+            "field_name": "cod_102tipotitolo",
             "renaming": "TipoTitolo",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -52,7 +52,7 @@ complexity = {
             "range_of": NO_RANGE
         },
         "emittente": {
-            "field_name": "cod_4emittente",
+            "field_name": "cod_103emittente",
             "renaming": "Emittente",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -70,7 +70,7 @@ complexity = {
         #     "range_of": NO_RANGE
         # },
         "divisa": {
-            "field_name": "cod_5divisa",
+            "field_name": "cod_104divisa",
             "renaming": "Divisa",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -79,7 +79,7 @@ complexity = {
             "range_of": NO_RANGE
         },
         "mercato": {
-            "field_name": "cod_6mercato",
+            "field_name": "cod_105mercato",
             "renaming": "Mercato",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -97,7 +97,7 @@ complexity = {
         #     "range_of": NO_RANGE
         # },
         "valorenominale": {
-            "field_name": "cod_7valorenominale",
+            "field_name": "cod_106valorenominale",
             "renaming": "ValoreNominale",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -106,7 +106,7 @@ complexity = {
             "range_of": NO_RANGE
         },
         "garanziaminimaperc": {
-            "field_name": "cod_8garanziaminimaperc",
+            "field_name": "cod_107garanziaminimaperc",
             "renaming": "GaranziaMinimaPerc",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -124,7 +124,7 @@ complexity = {
         #     "range_of": NO_RANGE
         # },
         "protezionecondizionataperc": {
-            "field_name": "cod_9protezionecondizionataperc",
+            "field_name": "cod_108protezionecondizionataperc",
             "renaming": "ProtezioneCondizionataPerc",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -133,7 +133,7 @@ complexity = {
             "range_of": NO_RANGE
         },
         "barrieraprotezioneperc": {
-            "field_name": "cod_10barrieraprotezioneperc",
+            "field_name": "cod_109barrieraprotezioneperc",
             "renaming": "BarrieraProtezionePerc",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -142,7 +142,7 @@ complexity = {
             "range_of": NO_RANGE
         },
         "tipobarrieraprotezione": {
-            "field_name": "cod_11tipobarrieraprotezione",
+            "field_name": "cod_110tipobarrieraprotezione",
             "renaming": "TipoBarrieraProtezione",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -187,7 +187,7 @@ complexity = {
         #     "range_of": NO_RANGE
         # },
         "cedolagarantitaperc": {
-            "field_name": "cod_12cedolagarantitaperc",
+            "field_name": "cod_111cedolagarantitaperc",
             "renaming": "CedolaGarantitaPerc",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -196,7 +196,7 @@ complexity = {
             "range_of": NO_RANGE
         },
         "cedolacondizionataperc": {
-            "field_name": "cod_12cedolacondizionataperc",
+            "field_name": "cod_112cedolacondizionataperc",
             "renaming": "CedolaCondizionata",  #abbiamo cambiato il nome da CedolaCondizionataPerc a CedolaCondizionata
             "allow_null": FALSE,
             "type_of": STRING,
@@ -205,7 +205,7 @@ complexity = {
             "range_of": NO_RANGE
         },
         "barrieracedolacondizionataperc": {
-            "field_name": "cod_14barrieracedolacondizionataperc",
+            "field_name": "cod_113barrieracedolacondizionataperc",
             "renaming": "BarrieraCedolaCondizionataPerc",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -214,7 +214,7 @@ complexity = {
             "range_of": NO_RANGE
         },
         "memorycoupon": {
-            "field_name": "cod_15memorycoupon",
+            "field_name": "cod_114memorycoupon",
             "renaming": "MemoryCoupon",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -349,7 +349,7 @@ complexity = {
         #     "range_of": NO_RANGE
         # },
         "posizionelongshortsusottostante": {
-            "field_name": "cod_16posizionelongshortsusottostante",
+            "field_name": "cod_115posizionelongshortsusottostante",
             "renaming": "PosizioneLongShortSuSottostante",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -358,7 +358,7 @@ complexity = {
             "range_of": NO_RANGE
         },
         "strategialongshort": {
-            "field_name": "cod_17strategialongshort",
+            "field_name": "cod_116strategialongshort",
             "renaming": "StrategiaLongShort",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -385,7 +385,7 @@ complexity = {
         #     "range_of": NO_RANGE
         # },
         "tiporilevazione": {
-            "field_name": "cod_18tiporilevazione",
+            "field_name": "cod_117tiporilevazione",
             "renaming": "TipoRilevazione",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -403,7 +403,7 @@ complexity = {
         #     "range_of": NO_RANGE
         # },
         "dataemissione": {
-            "field_name": "cod_19dataemissione",
+            "field_name": "cod_118dataemissione",
             "renaming": "DataEmissione",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -412,7 +412,7 @@ complexity = {
             "range_of": NO_RANGE
         },
         "datascadenza": {
-            "field_name": "cod_20datascadenza",
+            "field_name": "cod_119datascadenza",
             "renaming": "DataScadenza",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -421,7 +421,7 @@ complexity = {
             "range_of": NO_RANGE
         },
         "automaticearlyredemption": {
-            "field_name": "cod_21automaticearlyredemption",
+            "field_name": "cod_120automaticearlyredemption",
             "renaming": "AutomaticEarlyRedemption",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -466,7 +466,7 @@ complexity = {
         #     "range_of": NO_RANGE
         # },
         "bailin": {
-            "field_name": "cod_22bailin",
+            "field_name": "cod_121bailin",
             "renaming": "BailIn",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -596,25 +596,24 @@ complexity = {
     {
         "section0": {
             "name": "Informazioni di base",
-            "list": ['cod_1isin', 'cod_2descrizione', 'cod_3tipotitolo', 'cod_4emittente', 
+            "list": ['cod_100isin', 'cod_101descrizione', 'cod_102ipotitolo', 'cod_103emittente', 
                     #  'cod_idemittente',
-                        'cod_5divisa', 'cod_6mercato',
+                        'cod_104divisa', 'cod_105mercato',
                     #  'cod_quotato',
-                        'cod_7valorenominale', 'cod_8garanziaminimaperc',
+                        'cod_106valorenominale', 'cod_107garanziaminimaperc',
                     #  'cod_garantito',
-                        'cod_9protezionecondizionataperc', 'cod_10barrieraprotezioneperc', 'cod_11tipobarrieraprotezione',
+                        'cod_108protezionecondizionataperc', 'cod_109barrieraprotezioneperc', 'cod_110tipobarrieraprotezione',
                     #  'cod_levacapitale', 'cod_levaperccapitale', 'cod_levacedolare', 'cod_levaperccedolare',
-                        'cod_12cedolagarantitaperc', 'cod_12cedolacondizionataperc', 'cod_14barrieracedolacondizionataperc', 'cod_15memorycoupon',
+                        'cod_111cedolagarantitaperc', 'cod_112cedolacondizionataperc', 'cod_113barrieracedolacondizionataperc',
                     #  'cod_cedolacapperc', 'cod_codicesottostante', 'cod_nomesottostante', 'cod_divisasottostante', 'cod_tiposottostante',
                     #  'cod_sottostantebasket', 'cod_numerosottostanti', 'cod_tipocalcolobasketperf', 'cod_sottostanteopaco',
-                        'cod_16posizionelongshortsusottostante', 'cod_17strategialongshort',
+                        'cod_115posizionelongshortsusottostante', 'cod_116strategialongshort',
                      #  'cod_isquanto', 'cod_pathdependent',
-                        'cod_18tiporilevazione',
+                        'cod_117tiporilevazione',
                     #  'cod_finecollocamento',
-                        'cod_19dataemissione', 'cod_20datascadenza', 'cod_21automaticearlyredemption',
+                        'cod_118dataemissione', 'cod_119datascadenza', 'cod_120automaticearlyredemption',
                     #  'cod_tipopayoff', 'cod_datainserimento', 'cod_classeeusipa', 'cod_tipo_idemittente',
-                        'cod_22bailin',
-       
+                        'cod_121bailin',       
                     #  'cod_rankingbailin', 
                     #  'cod_strike', 'cod_cedolafloorperc', 'cod_openend', 'cod_callable', 'cod_putable', 'cod_creditlinked', 'cod_decodifica', 
                     #  'cod_retail', 'cod_defaulted', 'cod_note', 'cod_fare', 'cod_farebailin'
