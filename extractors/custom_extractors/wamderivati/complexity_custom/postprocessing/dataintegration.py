@@ -18,7 +18,8 @@ def df_dataintegration(df_old):
         else:
             return None, None
 
-    df_new['Emittente'], df_new['IdEmittente'] = zip(*df_old.apply(map_emittente, axis=1))
+    df_new['Emittente'] = 'UniCredit - SPA' if df_new['Isin'].values[0].lower().startswith('i') else 'Unicredit Bank - AG'
+    #, df_new['IdEmittente'] = zip(*df_old.apply(map_emittente, axis=1))
     df_new['Divisa'] = df_old['Divisa']
     df_new['Mercato'] = df_old['Mercato']
     df_new['Quotato'] = df_old['Mercato'].apply(lambda x: 1 if x != 'NON QUOTATO' else 0)
@@ -110,7 +111,7 @@ def df_dataintegration(df_old):
             return 'Continua'
         else:
             return None
-    df_new['TipoRilevazione'] = df_old.apply(map_TipoRilevazione, axis=1)
+    df_new['TipoRilevazione'] = 'Discreta'#df_old.apply(map_TipoRilevazione, axis=1)
     df_new['FineCollocamento'] = None
     df_new['DataEmissione'] = df_old['DataEmissione']
     df_new['DataScadenza'] = df_old['DataScadenza']
