@@ -127,9 +127,10 @@ class WamCGA(KidExtractor):
             is_premio_ricorrente = self.extraction_config['tag']['is_premio_ricorrente']
 
             recurrent_premium = Models.tag(prompt, is_premio_ricorrente, self.file_id)
+            recurrent_premium = 'true' if recurrent_premium.is_premio_ricorrente else 'false'
 
-        reults = {'unico': premio_unico.is_unico,
-                  'ricorrente': False if not is_rec else recurrent_premium.is_premio_ricorrente
+        reults = {'unico': 'true' if premio_unico.is_unico else 'false',
+                  'ricorrente': 'false' if not is_rec else recurrent_premium
                   }#'annuo': recurrent_premium.is_premio_annuo}
         
         return reults
