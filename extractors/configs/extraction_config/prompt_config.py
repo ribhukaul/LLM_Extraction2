@@ -4,7 +4,7 @@ from .tags import general_tags, kid_tags, gkid_tags
 from .prompts import general_prompts, kid_prompts, gkid_prompts
 from .prompts.wamderivati import complexity_prompt, bnpproduction_prompt, rettifichebi_prompt
 from .tags.wamderivati import rettifichebi_tags #bnpproduction_tags, 
-from .tags.waminsurance import waminsurance_tags#, cga
+from .tags.waminsurance import waminsurance_tags, cga
 from .tags.wamasset import kidasset_tags
 from .prompts.wasasset import wasasset_prompts
 # Word represenatiations
@@ -88,21 +88,21 @@ extraction_configurations = {
             'tag':{
             }
         },
-        # 'cga':{
-        #     'word_representation':{
-        #     },
-        #     'prompt':{
+        'cga':{
+            'word_representation':{
+            },
+            'prompt':{
 
-        #     },
-        #     'tag':{
-        #         'vita_intera': cga.IsVitaIntera,
-        #         'is_unico': cga.IsUnico,
-        #         'is_premio_ricorrente': cga.IsPremioRicorrente,
-        #         'durata': cga.Durata,
-        #         'premium_type': cga.PremiumType,
-        #         'premium_boundaries': cga.PremiumBoundaries
-        #     }
-        # },
+            },
+            'tag':{
+                'vita_intera': cga.IsVitaIntera,
+                'is_unico': cga.IsUnico,
+                'is_premio_ricorrente': cga.IsPremioRicorrente,
+                'durata': cga.Durata,
+                'premium_type': cga.PremiumType,
+                'premium_boundaries': cga.PremiumBoundaries
+            }
+        },
         'gkidgovernance':{
             'word_representation':{
                 'costi_ingresso': gkid_wr.costi_ingresso_gkid,
