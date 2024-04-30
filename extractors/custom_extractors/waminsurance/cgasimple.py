@@ -146,7 +146,7 @@ class WamCGA(KidExtractor):
         try:
             #self.get_doc_markdown()
 
-            self.text_azure = self.load_docs_from_jsonl(self.doc_path.replace('.pdf', '.json'))
+            #self.text_azure = self.load_docs_from_jsonl(self.doc_path.replace('.pdf', '.json'))
             vita_intera = self.get_vita_intera()#db_md)
 
             premium_type = self.get_premium_type()
