@@ -2,7 +2,7 @@ from extractors.custom_extractors.waminsurance.kid_governance import WamInsuranc
 from extractors.custom_extractors.waminsurance.kid_module import WamInsuranceKidModuleExtractor
 from extractors.custom_extractors.waminsurance.gkid_governance import WamInsuranceGKidGovernanceExtractor
 from extractors.custom_extractors.waminsurance.kid_credem import WamInsuranceKidCredemExtractor
-from extractors.custom_extractors.waminsurance.cga import WamInsuranceCGA
+from extractors.custom_extractors.waminsurance.cgasimple import WamCGA
 from extractors.custom_extractors.wamasset.kidtable import WamAssetKidFeesExtractor
 
 from extractors.custom_extractors.wamderivati.complexity import WamDerivatiComplexity
