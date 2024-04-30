@@ -16,7 +16,8 @@ custom_extractors = {
         'kidgovernance': WamInsuranceKidGovernanceExtractor,
         'gkidgovernance': WamInsuranceGKidGovernanceExtractor,
         'kidcredem': WamInsuranceKidCredemExtractor,
-        'kidmodule':  WamInsuranceKidModuleExtractor            
+        'kidmodule':  WamInsuranceKidModuleExtractor ,
+        'cga': WamCGA          
         },
     'wamderivati': {
         'complexity': WamDerivatiComplexity,
@@ -42,8 +43,7 @@ custom_extractors = {
         'certificatesrettificheborsait': WamDerivatiRettifiche,
         'kidcertificatesrisk': WamDerivatiComplexity,
         'kidasset': WamAssetKidFeesExtractor,
-
-        'cga': WamInsuranceCGA,
+        'cga': WamCGA,
     }
 }
 
