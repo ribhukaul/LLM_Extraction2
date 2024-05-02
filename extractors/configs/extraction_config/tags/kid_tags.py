@@ -24,11 +24,6 @@ class InformazioniBase(BaseModel):
     periodo_detenzione_raccomandato: str = Field(NF, description="periodo di detenzione raccomandato in anni")
     date: str = Field(NF, description="data di realizzazione del documento")
 
-class InformazioniPremio(BaseModel):
-    indicatore_sintetico_rischio: int = Field(NF, description="Indicatore Sintetico di Rischio")
-    periodo_detenzione_raccomandato: str = Field(NF, description="periodo di detenzione raccomandato in anni")
-    date: str = Field(NF, description="data di realizzazione del documento")
-    premio: int = Field(NF,description="Esempio di Investimento")
 
 
 # Tabella scenati di performance in % + caso morte (1year e RHP)

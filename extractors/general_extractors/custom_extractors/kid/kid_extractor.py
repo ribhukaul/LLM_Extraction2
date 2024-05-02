@@ -22,7 +22,7 @@ class KidExtractor(Extractor):
             dict([pandas.dataframe]): tables as dataframe
         """
         try:
-            #performance_table,_ = self._extract_table("performance")
+            performance_table,_ = self._extract_table("performance")
             costi_ingresso_table,_ = self._extract_table("costi_ingresso", black_list_pages=[0])
             costi_gestione_table,_ = self._extract_table("costi_gestione")
             #riy, _ = self._extract_table("riy", black_list_pages=[0])
@@ -38,7 +38,7 @@ class KidExtractor(Extractor):
             [
                 ("costi_ingresso", costi_ingresso_table),
                 ("costi_gestione", costi_gestione_table),
-                #("performance", performance_table),
+                ("performance", performance_table),
             ]
         )
 
@@ -347,23 +347,6 @@ class KidExtractor(Extractor):
         except Exception as e:
             print("Validation Failed:", e)
             return None
-
-# Estrai i dati usando le funzioni esistenti e valida ciascuno
-    def extract_and_validate_costs(self, table):
-        try:
-            raw_data = self.extract_middle_costs(table)
-            validated_data = self.validate_data_with_schema(dict(raw_data), PydanticSchema_costi_ingresso)
-            return validated_data
-        except Exception as error:
-                print("Error in cost extraction/validation:", repr(error))
-                return None
-
-
-
-
-
-
-
 
     # REVIEW: NEED TO UPLOAD TABLE AS DF
     def extract_management_costs(self, table):

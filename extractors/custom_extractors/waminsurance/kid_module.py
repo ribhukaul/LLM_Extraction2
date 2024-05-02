@@ -33,12 +33,7 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
                 if matches:
                     valid_name = matches[0].strip().strip('\'"')
                     sottostante['nome_sottostante'] = valid_name  # Captures the capital word after the keyword
-            if not sottostante.get('tipo_gestione'):
-                    if "Gestione Separata" in self.text:
-                        sottostante['tipo_gestione'] = "Gestione Separata"
-                    elif "Fondo Interno" in self.text:
-                        sottostante['tipo_gestione'] = "Fondo Interno"      
-        
+
         except Exception as error:
             print(f"Error extracting underlying asset info: {repr(error)}")
 
@@ -59,7 +54,7 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
       
             functions_parameters = {
                 "tables": {"function":self.get_tables}, 
-                "basic_information": {"function":self.extract_general_data, "args":{"general_info_type":"general_info_premio"}},
+                "basic_information": {"function":self.extract_general_data},
                 "target_market": {"function":self.extract_market},
                 "isin": {"function":self.extract_isin}
                 }
@@ -72,7 +67,6 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
 
             target_market = results["target_market"]
             isin = results["isin"]
-
 
         except Exception as error:
             print("first stage error" + repr(error))

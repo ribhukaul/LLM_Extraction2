@@ -308,7 +308,7 @@ table_schemas = {
         "general_info": InformazioniBase,
         "general_info_kid_governance": '',#InformazioniBaseKidGov,
         "is_product_complex": IsDisclaimerThere,
-        "underlying_info": ProductUnderlyingInfo,
+        #"underlying_info": ProductUnderlyingInfo,
         "performance": TabellaScenariPerformance,
         "performance_abs": ScenariPerformanceAbsoluteEuro,
         'performance_rhp_2': ScenariPerformanceRHP2,

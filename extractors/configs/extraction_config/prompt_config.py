@@ -4,10 +4,10 @@ from .tags import general_tags, kid_tags, gkid_tags
 from .prompts import general_prompts, kid_prompts, gkid_prompts
 from .prompts.wamderivati import complexity_prompt, bnpproduction_prompt, rettifichebi_prompt
 from .tags.wamderivati import rettifichebi_tags #bnpproduction_tags, 
-from .tags.waminsurance import waminsurance_tags ,kid_module_tags #, cga 
+from .tags.waminsurance import waminsurance_tags, kidmodule_tags #, cga 
 from .tags.wamasset import kidasset_tags
 from .prompts.wasasset import wasasset_prompts
-from .prompts.waminsurance import waminsurance_prompts
+from .prompts.waminsurance import kidmodule_prompt
 # Word represenatiations
 from .word_representation import kid_wr, gkid_wr
 from .word_representation.wamderivati import derivatives_wr
@@ -48,7 +48,6 @@ extraction_configurations = {
             },
             'tag':{
                 'general_info': kid_tags.InformazioniBase,
-                'general_info_premio': kid_tags.InformazioniPremio,
                 'is_complex': kid_tags.IsDisclaimerThere,
                 'performance': kid_tags.TabellaScenariPerformance,
                 'riy': kid_tags.TabellaRiy,
@@ -82,11 +81,12 @@ extraction_configurations = {
             'word_representation':{
             },
             'prompt':{
-                'general_info_premio': waminsurance_prompts.general_info,
-                'sottostante' : waminsurance_prompts.sottostante
+                'general_info': kidmodule_prompt.general_info,
+                'sottostante' : kidmodule_prompt.sottostante
             },
             'tag':{
-                'sottostante': kid_module_tags.SottostanteInfo,
+                'general_info':kidmodule_tags.InformazioniPremio,
+                'sottostante':kidmodule_tags.SottostanteInfo,
             }
         },
         # 'cga':{
