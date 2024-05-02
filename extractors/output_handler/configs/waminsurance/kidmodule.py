@@ -33,7 +33,7 @@ kid = {
             "decimals_of": NA,
             "range_of": DATE_RANGE        
             },
-        "sottostante": {
+        "nome_sottostante": {
             "field_name": "cod_underlying_name",
             "renaming": "Sottostante",
             "allow_null": FALSE,
@@ -42,7 +42,7 @@ kid = {
             "decimals_of": NA,
             "range_of": NO_RANGE
             },
-        "tipo_sottostante": {
+        "tipo_gestione": {
             "field_name": "cod_underlying_type",
             "renaming": "Tipo Sottostante",
             "allow_null": FALSE,
@@ -51,7 +51,7 @@ kid = {
             "decimals_of": NA,
             "range_of": NO_RANGE
             },
-        "tipo_premio": {
+        "premio": {
             "field_name": "cod_premium_type",
             "renaming": "Tipo Premio",
             "allow_null": FALSE,

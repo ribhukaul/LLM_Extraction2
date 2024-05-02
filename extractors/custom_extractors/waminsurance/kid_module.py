@@ -3,9 +3,9 @@ import pandas as pd
 import re
 from extractors.models import Models
 from extractors.general_extractors.custom_extractors.kid.kid_extractor import KidExtractor
-from extractors.general_extractors.llm_functions import llm_extraction_and_tag, tag_only
+from extractors.general_extractors.llm_functions import llm_extraction_and_tag
 
-from extractors.general_extractors.config.prompt_config import prompts, table_schemas, word_representation
+
 class WamInsuranceKidModuleExtractor(KidExtractor):
 
     def __init__(self, doc_path) -> None:
@@ -38,8 +38,6 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
             print(f"Error extracting underlying asset info: {repr(error)}")
 
         return sottostante
-    
-
     
         
     def process(self):
@@ -79,7 +77,6 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
                 "management_costs": {"function":self.extract_management_costs, "args": {"table":tables["costi_gestione"]}},
                 "performance": {"function":self.extract_performances, "args":{"table":tables["performance"]}},
                 "sottostante": {"function": self.sottostante_extractor, "args":{"isin":isin}}
-               
                 }
            
             
@@ -90,12 +87,8 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
             performance = results["performance"]   
             sottostante = results["sottostante"]
             
-           
-
         except Exception as error:
-            print("second stage error" + repr(error))
-
-            
+            print("second stage error" + repr(error))            
 
         try:
             # REVIEW: what name do they need?
