@@ -1,4 +1,4 @@
-from .configs.waminsurance import gkidgovernance, kidcredem, kidmodule, kidgovernance
+from .configs.waminsurance import gkidgovernance, kidcredem, kidmodule, kidgovernance, cga
 from .configs.wamderivati import complexity, bnp, rettifichebi
 from .configs.wamasset import kidasset
 from .configs.wambond import bloombergss
@@ -103,6 +103,7 @@ class OutputHandler:
             "kidcredem": kidcredem.kidcredem,
             "kidmodule": kidmodule.kid,
             "gkidgovernance": gkidgovernance.gkid,
+            "cga": cga.cga
             },
         "wamderivati": {
             "complexity": complexity.complexity,
