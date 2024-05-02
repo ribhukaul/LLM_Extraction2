@@ -24,8 +24,6 @@ class InformazioniBase(BaseModel):
     periodo_detenzione_raccomandato: str = Field(NF, description="periodo di detenzione raccomandato in anni")
     date: str = Field(NF, description="data di realizzazione del documento")
 
-
-
 # Tabella scenati di performance in % + caso morte (1year e RHP)
 class TabellaScenariPerformance(BaseModel):
     stress_return: str = Field(NF, description="Rendimento percetuale(%) o '-' 1 anno scenario di stress")
@@ -118,53 +116,15 @@ class TabellaRiyRHP2(BaseModel):
     )
     costi_totali_eur_rhp: float = Field(NF, description="Costi totali dopo RHP anni in EURO €")
 
-
-#Costo una tantum di ingresso
-
-class TabellaCostiIngresso(BaseModel):
-    costi_ingresso: str = Field(
-        NF, description="valore in PERCENTUALE% (nella prima colonna,può essere n/a)"
-    )
-    costingresso_dirittifissi: str =Field(
-          NF, description="Diritti fissi d'uscita valore in EURO (è un valore unico)"
-      )
-    costi_uscita: str = Field(
-        NF, description="valore in PERCENTUALE% (nella  prima colonna,può essere n/a)"
-    )
-    costiuscita_dirittifissi: str = Field(
-          NF, description="Diritti fissi d'uscita valore in Euro (è un valore unico)"
-      )
-    
-
-class TabellaDirittiFissi(BaseModel):
-    costingresso_dirittifissi: str =Field(
-         NF, description="Diritti fissi d'uscita valore in EURO (è un valore unico)"
-     )
-    costiuscita_dirittifissi: str = Field(
-         NF, description="Diritti fissi d'uscita valore in Euro (è un valore unico)"
-     )
+class ProductUnderlyingInfo(BaseModel):
+    #premium_type: str = Field(NF, description="Tipo di premio, può essere 'unico iniziale' o 'premi ricorrenti'", enum=["unico iniziale", "premi ricorrenti"])
+    #underlyings: List[Sottostanti] = Field(NF, description="Lista di sottostanti in cui il prodotto investe")
+    is_gestione_separata: bool = Field(NF, description="True se l'opzione di investimento (non il prodotto) investe in gestione separata, False altrimenti")
+    is_fondo_interno: bool = Field(NF, description="True se l'opzione di investimento (non il prodotto) investe in fondo interno, False altrimenti")
+    # underlyng_type: str = Field(NF, description="Tipo di sottostante in cui il prodotto investe, combinazione se più di un tipo di sottostante", enum=["fondo interno","gestione separata", "combinazione"])
+    # underlyng_name: List[str] = Field(NF, description="Nome della/e opzione/i di investimento, sono massimo due.")#@validator("underlyings")
 
 
-
-
-class TabellaCostiGestione(BaseModel):
-    commissione_gestione: str = Field(NF, description="Commissioni di gestione in PERCENTUALE % (colonna a destra)")
-    commissione_transazione: str = Field(NF, description="Costi di transazione in PERCENTUALE % (colonna a destra)")
-    commissione_performance: str = Field(
-        NF, description="Commissioni di performance IN PERCENTUALE % (colonna a destra)"
-    )
-
-class TabellaCostiGestionepercentuale(BaseModel):
-    commissione_gestione: str = Field(NF, description="Commissioni di gestione in PERCENTUALE % (prima colonna)")
-    commissione_transazione: str = Field(NF, description="Costi di transazione in PERCENTUALE % (prima colonna, esiste sempre un valore)")
-    descrizione_performance: str = Field(NF,description= "tutta la scritta relativa alle commmissioni di performance(prima colonna)")
-    commissione_performance: str = Field(NF, description="Commissioni di performance IN EURO  (colonna a destra)")
-
-
-
-########
-# GKID #
-########
 
 
 

@@ -35,12 +35,9 @@ def analyze_general_documents(
     key = os.environ.get("AZURE_FORM_RECOGNIZER_KEY")
 
     # create your `DocumentIntelligenceClient` instance and `AzureKeyCredential` variable
-    # modofied on 11/04/2024 for API problem, uncomment #api_version to restore previous code 
     document_analysis_client = DocumentIntelligenceClient(
-        endpoint=endpoint, credential=AzureKeyCredential(key), api_version= '2023-10-31-preview',  #api_version
+        endpoint=endpoint, credential=AzureKeyCredential(key), api_version='2023-10-31-preview'#api_version
     )
-
-
     #document_analysis_client = DocumentAnalysisClient(endpoint, AzureKeyCredential(key), api_version=api_version)
     features_chosen = ["ocrHighResolution"]
     if query_list is not None:

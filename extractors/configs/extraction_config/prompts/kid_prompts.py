@@ -4,8 +4,6 @@ general_info = """Dal documento seguente, estrai
             - Data di realizzazione del documento
             DOCUMENTO:
             {context}"""
-
-
 is_product_complex = """Nel documento seguente è presente il disclaimer: 'State per acquistare un prodotto che non è semplice e può essere di difficile comprensione'?
             DOCUMENTO:{context}"""
 
