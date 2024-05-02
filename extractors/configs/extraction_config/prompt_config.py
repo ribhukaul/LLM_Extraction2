@@ -4,9 +4,12 @@ from .tags import general_tags, kid_tags, gkid_tags
 from .prompts import general_prompts, kid_prompts, gkid_prompts
 from .prompts.wamderivati import complexity_prompt, bnpproduction_prompt, rettifichebi_prompt
 from .tags.wamderivati import rettifichebi_tags #bnpproduction_tags, 
-from .tags.waminsurance import waminsurance_tags, cga
+
+from .tags.waminsurance import waminsurance_tags, cga, kidmodule_tags
+
 from .tags.wamasset import kidasset_tags
 from .prompts.wasasset import wasasset_prompts
+from .prompts.waminsurance import kidmodule_prompt
 # Word represenatiations
 from .word_representation import kid_wr, gkid_wr
 from .word_representation.wamderivati import derivatives_wr
@@ -37,8 +40,6 @@ extraction_configurations = {
             },
             'prompt':{
                 'general_info': kid_prompts.general_info,
-                'general_info_premio': kid_prompts.general_info_premio,
-                'sottostante' : kid_prompts.sottostante,
                 'performance': kid_prompts.performance1y,
                 'performance_abs': kid_prompts.performance_abs,
                 'performance_rhp_2': kid_prompts.performance_rhp_2,
@@ -49,8 +50,6 @@ extraction_configurations = {
             },
             'tag':{
                 'general_info': kid_tags.InformazioniBase,
-                'general_info_premio': kid_tags.InformazioniPremio,
-                'sottostante': kid_tags.SottostanteInfo,
                 'is_complex': kid_tags.IsDisclaimerThere,
                 'performance': kid_tags.TabellaScenariPerformance,
                 'riy': kid_tags.TabellaRiy,
@@ -84,8 +83,12 @@ extraction_configurations = {
             'word_representation':{
             },
             'prompt':{
+                'general_info': kidmodule_prompt.general_info,
+                'sottostante' : kidmodule_prompt.sottostante
             },
             'tag':{
+                'general_info':kidmodule_tags.InformazioniPremio,
+                'sottostante':kidmodule_tags.SottostanteInfo,
             }
         },
         'cga':{

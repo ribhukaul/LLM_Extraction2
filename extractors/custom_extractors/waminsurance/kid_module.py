@@ -24,7 +24,7 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
             else:
                 sottostante_prompt = self.extraction_config['prompt']["sottostante"]
                 sottostante_schema = self.extraction_config['tag']["sottostante"]
-                sottostante = dict(llm_extraction_and_tag(self.text, sottostante_prompt,sottostante_schema, self.file_id,0))
+                sottostante = dict(llm_extraction_and_tag(self.text, sottostante_prompt,sottostante_schema, self.file_id,0,force_model="gpt-4-turbo"))
             
             if sottostante.get('nome_sottostante')=='not found':
                 pattern = r"Gestione Separata\s*['\"]?([A-Z][\w\s]*)['\"]?"
@@ -33,12 +33,7 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
                 if matches:
                     valid_name = matches[0].strip().strip('\'"')
                     sottostante['nome_sottostante'] = valid_name  # Captures the capital word after the keyword
-            if not sottostante.get('tipo_gestione'):
-                    if "Gestione Separata" in self.text:
-                        sottostante['tipo_gestione'] = "Gestione Separata"
-                    elif "Fondo Interno" in self.text:
-                        sottostante['tipo_gestione'] = "Fondo Interno"      
-        
+
         except Exception as error:
             print(f"Error extracting underlying asset info: {repr(error)}")
 
@@ -59,7 +54,7 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
       
             functions_parameters = {
                 "tables": {"function":self.get_tables}, 
-                "basic_information": {"function":self.extract_general_data, "args":{"general_info_type":"general_info_premio"}},
+                "basic_information": {"function":self.extract_general_data},
                 "target_market": {"function":self.extract_market},
                 "isin": {"function":self.extract_isin}
                 }
@@ -73,7 +68,6 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
             target_market = results["target_market"]
             isin = results["isin"]
 
-
         except Exception as error:
             print("first stage error" + repr(error))
 
@@ -84,7 +78,7 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
                 "costs": {"function":self.extract_entryexit_costs, "args":{"table":tables["costi_ingresso"]}},
                 "management_costs": {"function":self.extract_management_costs, "args": {"table":tables["costi_gestione"]}},
                 "performance": {"function":self.extract_performances, "args":{"table":tables["performance"]}},
-                #"sottostante": {"function": self.sottostante_extractor, "args":{"isin":isin}}
+                "sottostante": {"function": self.sottostante_extractor, "args":{"isin":isin}}
                
                 }
            
@@ -94,7 +88,7 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
             exit_entry_costs = results["costs"]
             management_costs = results["management_costs"]
             performance = results["performance"]   
-            #sottostante = results["sottostante"]
+            sottostante = results["sottostante"]
             
            
 
@@ -115,7 +109,7 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
                 **dict(exit_entry_costs),
                 **dict(management_costs),
                 **dict(target_market),
-                #**sottostante,
+                **sottostante,
                 "api_costs": api_costs,
             }
             # Format output
@@ -130,5 +124,5 @@ class WamInsuranceKidModuleExtractor(KidExtractor):
         #print(dict(underlying))
         Models.clear_resources_file(filename)
 
-        return formatted_output
+        return formatted_output 
 
