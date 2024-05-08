@@ -105,8 +105,8 @@ kidasset = {
             "range_of": NO_RANGE        
             },
         "commissione_gestione": {
-            "field_name": "cod_commissioni_di_gestione (%)",
-            "renaming": "Costi correnti",
+            "field_name": "cod_commissioni_di_gestione",
+            "renaming": "Costi correnti (%)",
             "allow_null": FALSE,
             "type_of": FLOAT,
             "model_of": PERCENT,
