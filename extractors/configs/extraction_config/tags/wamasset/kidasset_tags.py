@@ -1,8 +1,8 @@
 from pydantic import BaseModel, Field
 
 
-NFE = '0€'
-NFP = '0%'
+NFE = '0.0 €'
+NFP = '0.0 %'
 NF = 'N/A'
 
 
@@ -23,16 +23,16 @@ class PicPac(BaseModel):
 # Tabella costi di ingresso e uscita e diritti fissi entrata uscita
 class TabellaCostiIngressoDirttiFissi(BaseModel):
     costi_ingresso: str = Field(
-        NFP, description="valore in PERCENTUALE % (nella prima colonna)"
+        NFP, description="valore in PERCENTUALE % (nella prima colonna), '0%' se non presente"
     )
     costingresso_dirittifissi: str =Field(
-          NFE, description="Diritti fissi di ingresso valore in EURO (è un valore unico)"
+          NFE, description="Diritti fissi di ingresso valore in EURO (è un valore unico), '0€' se non presente"
       )
     costi_uscita: str = Field(
-        NFP, description="valore in PERCENTUALE% (nella  prima colonna)"
+        NFP, description="valore in PERCENTUALE% (nella  prima colonna), '0%' se non presente"
     )
     costiuscita_dirittifissi: str = Field(
-          NFE, description="Diritti fissi d'uscita valore in Euro"
+          NFE, description="Diritti fissi d'uscita valore in Euro (è un valore unico), '0€' se non presente"
       )
 
 # Tabella costi di gestione/transazione/performance e descrizione performance 

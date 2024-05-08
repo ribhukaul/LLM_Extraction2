@@ -64,7 +64,7 @@ class WamAssetKidFeesExtractor(KidExtractor):
                 table,
                 extract_middle_cost_schema,
                 self.file_id,
-                add_text="Estrai i valori % ed i diritti fissi")
+                add_text="l'Estrazione deve dare i soli numeri come risposta, Estrai i valori % ed i diritti fissi in €")
             extraction = clean_response_regex("costi_ingresso_wamasset", self.language, extraction)
         except Exception as error:
             print("extract middle costs error" + repr(error))
