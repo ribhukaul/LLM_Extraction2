@@ -38,34 +38,34 @@ class WamAssetKidFeesExtractor(KidExtractor):
 
     def extract_transaction_costs(self, table):
         try:
-            
-            extract_transaction_cost_schema = self.extraction_config['tag'].get('costi_gestione')
+            # Prompt creation
+            transaction_cost_schema = self.extraction_config['tag'].get('costi_gestione')
+            transaction_cost_prompt = self.extraction_config['prompt'].get('costi_gestione')
             loaded_table = upload_df_as_excel(table)
-            prompt = """l'Estrazione deve dare i soli numeri come risposta, Estrai il valore % dei costi correnti e dei costi di transazione
-            TABELLA
-            {}""".format(loaded_table)
-            extract = Models.tag(prompt, extract_transaction_cost_schema, self.file_id)
+            prompt = transaction_cost_prompt.format(loaded_table)
+            # Extraction
+            extract = Models.tag(prompt, transaction_cost_schema, self.file_id)
             extraction = clean_response_regex("costi_gestione_wamasset", self.language, extract)
         except Exception as error:
             print("extract management costs error" + repr(error))
-            error_list = ["commissione_gestione", "commissione_transazione", "commissione_performance"]
+            error_list = [k for k in transaction_cost_schema.schema()['properties'].keys()]
             extraction = {key: (extraction[key] if extraction.get(key) is not None else "ERROR") for key in error_list}
 
         return extraction
     
     def extract_middle_costs(self, table):
         try:
-            extract_middle_cost_schema = self.extraction_config['tag'].get('costi_ingresso')
+            # Prompt creation
+            middle_cost_schema = self.extraction_config['tag'].get('costi_ingresso')
+            middle_cost_prompt = self.extraction_config['prompt'].get('costi_ingresso')
             loaded_table = upload_df_as_excel(table)
-            prompt = """l'Estrazione deve dare i soli numeri come risposta, Estrai i valori % ed i diritti fissi in €
-            TABELLA
-            {}""".format(loaded_table)
-
-            extract = Models.tag(prompt, extract_middle_cost_schema, self.file_id)
+            prompt = middle_cost_prompt.format(loaded_table)
+            # Extraction
+            extract = Models.tag(prompt, middle_cost_schema, self.file_id)
             extraction = clean_response_regex("costi_ingresso_wamasset", self.language, extract)
         except Exception as error:
             print("extract middle costs error" + repr(error))
-            error_list = ["costi_ingresso", "costi_uscita","costiuscita_dirittifissi","costiingresso_dirittifissi"]
+            error_list = [k for k in middle_cost_schema.schema()['properties'].keys()]
             # Initialize a default error structure for the extraction
             extraction = {key: "ERROR" for key in error_list}
 
