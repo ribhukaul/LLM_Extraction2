@@ -1,6 +1,5 @@
 import os
 
-from extractors.general_extractors.llm_functions import general_table_inspection
 from extractors.models import Models
 from extractors.general_extractors.custom_extractors.kid.kid_extractor import KidExtractor
 from extractors.general_extractors.utils import upload_df_as_excel
@@ -23,7 +22,7 @@ class WamAssetKidFeesExtractor(KidExtractor):
         """
         try:
             costi_ingresso_table,_ = self._extract_table("costi_ingresso", black_list_pages=[0])
-            costi_gestione_table,_ = self._extract_table("costi_gestione")
+            costi_gestione_table,_ = self._extract_table("costi_gestione", black_list_pages=[0])
   
         except Exception as error:
             print("calc table error" + repr(error))
@@ -41,15 +40,12 @@ class WamAssetKidFeesExtractor(KidExtractor):
         try:
             
             extract_transaction_cost_schema = self.extraction_config['tag'].get('costi_gestione')
-            table = upload_df_as_excel(table)
-            extraction = dict()
-            extraction = general_table_inspection(
-                table,
-                extract_transaction_cost_schema,
-                self.file_id,
-                add_text="estrai il valore % dei costi correnti e dei costi di transazione",
-            )
-            extraction = clean_response_regex("costi_gestione_wamasset", self.language, extraction)
+            loaded_table = upload_df_as_excel(table)
+            prompt = """l'Estrazione deve dare i soli numeri come risposta, Estrai il valore % dei costi correnti e dei costi di transazione
+            TABELLA
+            {}""".format(loaded_table)
+            extract = Models.tag(prompt, extract_transaction_cost_schema, self.file_id)
+            extraction = clean_response_regex("costi_gestione_wamasset", self.language, extract)
         except Exception as error:
             print("extract management costs error" + repr(error))
             error_list = ["commissione_gestione", "commissione_transazione", "commissione_performance"]
@@ -60,13 +56,13 @@ class WamAssetKidFeesExtractor(KidExtractor):
     def extract_middle_costs(self, table):
         try:
             extract_middle_cost_schema = self.extraction_config['tag'].get('costi_ingresso')
-            table = upload_df_as_excel(table)
-            extraction = general_table_inspection(
-                table,
-                extract_middle_cost_schema,
-                self.file_id,
-                add_text="l'Estrazione deve dare i soli numeri come risposta, Estrai i valori % ed i diritti fissi in €")
-            extraction = clean_response_regex("costi_ingresso_wamasset", self.language, extraction)
+            loaded_table = upload_df_as_excel(table)
+            prompt = """l'Estrazione deve dare i soli numeri come risposta, Estrai i valori % ed i diritti fissi in €
+            TABELLA
+            {}""".format(loaded_table)
+
+            extract = Models.tag(prompt, extract_middle_cost_schema, self.file_id)
+            extraction = clean_response_regex("costi_ingresso_wamasset", self.language, extract)
         except Exception as error:
             print("extract middle costs error" + repr(error))
             error_list = ["costi_ingresso", "costi_uscita","costiuscita_dirittifissi","costiingresso_dirittifissi"]
@@ -107,7 +103,7 @@ class WamAssetKidFeesExtractor(KidExtractor):
         try:
 
             functions_parameters = {
-                "cost": { "function": self.extract_middle_costs, "args":{"table": table["costi_ingresso"].iloc[:, :2]}},
+                "cost": { "function": self.extract_middle_costs, "args":{"table": table["costi_ingresso"].iloc[:, :-1]}},
                 "transaction": {"function": self.extract_transaction_costs, "args":{"table": table["costi_gestione"]}},
             }
         

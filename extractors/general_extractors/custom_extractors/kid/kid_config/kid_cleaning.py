@@ -207,8 +207,27 @@ regex_cleaning = {
         },
     },
     "en": {
-        "performance": [],
-        "riy": [],
+        "general_info": {
+            "isin": "[A-Z0-9]{12}",
+            "periodo_detenzione_raccomandato": ANY,
+            "indicatore_sintetico_rischio": REGEX_NUMBER,
+            "date": REGEX_DATE,
+        },
+        "costi_ingresso_wamasset": {
+            "costi_ingresso": REGEX_NUMBERS_COMMA,
+            "costingresso_dirittifissi": REGEX_NUMBERS_COMMA,
+            "costi_uscita": REGEX_NUMBERS_COMMA,
+            "costiuscita_dirittifissi": REGEX_NUMBERS_COMMA,
+        },
+        "costi_gestione_wamasset": {
+            'commissione_gestione': REGEX_NUMBERS_COMMA,
+            'commissione_transazione': REGEX_NUMBERS_COMMA,
+            'descrizione_performance': ANY,
+            'commissione_performance': REGEX_NUMBERS_COMMA,
+        },
+        "rhp": {
+            "rhp": "\d+",
+        }
     },
 }
 # regex to search in table

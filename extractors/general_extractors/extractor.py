@@ -48,7 +48,7 @@ class Extractor:
         self.extraction = {}
 
         # get configs
-        configurator = ConfigHandler(self.tenant, self.extractor)
+        configurator = ConfigHandler(self.tenant, self.extractor, self.language)
         self.extraction_config = configurator.extractor_config
 
     # DOCSTRING MISSING
