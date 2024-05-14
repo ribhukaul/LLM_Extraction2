@@ -16,21 +16,19 @@ general_info_eng = """From the following document, extract
 
 #COSTI DI INGRESSO E USCITA
 #ITALIANO
-costi_ingresso_diritti_fissi = """Considerando la seguente tabella, 
-Estrai i valori % dopo {rhp} anni ed i diritti fissi (possono essere n/a):
-TABELLA: {context}"""
+costi_ingresso_diritti_fissi = """'Estrazione deve dare i soli numeri come risposta, Estrai i valori % ed i diritti fissi in €
+TABELLA: {}"""
 #INGLESE
-entry_exit_costs_fixed_rights = """Considering the following table,
-Extract the % values after {rhp} years and the fixed rights (can be n/a):
-TABLE: {context}"""
+entry_exit_costs_fixed_rights = """'The extraction must give only numbers as an answer, Extract the % values and the fixed rights in €
+TABLE: {}"""
 
 #COSTI DI GESTIONE E PERFORMANCE
 #ITALIANO
-costi_gestione_performance = """Considerando la seguente tabella, 
-estrai il valore % dei costi correnti e dei costi di transazione:
-TABELLA: {context}"""
+costi_gestione_performance = """l'Estrazione deve dare i soli numeri come risposta, Estrai il valore % dei costi correnti e dei costi di transazione e
+in € per i costi di performance:
+TABELLA: {}"""
 #INGLESE
-management_costs_performance = """Considering the following table,
-extract the % value of current costs and transaction costs:
-TABLE: {context}"""
+management_costs_performance = """The extraction must give only numbers as an answer, Extract the % value of the current costs and transaction costs and
+in € for performance costs:
+TABLE: {}"""
 

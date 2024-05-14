@@ -260,7 +260,7 @@ extraction_configurations_eng = {
                 'prompt':{
                     'general_info': wasasset_prompts.general_info_eng,
                     'costi_ingresso': wasasset_prompts.entry_exit_costs_fixed_rights,
-                    'costi_gestione': wasasset_prompts.management_costs_performance
+                    'costi_gestione': wasasset_prompts.management_costs_performance,
                 },
                 'tag':{
                     'general_info': kidasset_tags.BasicInformation,
