@@ -266,7 +266,7 @@ extraction_configurations_eng = {
                     'general_info': kidasset_tags.BasicInformation,
                     'costi_ingresso': kidasset_tags.TableEntryExitFixedRights,
                     'costi_gestione': kidasset_tags.TableManagementPerformance,
-                    'picpac': kidasset_tags.PicPacEng,
+                    #'picpac': kidasset_tags.PicPacEng,
                     'fundclass': '',
                 }}
 }}
