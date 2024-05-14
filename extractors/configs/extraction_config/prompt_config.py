@@ -234,4 +234,39 @@ extraction_configurations = {
 # ENGLISH #
 ###########
 extraction_configurations_eng = {
-}
+    'general':{
+        'word_representation':{
+        },
+        'prompt':{
+        },
+        'tag':{
+            'doc_language': general_tags.DocLanguage,
+        },            
+    },
+    'wamasset':{
+        'general':{
+                'word_representation':{
+                },
+                'prompt':{
+                },
+                'tag':{
+                }
+        },
+        'kidasset':{
+                'word_representation':{
+                        'costi_ingresso': wakid_wr.entry_exit_costs,
+                        'costi_gestione': wakid_wr.management_costs
+                },
+                'prompt':{
+                    'general_info': wasasset_prompts.general_info_eng,
+                    'costi_ingresso': wasasset_prompts.entry_exit_costs_fixed_rights,
+                    'costi_gestione': wasasset_prompts.management_costs_performance
+                },
+                'tag':{
+                    'general_info': kidasset_tags.BasicInformation,
+                    'costi_ingresso': kidasset_tags.TableEntryExitFixedRights,
+                    'costi_gestione': kidasset_tags.TableManagementPerformance,
+                    'picpac': kidasset_tags.PicPacEng,
+                    'fundclass': '',
+                }}
+}}

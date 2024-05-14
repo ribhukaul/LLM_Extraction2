@@ -7,20 +7,34 @@ NF = 'N/A'
 
 
 NFD = 'Per questo prodotto non si applicano le commissioni di performance'
+NFD_ENG = 'There is no performance fee for this product.'
 
 
 # Informazioni di base del KID
+#BASE INFORMATION OF KID
+#ITA
 class InformazioniBase(BaseModel):
     indicatore_sintetico_rischio: int = Field(NF, description="Indicatore Sintetico di Rischio")
     periodo_detenzione_raccomandato: str = Field(NF, description="periodo di detenzione raccomandato in anni")
     date: str = Field(NF, description="data di realizzazione del documento (chiamata anche data di validità del KID")
+#ENG
+class BasicInformation(BaseModel):
+    indicatore_sintetico_rischio: int = Field(NF, description="Synthetic Risk Indicator")
+    periodo_detenzione_raccomandato: str = Field(NF, description="recommended holding period in years")
+    date: str = Field(NF, description="date of creation of the document (also called KID validity date)")
 
+#ITA
 class PicPac(BaseModel):
     picpac: str = Field(NF, description="Indica se il prodotto è un PIC (Piano Individuale di Risparmio) o un PAC (Piano di Accumulo Capitale)",
                         enum=["PIC", "PAC", "N/A"]
                         )
+#ENG
+class PicPacEng(BaseModel):
+    picpac: str = 'N/A'
 
-# Tabella costi di ingresso e uscita e diritti fissi entrata uscita
+# COSTS
+#ENTRY/EXIT COSTS DIRITTI FISSI
+#ITA
 class TabellaCostiIngressoDirttiFissi(BaseModel):
     costi_ingresso: str = Field(
         NFP, description="valore in PERCENTUALE % (nella prima colonna), '0%' se non presente"
@@ -34,11 +48,28 @@ class TabellaCostiIngressoDirttiFissi(BaseModel):
     costiuscita_dirittifissi: str = Field(
           NFE, description="Diritti fissi d'uscita valore in Euro (è un valore unico), '0€' se non presente"
       )
+#ENG
+class TableEntryExitFixedRights(BaseModel):
+    costi_ingresso: str = Field(
+        NFP, description="value in PERCENTAGE % (in the first column), '0%' if not present"
+    )
+    costingresso_dirittifissi: str = '-'
+    costi_uscita: str = Field(
+        NFP, description="value in PERCENTAGE% (in the first column), '0%' if not present"
+    )
+    costiuscita_dirittifissi: str = '-'
 
-# Tabella costi di gestione/transazione/performance e descrizione performance 
+# MANAGEMENT COSTS
+#ITA
 class TabellaCostiGestionePerformance(BaseModel):
     commissione_gestione: str = Field(NFP, description="Commissioni di gestione in PERCENTUALE % (prima colonna)")
     commissione_transazione: str = Field(NFP, description="Costi di transazione in PERCENTUALE % (prima colonna, esiste sempre un valore)")
     descrizione_performance: str = Field(NFD,description= "tutta la scritta relativa alle commmissioni di performance (prima colonna)")
     commissione_performance: str = Field(NFE, description="Commissioni di performance IN EURO (colonna più a destra)")
+#ENG
+class TableManagementPerformance(BaseModel):
+    commissione_gestione: str = Field(NFP, description="Management fees in PERCENTAGE % (first column)")
+    commissione_transazione: str = Field(NFP, description="Transaction costs in PERCENTAGE % (first column, there is always a value)")
+    descrizione_performance: str = Field(NFD_ENG,description= "all the writing related to performance commissions (first column)")
+    commissione_performance: str = Field(NFE, description="Performance fees IN EURO (rightmost column)")
 
