@@ -8,11 +8,12 @@ from extractors.general_extractors.custom_extractors.kid.kid_utils import clean_
 
 
 class WamAssetKidFeesExtractor(KidExtractor):
-    def __init__(self, doc_path, predefined_language=False) -> None:
+    
+    def __init__(self, doc_path) -> None:
         self.tenant = "wamasset"
         self.extractor = "kidasset"
         self.doc_path = doc_path
-        super().__init__(doc_path, "it", tenant=self.tenant, extractor=self.extractor)
+        super().__init__(doc_path, tenant=self.tenant, extractor=self.extractor)
     
     def get_tables(self):
         """calc table extractor, it extracts the three tables from the document asynchronously

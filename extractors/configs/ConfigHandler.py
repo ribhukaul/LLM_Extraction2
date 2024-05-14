@@ -1,4 +1,4 @@
-from extractors.configs.extraction_config.prompt_config import extraction_configurations
+from extractors.configs.extraction_config.prompt_config import extraction_configurations, extraction_configurations_eng
 
 class ConfigHandler:
     """
@@ -25,7 +25,7 @@ class ConfigHandler:
         Updates the extractor_config dictionary with values from a given config dictionary.
     """
 
-    def __init__(self, tenant='general', extraction='general'):
+    def __init__(self, tenant='general', extraction='general', language='it'):
         """
         Constructs all the necessary attributes for the ConfigHandler object.
 
@@ -36,10 +36,18 @@ class ConfigHandler:
             extraction : str, optional
                 The extraction type (default is 'general').
         """
-        self.general_config = extraction_configurations['general']
+        # Language selection
+        if language not in ['it', 'en', 'fr', 'de', 'es']:
+            raise ValueError('Language not supported')
+        elif language == 'en':
+            extraction_config = extraction_configurations_eng
+        else:
+            extraction_config = extraction_configurations
+
+        self.general_config = extraction_config['general']
         if tenant !='general':
-            self.tenant_general_config = extraction_configurations[tenant]['general']
-            self.tenant_extractor_config = extraction_configurations[tenant][extraction]
+            self.tenant_general_config = extraction_config[tenant]['general']
+            self.tenant_extractor_config = extraction_config[tenant][extraction]
         else:
             self.tenant_general_config, self.tenant_extractor_config= {}, {}
 
