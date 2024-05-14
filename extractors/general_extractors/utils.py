@@ -26,7 +26,14 @@ def select_desired_page(text, words_repr):
         for word in words_repr:
             # count how many times the word is in the page
             counter[str(i)] += content.count(word)
-
+        # check if all the values of the dict are equal to 0
+        if all(value == 0 for value in counter.values()):
+            content_ws =content.replace("\t", "").replace(" ", "")
+            for word in words_repr:
+                word_ws = word.replace(" ", "")
+                # count how many times the word is in the page
+                counter[str(i)] += content_ws.count(word_ws)
+            
     # Page with most occurrences
     pg_number = max(counter, key=counter.get)
 
