@@ -203,7 +203,7 @@ def get_document_text(file_path):
 
         # Decoding conditions
         first_page = pages[0].page_content
-        first_encoded_condition = first_page.count("\x00") > 100
+        first_encoded_condition = first_page.count("\x00") > 30
         second_encoded_condition = is_more_number(first_page)
         # Decode
         for page in pages:

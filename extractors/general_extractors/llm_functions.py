@@ -1,4 +1,4 @@
-from extractors.general_extractors.config.prompt_config import prompts, table_schemas, word_representation
+from extractors.general_extractors.config.prompt_config import table_schemas, word_representation
 from extractors.general_extractors.utils import select_desired_page
 from extractors.general_extractors.utils import num_tokens_from_string
 from langchain.prompts import PromptTemplate
@@ -19,8 +19,8 @@ def get_doc_language(pages, file_id):
         str: language of the document
     """
     # Analyze first page
-    page = pages[0].page_content[:500]
-    language = Models.tag(page, DocLanguage, file_id, model="gpt-3.5-turbo")
+    page = pages[0].page_content[:200]
+    language = Models.tag(page, DocLanguage, file_id)#, model="gpt-3.5-turbo")
 
     # Check if language is mapped
     # NOTE: need to add more languages
