@@ -24,7 +24,7 @@ NO_RANGE = []
 kidasset = {
     "fields":{
         "isin": {
-            "field_name": "cod_isin",
+            "field_name": "cod_100isin",
             "renaming": "ISIN",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -33,7 +33,7 @@ kidasset = {
             "range_of": ISIN_RANGE
         },
         'date': {
-            "field_name": "cod_date",
+            "field_name": "cod_101date",
             "renaming": "Data di validità",
             "allow_null": FALSE,
             "type_of": DATE,
@@ -42,7 +42,7 @@ kidasset = {
             "range_of": DATE_RANGE
         },
         "picpac": {
-            "field_name": "cod_picpac",
+            "field_name": "cod_102picpac",
             "renaming": "PIC o PAC",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -51,7 +51,7 @@ kidasset = {
             "range_of": NO_RANGE
         },
         "periodo_detenzione_raccomandato": {
-            "field_name": "cod_rhp",
+            "field_name": "cod_104rhp",
             "renaming": "RHP (anni)",
             "allow_null": FALSE,
             "type_of": INT,
@@ -60,7 +60,7 @@ kidasset = {
             "range_of": PERCENT_RANGE        
             },
         "indicatore_sintetico_rischio": {
-            "field_name": "cod_sri",
+            "field_name": "cod_103sri",
             "renaming": "SRI",
             "allow_null": FALSE,
             "type_of": INT,
@@ -69,7 +69,7 @@ kidasset = {
             "range_of": SRI_RANGE        
             },
         "costi_ingresso": {
-            "field_name": "cod_costi_ingresso",
+            "field_name": "cod_105costi_ingresso",
             "renaming": "Costi ingresso (%)",
             "allow_null": TRUE,
             "type_of": FLOAT,
@@ -78,7 +78,7 @@ kidasset = {
             "range_of": PERCENT_RANGE        
             },
         "costingresso_dirittifissi": {
-            "field_name": "cod_costingresso_dirittifissi",
+            "field_name": "cod_106costingresso_dirittifissi",
             "renaming": "Costi di ingresso diritti fissi (€)",
             "allow_null": TRUE,
             "type_of": FLOAT,
@@ -87,7 +87,7 @@ kidasset = {
             "range_of": NO_RANGE        
             },
         "costi_uscita": {
-            "field_name": "cod_costi_uscita",
+            "field_name": "cod_107costi_uscita",
             "renaming": "Costi uscita (%)",
             "allow_null": TRUE,
             "type_of": FLOAT,
@@ -96,7 +96,7 @@ kidasset = {
             "range_of": PERCENT_RANGE        
             },
         "costiuscita_dirittifissi": {
-            "field_name": "cod_costiuscita_dirittifissi",
+            "field_name": "cod_108costiuscita_dirittifissi",
             "renaming": "Costi di uscita diritti fissi (€)",
             "allow_null": TRUE,
             "type_of": FLOAT,
@@ -105,7 +105,7 @@ kidasset = {
             "range_of": NO_RANGE        
             },
         "commissione_gestione": {
-            "field_name": "cod_commissioni_di_gestione",
+            "field_name": "cod_109commissioni_di_gestione",
             "renaming": "Costi correnti (%)",
             "allow_null": FALSE,
             "type_of": FLOAT,
@@ -114,7 +114,7 @@ kidasset = {
             "range_of": PERCENT_RANGE        
             },
         "commissione_transazione": {
-            "field_name": "cod_costi_di_transazione",
+            "field_name": "cod_110costi_di_transazione",
             "renaming": "Costi di transazione (%)",
             "allow_null": FALSE,
             "type_of": FLOAT,
@@ -123,7 +123,7 @@ kidasset = {
             "range_of": PERCENT_RANGE        
             },
         "descrizione_performance": {
-            "field_name": "cod_descrizione_performance",
+            "field_name": "cod_111descrizione_performance",
             "renaming": "Commissioni di performance",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -132,7 +132,7 @@ kidasset = {
             "range_of": NO_RANGE        
             },
         "commissione_performance": {
-            "field_name": "cod_commissioni_di_performance",
+            "field_name": "cod_112commissioni_di_performance",
             "renaming": "Commissioni di performance (€)",
             "allow_null": TRUE,
             "type_of": FLOAT,
@@ -144,13 +144,14 @@ kidasset = {
     "sections":{
         "section0": {
             "name": "Informazioni Generali",
-            "list": ["cod_isin", "cod_date", "cod_picpac", "cod_sri", "cod_rhp"]
+            "list": ["cod_100isin", "cod_101date", "cod_102picpac", "cod_103sri", "cod_104rhp"]
+           
         },
         "Costi": {
             "name": "Costi",
-            "list": ["cod_costi_ingresso", "cod_costingresso_dirittifissi", "cod_costi_uscita",
-                     "cod_costiuscita_dirittifissi","cod_commissioni_di_gestione","cod_costi_di_transazione",
-                     "cod_descrizione_performance","cod_commissioni_di_performance"]
+            "list": ["cod_105costi_ingresso", "cod_106costingresso_dirittifissi", "cod_107costi_uscita",
+                        "cod_108costiuscita_dirittifissi","cod_109commissioni_di_gestione","cod_110costi_di_transazione",
+                        "cod_111descrizione_performance","cod_112commissioni_di_performance"]
         }
     }
 }
