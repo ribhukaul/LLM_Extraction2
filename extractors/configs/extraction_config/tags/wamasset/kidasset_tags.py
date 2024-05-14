@@ -21,7 +21,7 @@ class InformazioniBase(BaseModel):
 class BasicInformation(BaseModel):
     indicatore_sintetico_rischio: int = Field(NF, description="Synthetic Risk Indicator")
     periodo_detenzione_raccomandato: str = Field(NF, description="recommended holding period in years")
-    date: str = Field(NF, description="date of creation of the document (also called KID validity date)")
+    date: str = Field(NF, description="date of creation of the document (also called KID validity date)in the format DD/MM/YYYY")
 
 #ITA
 class PicPac(BaseModel):
@@ -29,8 +29,8 @@ class PicPac(BaseModel):
                         enum=["PIC", "PAC", "N/A"]
                         )
 #ENG
-class PicPacEng(BaseModel):
-    picpac: str = 'N/A'
+# class PicPacEng(BaseModel):
+#     picpac: str = 'N/A'
 
 # COSTS
 #ENTRY/EXIT COSTS DIRITTI FISSI

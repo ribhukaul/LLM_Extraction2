@@ -73,10 +73,13 @@ class WamAssetKidFeesExtractor(KidExtractor):
     
     def extract_picpac(self):
         try:
-            extract_picpac_schema = self.extraction_config['tag'].get('picpac')
-            n = int(len(self.text[0].page_content)/3)
-            first_page = self.text[0].page_content[:n]
-            extraction = Models.tag(first_page, extract_picpac_schema, self.file_id)
+            if self.language == "en":
+                extraction = {"picpac": "-"}
+            else:    
+                extract_picpac_schema = self.extraction_config['tag'].get('picpac')
+                n = int(len(self.text[0].page_content)/3)
+                first_page = self.text[0].page_content[:n]
+                extraction = Models.tag(first_page, extract_picpac_schema, self.file_id)
         except Exception as error:
             print("extract picpac error" + repr(error))
             extraction = {"picpac": "ERROR"}
