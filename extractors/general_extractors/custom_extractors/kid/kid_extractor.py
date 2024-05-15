@@ -85,7 +85,7 @@ class KidExtractor(Extractor):
         return extraction
 
     def extract_isin(self):
-        to_search = self.text[0].page_content[20:1600]
+        to_search = self.text[0].page_content[20:-3]#.replace('\n', ' ')
         isin = re.search(r"[A-Z]{2}[A-Z0-9]{9}\d", to_search)
         return isin.group(0) if isin else "-"
     

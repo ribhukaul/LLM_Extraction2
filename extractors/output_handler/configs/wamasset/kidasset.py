@@ -59,7 +59,7 @@ kidasset = {
             "decimals_of": NA,
             "range_of": NO_RANGE
         },
-        "strategia": {
+        "strategia_fondo": {
             "field_name": "cod_104strategia",
             "renaming": "Strategia",
             "allow_null": FALSE,

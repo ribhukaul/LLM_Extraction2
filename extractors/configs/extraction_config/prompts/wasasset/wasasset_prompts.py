@@ -5,16 +5,16 @@ general_info = """Dal documento seguente, estrai
             - indicatore sintetico di rischio
             - Data di realizzazione del documento (può essere chiamata data di validità del KID)
             - la Classe del fondo, inserita come lettera (o lettere maiuscole) nel nome del prodotto. 
-                              esempio di classi sono 'A', 'B', 'C', 'PIR', 'F2' etc. Può anche non essere espress
+                              esempio di classi sono 'A', 'B', 'C', 'PIR', 'F2', 'D', 'L' etc. Può anche non essere espress
             DOCUMENTO:
             {context}"""
 #INGLESE
 general_info_eng = """From the following document, extract 
             - Recommended holding period or how long the product is assumed to be held (years), convert to years if necessary
             - synthetic risk indicator
-            - Date of creation of the document (may be called KID validity date)
+            - Date of creation of the document (may be called KID validity date or the date the KID is accurate as at)
             - the share class, entered as a letter (or uppercase letters) in the product name.
-                example of classes are 'A', 'B', 'C', 'PIR', 'F2' etc. It may not be expressed
+                example of classes are 'A', 'B', 'C', 'PIR', 'F2', 'D', 'L' etc. It may not be expressed
             DOCUMENT:
             {context}"""
 
