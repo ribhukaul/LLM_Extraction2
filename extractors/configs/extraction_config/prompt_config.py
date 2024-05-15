@@ -219,13 +219,17 @@ extraction_configurations = {
                     'general_info': wasasset_prompts.general_info,
                     'costi_ingresso': wasasset_prompts.costi_ingresso_diritti_fissi,
                     'costi_gestione': wasasset_prompts.costi_gestione_performance,
+                    #'class': wasasset_prompts.classe_fondo,
+                    'strategy': wasasset_prompts.strategia_fondo
                 },
                 'tag':{
                     'general_info': kidasset_tags.InformazioniBase,
                     'costi_ingresso': kidasset_tags.TabellaCostiIngressoDirttiFissi,
                     'costi_gestione': kidasset_tags.TabellaCostiGestionePerformance,
-                    'picpac': kidasset_tags.PicPac
-                }}
+                    'picpac': kidasset_tags.PicPac,
+                    #'class': kidasset_tags.FundClass
+                }
+        }
 }}
 
 
@@ -261,12 +265,15 @@ extraction_configurations_eng = {
                     'general_info': wasasset_prompts.general_info_eng,
                     'costi_ingresso': wasasset_prompts.entry_exit_costs_fixed_rights,
                     'costi_gestione': wasasset_prompts.management_costs_performance,
+                    #'class': wasasset_prompts.classe_fondo,
+                    'strategy': wasasset_prompts.investment_strategy
+                
                 },
                 'tag':{
                     'general_info': kidasset_tags.BasicInformation,
                     'costi_ingresso': kidasset_tags.TableEntryExitFixedRights,
                     'costi_gestione': kidasset_tags.TableManagementPerformance,
                     #'picpac': kidasset_tags.PicPacEng,
-                    'fundclass': '',
+                    #'class': kidasset_tags.FundClass
                 }}
 }}

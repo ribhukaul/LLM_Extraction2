@@ -101,9 +101,8 @@ class Models:
         Args:
             file_id (str): file_id for costs
             model (str): type of model to use
-            text (str): text to search
-            system_message (str, optional): system message to add. Defaults to ''.
-            human_message (str, optional): human message to add. Defaults to ''.
+            prompt (str): prompt to ask
+            input (str): input to process
             
             Returns:
             str: response from the model

@@ -50,8 +50,26 @@ kidasset = {
             "decimals_of": NA,
             "range_of": NO_RANGE
         },
+        "classe_fondo": {
+            "field_name": "cod_103classe_fondo",
+            "renaming": "Classe Fondo",
+            "allow_null": FALSE,
+            "type_of": STRING,
+            "model_of": NA,
+            "decimals_of": NA,
+            "range_of": NO_RANGE
+        },
+        "strategia": {
+            "field_name": "cod_104strategia",
+            "renaming": "Strategia",
+            "allow_null": FALSE,
+            "type_of": STRING,
+            "model_of": NA,
+            "decimals_of": NA,
+            "range_of": NO_RANGE
+        },
         "periodo_detenzione_raccomandato": {
-            "field_name": "cod_104rhp",
+            "field_name": "cod_105rhp",
             "renaming": "RHP (anni)",
             "allow_null": FALSE,
             "type_of": INT,
@@ -60,7 +78,7 @@ kidasset = {
             "range_of": PERCENT_RANGE        
             },
         "indicatore_sintetico_rischio": {
-            "field_name": "cod_103sri",
+            "field_name": "cod_106sri",
             "renaming": "SRI",
             "allow_null": FALSE,
             "type_of": INT,
@@ -69,7 +87,7 @@ kidasset = {
             "range_of": SRI_RANGE        
             },
         "costi_ingresso": {
-            "field_name": "cod_105costi_ingresso",
+            "field_name": "cod_107costi_ingresso",
             "renaming": "Costi ingresso (%)",
             "allow_null": TRUE,
             "type_of": FLOAT,
@@ -78,7 +96,7 @@ kidasset = {
             "range_of": PERCENT_RANGE        
             },
         "costingresso_dirittifissi": {
-            "field_name": "cod_106costingresso_dirittifissi",
+            "field_name": "cod_108costingresso_dirittifissi",
             "renaming": "Costi di ingresso diritti fissi (€)",
             "allow_null": TRUE,
             "type_of": FLOAT,
@@ -87,7 +105,7 @@ kidasset = {
             "range_of": NO_RANGE        
             },
         "costi_uscita": {
-            "field_name": "cod_107costi_uscita",
+            "field_name": "cod_109costi_uscita",
             "renaming": "Costi uscita (%)",
             "allow_null": TRUE,
             "type_of": FLOAT,
@@ -96,7 +114,7 @@ kidasset = {
             "range_of": PERCENT_RANGE        
             },
         "costiuscita_dirittifissi": {
-            "field_name": "cod_108costiuscita_dirittifissi",
+            "field_name": "cod_110costiuscita_dirittifissi",
             "renaming": "Costi di uscita diritti fissi (€)",
             "allow_null": TRUE,
             "type_of": FLOAT,
@@ -105,7 +123,7 @@ kidasset = {
             "range_of": NO_RANGE        
             },
         "commissione_gestione": {
-            "field_name": "cod_109commissioni_di_gestione",
+            "field_name": "cod_111commissioni_di_gestione",
             "renaming": "Costi correnti (%)",
             "allow_null": FALSE,
             "type_of": FLOAT,
@@ -114,7 +132,7 @@ kidasset = {
             "range_of": PERCENT_RANGE        
             },
         "commissione_transazione": {
-            "field_name": "cod_110costi_di_transazione",
+            "field_name": "cod_112costi_di_transazione",
             "renaming": "Costi di transazione (%)",
             "allow_null": FALSE,
             "type_of": FLOAT,
@@ -123,7 +141,7 @@ kidasset = {
             "range_of": PERCENT_RANGE        
             },
         "descrizione_performance": {
-            "field_name": "cod_111descrizione_performance",
+            "field_name": "cod_113descrizione_performance",
             "renaming": "Commissioni di performance",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -132,7 +150,7 @@ kidasset = {
             "range_of": NO_RANGE        
             },
         "commissione_performance": {
-            "field_name": "cod_112commissioni_di_performance",
+            "field_name": "cod_114commissioni_di_performance",
             "renaming": "Commissioni di performance (€)",
             "allow_null": TRUE,
             "type_of": FLOAT,
@@ -144,14 +162,13 @@ kidasset = {
     "sections":{
         "section0": {
             "name": "Informazioni Generali",
-            "list": ["cod_100isin", "cod_101date", "cod_102picpac", "cod_103sri", "cod_104rhp"]
+            "list": ["cod_100isin", "cod_101date", "cod_102picpac", "cod_103classe_fondo", "cod_104strategia", "cod_105rhp", "cod_106sri"]
            
         },
         "Costi": {
             "name": "Costi",
-            "list": ["cod_105costi_ingresso", "cod_106costingresso_dirittifissi", "cod_107costi_uscita",
-                        "cod_108costiuscita_dirittifissi","cod_109commissioni_di_gestione","cod_110costi_di_transazione",
-                        "cod_111descrizione_performance","cod_112commissioni_di_performance"]
+            "list": ["cod_107costi_ingresso", "cod_108costingresso_dirittifissi", "cod_109costi_uscita", "cod_110costiuscita_dirittifissi", 
+                     "cod_111commissioni_di_gestione", "cod_112costi_di_transazione", "cod_113descrizione_performance", "cod_114commissioni_di_performance"]
         }
     }
 }

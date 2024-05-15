@@ -5,6 +5,7 @@ from extractors.general_extractors.custom_extractors.kid.kid_extractor import Ki
 from extractors.general_extractors.utils import upload_df_as_excel
 from extractors.general_extractors.custom_extractors.kid.kid_utils import clean_response_regex
 from extractors.azure.document_intelligence import get_tables_from_doc
+from langchain_core.prompts import PromptTemplate
 
 class WamAssetKidFeesExtractor(KidExtractor):
     
@@ -98,6 +99,19 @@ class WamAssetKidFeesExtractor(KidExtractor):
 
         return extraction
 
+    
+    def extract_strategy(self):
+        try:
+            strategy_prompt = self.extraction_config['prompt'].get('strategy')
+            complete_strategy_prompt = PromptTemplate(input_variables=["input"], template=strategy_prompt)
+            #prompt = strategy_prompt.format(self.text[0].page_content)
+            extraction = Models.general_extract(self.file_id, 'gpt-3.5-turbo', complete_strategy_prompt, self.text[0].page_content)
+            extraction = {"strategia_fondo": extraction}
+        except Exception as error:
+            print("extract strategy error" + repr(error))
+            extraction = {"strategia_fondo": "ERROR"}
+
+        return extraction
     def process(self):
         # first stage, basic info
         try:
@@ -105,11 +119,13 @@ class WamAssetKidFeesExtractor(KidExtractor):
                 "tables": {"function": self.get_tables},
                 "basic_information": {"function":self.extract_general_data},
                 "picpac" : {"function": self.extract_picpac},
+                "strategy": {"function": self.extract_strategy}
             }
             result = self.threader(functions_parameters)
             table = result["tables"]
             basic_information = result["basic_information"]
             picpac = result["picpac"]
+            strategia_fondo = result["strategy"]
         
         except Exception as error:
             print("first stage error" + repr(error))
@@ -138,6 +154,7 @@ class WamAssetKidFeesExtractor(KidExtractor):
                 **dict(cost),
                 **dict(gestione),
                 **dict(picpac),
+                **dict(strategia_fondo),
                 "api_costs": api_costs,
             }
             # Format output

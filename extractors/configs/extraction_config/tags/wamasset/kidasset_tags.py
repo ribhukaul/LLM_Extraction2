@@ -17,12 +17,17 @@ class InformazioniBase(BaseModel):
     indicatore_sintetico_rischio: int = Field(NF, description="Indicatore Sintetico di Rischio")
     periodo_detenzione_raccomandato: str = Field(NF, description="periodo di detenzione raccomandato in anni")
     date: str = Field(NF, description="data di realizzazione del documento (chiamata anche data di validità del KID")
+    classe_fondo: str = Field(NF, description="""Classe del fondo, inserita come lettera (o lettere maiuscole) nel nome del prodotto. 
+                              esempio di classi sono 'A', 'B', 'C', 'PIR', 'F2' etc. Può anche non essere espressa""")
 #ENG
 class BasicInformation(BaseModel):
     indicatore_sintetico_rischio: int = Field(NF, description="Synthetic Risk Indicator")
     periodo_detenzione_raccomandato: str = Field(NF, description="recommended holding period in years")
     date: str = Field(NF, description="date of creation of the document (also called KID validity date)in the format DD/MM/YYYY")
+    classe_fondo: str = Field(NF, description="""share class, entered as a letter (or uppercase letters) in the product name.
+                                example of classes are 'A', 'B', 'C', 'PIR', 'F2' etc. It may not be expressed""")
 
+# PIC/PAC
 #ITA
 class PicPac(BaseModel):
     picpac: str = Field(NF, description="Indica se il prodotto è un PIC (Piano Individuale di Risparmio) o un PAC (Piano di Accumulo Capitale)",
@@ -31,6 +36,11 @@ class PicPac(BaseModel):
 #ENG
 # class PicPacEng(BaseModel):
 #     picpac: str = 'N/A'
+
+#FUND CLASS
+# class FundClass(BaseModel):
+#     classe_fondo: str = Field(NF, description="""Classe del fondo, inserita come lettera (o lettere maiuscole) 
+#                               esempio di classi sono 'A', 'B', 'C', 'PIR', 'F2' etc. Può anche non essere espressa""")
 
 # COSTS
 #ENTRY/EXIT COSTS DIRITTI FISSI
