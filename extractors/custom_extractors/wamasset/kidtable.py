@@ -4,7 +4,7 @@ from extractors.models import Models
 from extractors.general_extractors.custom_extractors.kid.kid_extractor import KidExtractor
 from extractors.general_extractors.utils import upload_df_as_excel
 from extractors.general_extractors.custom_extractors.kid.kid_utils import clean_response_regex
-
+from extractors.azure.document_intelligence import get_tables_from_doc
 
 class WamAssetKidFeesExtractor(KidExtractor):
     
@@ -13,6 +13,18 @@ class WamAssetKidFeesExtractor(KidExtractor):
         self.extractor = "kidasset"
         self.doc_path = doc_path
         super().__init__(doc_path, tenant=self.tenant, extractor=self.extractor)
+
+        # Som PDFs are scanned or are badly uploaded
+        self.adjust_pages()
+    
+    def adjust_pages(self):
+        
+        for i, _ in enumerate(self.text):
+            pag=i+1
+            tables, raw_data = get_tables_from_doc(self.doc_path, specific_pages=pag, language=self.language, high_res=False)
+            self.di_tables_pages[str(i)], self.raw_data_pages[str(i)]= tables, raw_data
+            self.text[i].page_content = raw_data['content']
+            
     
     def get_tables(self):
         """calc table extractor, it extracts the three tables from the document asynchronously

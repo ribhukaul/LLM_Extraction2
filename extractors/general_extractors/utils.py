@@ -151,7 +151,10 @@ def is_more_number(text):
 
     letter_count = sum(1 for char in text if char.isalpha())
     number_count = sum(1 for char in text if char.isnumeric())
-    ratio = number_count / (number_count + letter_count)
+    total_count = letter_count + number_count
+    if total_count == 0:
+        return False
+    ratio = number_count / total_count
     if ratio > 0.3:
         return True
     else:

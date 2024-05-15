@@ -11,7 +11,7 @@ from extractors.general_extractors.utils import format_pages_num
 
 
 def analyze_general_documents(
-    doc_path, specific_pages=None, language="it", api_version="2024-02-29-preview", query_list=None
+    doc_path, specific_pages=None, language="it", api_version="2024-02-29-preview", query_list=None, high_res=True
 ):
     """Analyze a document with the Azure Form Recognizer API.
 
@@ -20,6 +20,9 @@ def analyze_general_documents(
         specific_pages (str, optional): specific pages to analyze, indexing starts from 1, can be multiple pages e.g. 2-7.
             Defaults to None.
         language (str, optional): language to help the model to analize, t the moment supported 'en' and 'it'. Defaults to "it".
+        api_version (str, optional): API version to use. Defaults to "2024-02-29-preview".
+        query_list (list, optional): list of fields to query. Defaults to None.
+        high_res (bool, optional): whether to use high resolution OCR. Defaults to True.
 
     Returns:
         _type_: _description_
@@ -39,7 +42,9 @@ def analyze_general_documents(
         endpoint=endpoint, credential=AzureKeyCredential(key), api_version='2023-10-31-preview'#api_version
     )
     #document_analysis_client = DocumentAnalysisClient(endpoint, AzureKeyCredential(key), api_version=api_version)
-    features_chosen = ["ocrHighResolution"]
+    features_chosen = []
+    if high_res:
+        features_chosen.append("ocrHighResolution")
     if query_list is not None:
         features_chosen.append("queryFields")
 
@@ -88,7 +93,7 @@ def table_json_to_df(json_data):
 
 
 def get_tables_from_doc(
-    doc_path, specific_pages=None, language="it", api_version="2024-02-29-preview", query_list=None
+    doc_path, specific_pages=None, language="it", api_version="2024-02-29-preview", query_list=None, high_res=True
 ):
     """Get tables from a document, can be used generally to save, or directly for query_list, in that case, return query_list also
 
@@ -97,13 +102,16 @@ def get_tables_from_doc(
         specific_pages (str, optional): specific pages to analyze, indexing starts from 1, can be multiple pages e.g. 2-7.
             Defaults to None.
         language (str, optional): language to help the model to analize, t the moment supported 'en' and 'it'. Defaults to "it".
+        api_version (str, optional): API version to use. Defaults to "2024-02-29-preview".
+        query_list (list, optional): list of fields to query. Defaults to None.
+        high_res (bool, optional): whether to use high resolution OCR. Defaults to True.
 
     Returns:
         dataframe[]: tables
     """
     # Analyze document
     result = analyze_general_documents(
-        doc_path, specific_pages=specific_pages, language=language, api_version=api_version, query_list=query_list
+        doc_path, specific_pages=specific_pages, language=language, api_version=api_version, query_list=query_list, high_res=high_res
     )
     # Get tables
     df_tables = []
