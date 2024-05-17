@@ -2,36 +2,36 @@
 
 from extractors.models import Models
 from extractors.general_extractors.extractor import Extractor
-#from extractors.configs.extraction_config.tags.wamderivati.complexity_tags import PydanticSchema_unicredit_noLangChain
+#from extractors.configs.extraction_config.tags.wamderivati.demo_tags import PydanticSchema_unicredit_noLangChain
 import os
 from langchain_core.prompts import PromptTemplate
-from .complexity_custom.setting.column_config import column_dict, columns_to_clean, columns_to_date_convert, new_df_renaming
+from .demo_custom.setting.column_config import column_dict, columns_to_clean, columns_to_date_convert, new_df_renaming
 
 import pandas as pd
-from .complexity_custom.setting.functions import get_new_column_name, truncate, clean_value, convert_date
-from .complexity_custom.postprocessing.dataintegration import df_dataintegration
+from .demo_custom.setting.functions import get_new_column_name, truncate, clean_value, convert_date
+from .demo_custom.postprocessing.dataintegration import df_dataintegration
 
 
-class WamDerivatiComplexity(Extractor):
+class WamDerivatiDemo(Extractor):
 
     def __init__(self, doc_path, predefined_language='it'):
         self.tenant = "wamderivati"
-        self.extractor = "complexity"
+        self.extractor = "demo"
         super().__init__(doc_path, predefined_language, tenant=self.tenant, extractor=self.extractor)
 
     
     def process(self):
 
 
-        system_message = self.extraction_config["prompt"]["complexity_system"]
-        human_message =  self.extraction_config["prompt"]["complexity_human"]
+        system_message = self.extraction_config["prompt"]["demo_system"]
+        human_message =  self.extraction_config["prompt"]["demo_human"]
 
         complete_prompt = system_message + human_message
 
         prompt_kid = PromptTemplate(input_variables=["input"], template=complete_prompt)
         response = Models.general_extract(self.doc_path, "gpt-4-turbo", prompt=prompt_kid, input=self.text)
-        complexity_schema = self.extraction_config["tag"]["complexity"]
-        tags  = Models.tag(response, complexity_schema, self.file_id)
+        demo_schema = self.extraction_config["tag"]["demo"]
+        tags  = Models.tag(response, demo_schema, self.file_id)
 
         df_tags = pd.DataFrame.from_dict([dict(tags)])
         df_guesses = df_tags.rename(columns=lambda x: get_new_column_name(column_dict, x))

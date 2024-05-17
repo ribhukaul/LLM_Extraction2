@@ -22,7 +22,7 @@ SRI_RANGE = []
 NO_RANGE = []
 
 
-complexity = {
+demo = {
     "fields": {
         "isin": {
             "field_name": "cod_100isin",

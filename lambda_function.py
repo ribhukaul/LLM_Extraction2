@@ -92,7 +92,7 @@ def lambda_handler(event, context):
 #    }
 #    reqq ={
 #             "TENANT": "wamderivati", 
-#             "extractor_type": "complexity", 
+#             "extractor_type": "demo",
 #             "extraction_model": "gpt-4", 
 #             "files": [{
 #                  "key": "wamderivati/workspaces/test derivati/allianz.pdf", 

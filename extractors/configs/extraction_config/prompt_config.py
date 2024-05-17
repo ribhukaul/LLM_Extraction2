@@ -2,7 +2,7 @@
 # extractor -> prompt, tags, wordrepresentation
 from .tags import general_tags, kid_tags, gkid_tags
 from .prompts import general_prompts, kid_prompts, gkid_prompts
-from .prompts.wamderivati import complexity_prompt, bnpproduction_prompt, rettifichebi_prompt
+from .prompts.wamderivati import demo_prompt, bnpproduction_prompt, rettifichebi_prompt
 from .tags.wamderivati import rettifichebi_tags #bnpproduction_tags, 
 
 from .tags.waminsurance import waminsurance_tags, cga, kidmodule_tags
@@ -14,7 +14,7 @@ from .prompts.waminsurance import kidmodule_prompt
 from .word_representation import kid_wr, gkid_wr
 from .word_representation.wamderivati import derivatives_wr
 from .word_representation.wamasset import wakid_wr
-from .tags.wamderivati import complexity_tags, production_tags
+from .tags.wamderivati import demo_tags, production_tags
 
 ###########
 # ITALIAN #
@@ -146,15 +146,15 @@ extraction_configurations = {
 
             },            
         },
-        'complexity':{
+        'demo':{
             'word_representation':{
             },
             'prompt':{
-                'complexity_human': complexity_prompt.complexity_human,
-                'complexity_system': complexity_prompt.complexity_system
+                'demo_human': demo_prompt.demo_human,
+                'demo_system': demo_prompt.demo_system
             },
             'tag':{
-                'complexity': complexity_tags.ComplexityTag
+                'demo': demo_tags.DemoTag
                 }
         },
         'bnp':{

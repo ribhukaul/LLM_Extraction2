@@ -1,8 +1,8 @@
 
-# COMPLEXITY
-complexity_system = "You are a helpful extractor of data from document"
+# demo
+demo_system = "You are a helpful extractor of data from document"
 
-complexity_human = """At the beginnig I will tell you some information that will be useful to answer the question I will ask on the document.
+demo_human = """At the beginnig I will tell you some information that will be useful to answer the question I will ask on the document.
         Final barrier:
          - Europea if the final redemption amount is calculated on a value measured on a single final valuation date(final observation date) or on a series of final valuation dates on which an average is calculated;
          - Americana if the final redemption amount is calculated on a value measured in a continuous interval between the initial valuation date and the final valuation date;
