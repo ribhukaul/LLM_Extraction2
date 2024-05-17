@@ -20,7 +20,7 @@ custom_extractors = {
         'cga': WamCGA          
         },
     'wamderivati': {
-        'demo': WamDerivatiDemo,
+        'complexity': WamDerivatiDemo,
         'productionderivatives':BNPDerivatiKidExtractor,
         'rettifichebi': WamDerivatiRettifiche
 
