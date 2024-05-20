@@ -23,7 +23,7 @@ class KidExtractor(Extractor):
         try:
             performance_table,_ = self._extract_table("performance")
             costi_ingresso_table,_ = self._extract_table("costi_ingresso", black_list_pages=[0])
-            costi_gestione_table,_ = self._extract_table("costi_gestione")
+            costi_gestione_table,_ = self._extract_table("costi_gestione", black_list_pages=[0])
             #riy, _ = self._extract_table("riy", black_list_pages=[0])
             
         except Exception as error:

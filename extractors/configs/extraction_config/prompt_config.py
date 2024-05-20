@@ -84,6 +84,7 @@ extraction_configurations = {
             },
             'prompt':{
                 'general_info': kidmodule_prompt.general_info,
+                'performance': kid_prompts.performance,
                 'sottostante' : kidmodule_prompt.sottostante
             },
             'tag':{
