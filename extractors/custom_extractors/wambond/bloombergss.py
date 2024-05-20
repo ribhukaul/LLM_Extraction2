@@ -93,7 +93,7 @@ class WamBondBloombergSS(Extractor):
 #     isin_list = ['DE000HC6V3N1']
 
 #     path = 'FT_DE000VU2EF14.pdf'
-#     extractor = WamDerivatiComplexity(path)
+#     extractor = WamDerivatiDemo(path)
 #     extraction = extractor.process()
 
 #     print(extraction)

@@ -8,7 +8,7 @@ QUOTATION_MARKETS = ['EuroTLX','SeDeX','SIX','Frankfurt', 'IDEM', 'No Listing']
 BARRIER_TYPE = ['Europea','Americana']
 # Formerly PydanticSchema_unicredit_noLangChain
 
-class ComplexityTag(BaseModel):
+class DemoTag(BaseModel):
 
     ISIN : Required[str] = Field(description="Codice ISIN")
     description : Required[str] = Field(description="Instrument description"    )
