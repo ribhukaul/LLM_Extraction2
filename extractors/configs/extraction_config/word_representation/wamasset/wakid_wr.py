@@ -11,3 +11,9 @@ management_costs = [
     "management fees", "transaction costs", "performance fees", "administrative costs",
     "managementfees", "transactioncosts", "performancefees", "administrativecosts"
 ]
+
+riy = ["costi totali", "riy", 'impatto sul rendimento']
+
+riy_eng = ["total costs", "riy", 'impact on performance', 'annual costs']
+
+

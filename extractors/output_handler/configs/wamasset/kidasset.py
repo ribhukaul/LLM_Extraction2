@@ -86,8 +86,26 @@ kidasset = {
             "decimals_of": NA,
             "range_of": SRI_RANGE        
             },
+        "incidenza_costo_perc_1year": {
+            "field_name": "cod_107riy_1y",
+            "renaming": "RIY 1 anno (%)",
+            "allow_null": TRUE,
+            "type_of": FLOAT,
+            "model_of": PERCENT,
+            "decimals_of": 2,
+            "range_of": PERCENT_RANGE        
+            },
+        "incidenza_costo_perc_rhp": {
+            "field_name": "cod_108riy_rhp",
+            "renaming": "RIY RHP (%)",
+            "allow_null": TRUE,
+            "type_of": FLOAT,
+            "model_of": PERCENT,
+            "decimals_of": 2,
+            "range_of": PERCENT_RANGE        
+            },
         "costi_ingresso": {
-            "field_name": "cod_107costi_ingresso",
+            "field_name": "cod_109costi_ingresso",
             "renaming": "Costi ingresso (%)",
             "allow_null": TRUE,
             "type_of": FLOAT,
@@ -96,7 +114,7 @@ kidasset = {
             "range_of": PERCENT_RANGE        
             },
         "costingresso_dirittifissi": {
-            "field_name": "cod_108costingresso_dirittifissi",
+            "field_name": "cod_110costingresso_dirittifissi",
             "renaming": "Costi di ingresso diritti fissi (€)",
             "allow_null": TRUE,
             "type_of": FLOAT,
@@ -105,7 +123,7 @@ kidasset = {
             "range_of": NO_RANGE        
             },
         "costi_uscita": {
-            "field_name": "cod_109costi_uscita",
+            "field_name": "cod_111costi_uscita",
             "renaming": "Costi uscita (%)",
             "allow_null": TRUE,
             "type_of": FLOAT,
@@ -114,7 +132,7 @@ kidasset = {
             "range_of": PERCENT_RANGE        
             },
         "costiuscita_dirittifissi": {
-            "field_name": "cod_110costiuscita_dirittifissi",
+            "field_name": "cod_112costiuscita_dirittifissi",
             "renaming": "Costi di uscita diritti fissi (€)",
             "allow_null": TRUE,
             "type_of": FLOAT,
@@ -123,7 +141,7 @@ kidasset = {
             "range_of": NO_RANGE        
             },
         "commissione_gestione": {
-            "field_name": "cod_111commissioni_di_gestione",
+            "field_name": "cod_113commissioni_di_gestione",
             "renaming": "Costi correnti (%)",
             "allow_null": FALSE,
             "type_of": FLOAT,
@@ -132,7 +150,7 @@ kidasset = {
             "range_of": PERCENT_RANGE        
             },
         "commissione_transazione": {
-            "field_name": "cod_112costi_di_transazione",
+            "field_name": "cod_114costi_di_transazione",
             "renaming": "Costi di transazione (%)",
             "allow_null": FALSE,
             "type_of": FLOAT,
@@ -141,7 +159,7 @@ kidasset = {
             "range_of": PERCENT_RANGE        
             },
         "descrizione_performance": {
-            "field_name": "cod_113descrizione_performance",
+            "field_name": "cod_115descrizione_performance",
             "renaming": "Commissioni di performance",
             "allow_null": FALSE,
             "type_of": STRING,
@@ -150,7 +168,7 @@ kidasset = {
             "range_of": NO_RANGE        
             },
         "commissione_performance": {
-            "field_name": "cod_114commissioni_di_performance",
+            "field_name": "cod_116commissioni_di_performance",
             "renaming": "Commissioni di performance (€)",
             "allow_null": TRUE,
             "type_of": FLOAT,
@@ -167,8 +185,9 @@ kidasset = {
         },
         "Costi": {
             "name": "Costi",
-            "list": ["cod_107costi_ingresso", "cod_108costingresso_dirittifissi", "cod_109costi_uscita", "cod_110costiuscita_dirittifissi", 
-                     "cod_111commissioni_di_gestione", "cod_112costi_di_transazione", "cod_113descrizione_performance", "cod_114commissioni_di_performance"]
+            "list": ["cod_107riy_1y", "cod_108riy_rhp", "cod_109costi_ingresso", "cod_110costingresso_dirittifissi", "cod_111costi_uscita", 
+                    "cod_112costiuscita_dirittifissi", "cod_113commissioni_di_gestione", "cod_114costi_di_transazione", "cod_115descrizione_performance",
+                    "cod_116commissioni_di_performance"]
         }
     }
 }

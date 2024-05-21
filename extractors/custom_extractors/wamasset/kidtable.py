@@ -139,11 +139,13 @@ class WamAssetKidFeesExtractor(KidExtractor):
             functions_parameters = {
                 "cost": { "function": self.extract_middle_costs, "args":{"table": table["costi_ingresso"].iloc[:, :-1]}},
                 "transaction": {"function": self.extract_transaction_costs, "args":{"table": table["costi_gestione"]}},
+                "riy": {"function": self.extract_riy_small},
             }
         
             result = self.threader(functions_parameters)
             cost = result["cost"]
             gestione = result["transaction"]
+            riy = result["riy"]
         except Exception as error:
             print("second stage error" + repr(error))
 
@@ -158,6 +160,7 @@ class WamAssetKidFeesExtractor(KidExtractor):
                 **dict(gestione),
                 **dict(picpac),
                 **dict(strategia_fondo),
+                **dict(riy),
                 "api_costs": api_costs,
             }
             # Format output
