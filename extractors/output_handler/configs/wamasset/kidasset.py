@@ -23,6 +23,24 @@ NO_RANGE = []
 
 kidasset = {
     "fields":{
+        'nome_fondo': {
+            "field_name": "cod_100anome_fondo",
+            "renaming": "Nome Fondo",
+            "allow_null": FALSE,
+            "type_of": STRING,
+            "model_of": NA,
+            "decimals_of": NA,
+            "range_of": NO_RANGE
+        },
+        "manufacturer": {
+            "field_name": "cod_101bmanufacturer",
+            "renaming": "Manufacturer",
+            "allow_null": FALSE,
+            "type_of": STRING,
+            "model_of": NA,
+            "decimals_of": NA,
+            "range_of": NO_RANGE
+        },
         "isin": {
             "field_name": "cod_100isin",
             "renaming": "ISIN",
@@ -180,7 +198,7 @@ kidasset = {
     "sections":{
         "section0": {
             "name": "Informazioni Generali",
-            "list": ["cod_100isin", "cod_101date", "cod_102picpac", "cod_103classe_fondo", "cod_104strategia", "cod_105rhp", "cod_106sri"]
+            "list": ["cod_100anome_fondo", "cod_101bmanufacturer","cod_100isin", "cod_101date", "cod_102picpac", "cod_103classe_fondo", "cod_104strategia", "cod_105rhp", "cod_106sri"]
            
         },
         "Costi": {

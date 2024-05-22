@@ -222,6 +222,7 @@ extraction_configurations = {
                     'costi_ingresso': wasasset_prompts.costi_ingresso_diritti_fissi,
                     'costi_gestione': wasasset_prompts.costi_gestione_performance,
                     'riy_small': kid_prompts.riy,
+                    'naming': wasasset_prompts.naming,
                     #'class': wasasset_prompts.classe_fondo,
                     'strategy': wasasset_prompts.strategia_fondo
                 },
@@ -231,6 +232,7 @@ extraction_configurations = {
                     'costi_gestione': kidasset_tags.TabellaCostiGestionePerformance,
                     'picpac': kidasset_tags.PicPac,
                     'riy_small': kid_tags.TabellaRiySmall,
+                    'naming': kidasset_tags.Naming,
                     #'class': kidasset_tags.FundClass
                 }
         }
@@ -271,6 +273,7 @@ extraction_configurations_eng = {
                     'costi_ingresso': wasasset_prompts.entry_exit_costs_fixed_rights,
                     'costi_gestione': wasasset_prompts.management_costs_performance,
                     'riy_small': kid_prompts.riy,
+                    'naming': wasasset_prompts.naming,
                     #'class': wasasset_prompts.classe_fondo,
                     'strategy': wasasset_prompts.investment_strategy
                 
@@ -279,7 +282,8 @@ extraction_configurations_eng = {
                     'general_info': kidasset_tags.BasicInformation,
                     'costi_ingresso': kidasset_tags.TableEntryExitFixedRights,
                     'costi_gestione': kidasset_tags.TableManagementPerformance,
-                    'riy_small': kid_tags.TabellaRiySmall
+                    'riy_small': kid_tags.TabellaRiySmall,
+                    'naming': kidasset_tags.Naming
                     #'picpac': kidasset_tags.PicPacEng,
                     #'class': kidasset_tags.FundClass
                 }}

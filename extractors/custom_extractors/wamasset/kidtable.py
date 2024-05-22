@@ -29,7 +29,6 @@ class WamAssetKidFeesExtractor(KidExtractor):
         # in the future the splitter will automatically trim the document
         self.text = self.text[:3]
             
-    
     def get_tables(self):
         """calc table extractor, it extracts the three tables from the document asynchronously
 
@@ -51,6 +50,19 @@ class WamAssetKidFeesExtractor(KidExtractor):
             "costi_ingresso": costi_ingresso_table,
             "costi_gestione": costi_gestione_table,
         }
+
+    def extract_naming(self):
+
+        try:
+            naming_schema = self.extraction_config['tag'].get('naming')
+            naming_prompt = self.extraction_config['prompt'].get('naming')
+            prompt = naming_prompt.format(self.text[0].page_content[:700])
+            extraction = Models.tag(prompt, naming_schema, self.file_id, model="gpt-3.5-turbo")
+        except Exception as error:
+            print("extract naming error" + repr(error))
+            extraction = {"nome_fondo": "ERROR"}
+
+        return extraction
 
     def extract_transaction_costs(self, table):
         try:
@@ -115,12 +127,14 @@ class WamAssetKidFeesExtractor(KidExtractor):
             extraction = {"strategia_fondo": "ERROR"}
 
         return extraction
+    
     def process(self):
         # first stage, basic info
         try:
             functions_parameters = {
                 "tables": {"function": self.get_tables},
                 "basic_information": {"function":self.extract_general_data},
+                "naming": {"function": self.extract_naming},
                 "picpac" : {"function": self.extract_picpac},
                 "strategy": {"function": self.extract_strategy}
             }
@@ -128,6 +142,7 @@ class WamAssetKidFeesExtractor(KidExtractor):
             table = result["tables"]
             basic_information = result["basic_information"]
             picpac = result["picpac"]
+            naming = result["naming"]
             strategia_fondo = result["strategy"]
         
         except Exception as error:
@@ -161,6 +176,7 @@ class WamAssetKidFeesExtractor(KidExtractor):
                 **dict(picpac),
                 **dict(strategia_fondo),
                 **dict(riy),
+                **dict(naming),
                 "api_costs": api_costs,
             }
             # Format output

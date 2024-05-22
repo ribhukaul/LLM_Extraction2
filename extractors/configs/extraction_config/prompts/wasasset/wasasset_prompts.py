@@ -24,6 +24,11 @@ general_info_eng = """From the following document, extract
 # classe A, classe B, ecc.).
 # DOCUMENTO:
 # {}"""
+naming = """Dal documento seguente, estrai:
+- nome del fondo o del prodotto
+- nome del manufacturer (gestore del fondo)
+
+DOCUMENT:{}"""
 
 # STRATEGIA DI INVESTIMENTO
 #ITALIANO
