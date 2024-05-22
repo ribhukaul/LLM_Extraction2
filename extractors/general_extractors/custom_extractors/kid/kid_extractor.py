@@ -241,28 +241,22 @@ class KidExtractor(Extractor):
             dict(): riy extracted
         """
         try:
+            # Find page with RIY
             riy_wr = self.extraction_config['word_representation'].get('riy')
-            riy_small_schema = self.extraction_config['tag'].get('riy_small')
-            riy_small_prompt = self.extraction_config['prompt'].get('riy_small')
-            # keywords = word_representation['it']['riy']
-            # schema = table_schemas['it']['riy_small']
-            # prompt = prompts['it']['riy_small']
-
-            rhp = int(self.rhp)
-            
             # Set starting page & select desired page
             strat_page = 0 if len(self.text) < 3 else 1
-            
             reference_text = self.text[strat_page:]
             page = select_desired_page(reference_text, riy_wr)
-            page = reference_text[int(page)]
-
-            # Set prompt and extract
             
+            # Create prompt
+            riy_small_schema = self.extraction_config['tag'].get('riy_small')
+            riy_small_prompt = self.extraction_config['prompt'].get('riy_small')
+            rhp = int(self.rhp)
+            page = reference_text[int(page)]          
             total_prompt = riy_small_prompt.format(rhp, page.page_content)
-            extraction_riy = Models.tag(total_prompt, riy_small_schema, self.file_id)         
 
-            # Clean response
+            # Extraction and cleaning
+            extraction_riy = Models.tag(total_prompt, riy_small_schema, self.file_id)         
             extraction_riy = clean_response_regex("riy", self.language, extraction_riy)
             
         except Exception as error:
