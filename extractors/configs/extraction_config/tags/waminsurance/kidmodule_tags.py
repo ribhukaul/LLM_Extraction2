@@ -12,5 +12,5 @@ class InformazioniPremio(BaseModel):
     premio: int = Field(NF,description="Esempio di Investimento")
 
 class SottostanteInfo(BaseModel):
-    nome_sottostante: str = Field(NF, description="Nome proprio della denominazione della gestione")
-    tipo_gestione: str = Field(NF,description="Tipo di gestione")
+    nome_sottostante: str = Field(NF, description="Nome proprio della denominazione della gestione o del fondo")
+    tipo_gestione: str = Field(NF,description="Tipo di gestione", enum=['Fondo Intero', 'Gestione Separata'])

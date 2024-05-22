@@ -9,5 +9,7 @@ general_info = """Dal documento seguente, estrai
             DOCUMENTO:
             {context}"""
 
-sottostante = """  {context}: dato questo contesto 
-                   dimmi il tipo di gestione (può essere interna o separata) e la denominazione propria della gestione"""
+sottostante = """Dato il seguente contesto, dimmi il tipo di sottostante (può essere 'fondo intero', 'gestione separata')
+                e la denominazione propria della gestione.
+                CONTESTO:
+                {context}"""
