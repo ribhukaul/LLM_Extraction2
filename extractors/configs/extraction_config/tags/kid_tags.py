@@ -4,7 +4,8 @@ This file contains the tags used to extract the data from the KID and GKID docum
 
 from typing import List
 from pydantic import BaseModel, Field
-from pydantic.fields import Optional
+#from pydantic.fields import Optional
+from typing import Optional
 
 NF = "not found"
 NA = "N/A"
@@ -19,6 +20,12 @@ class IsDisclaimerThere(BaseModel):
 # KID #
 #######
 # Informazioni di base del KID
+    
+companies = ["Anima", "Arca", "Eurizon", "Euromobiliare"]
+class CompanyName(BaseModel):
+    company_name: str = Field(NF, description="dal documento, estrarre il nome dell'azienda"
+                              , enum = companies)
+    
 class InformazioniBase(BaseModel):
     indicatore_sintetico_rischio: int = Field(NF, description="Indicatore Sintetico di Rischio")
     periodo_detenzione_raccomandato: str = Field(NF, description="periodo di detenzione raccomandato in anni")
@@ -59,6 +66,9 @@ class ScenariPerformanceRHP2(BaseModel):
     moderato_return_x: str = Field(NF, description="Rendimento percentuale(%) a X anni scenario moderato")
     favorable_return_x: str = Field(NF, description="Rendimento percentuale(%) a X anni scenario favorevole")
     scenario_morte_x: str = Field(NF, description="scenario morte o decesso, Valore in euro(€) a X anni scenario moderato")
+
+#class ScenariPerformanceGemini(BaseModel):
+
 
 # Tabella costi di ingresso e uscita
 class TabellaCostiIngresso(BaseModel):
